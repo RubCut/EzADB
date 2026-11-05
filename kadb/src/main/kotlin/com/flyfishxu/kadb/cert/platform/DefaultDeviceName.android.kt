@@ -2,7 +2,7 @@ package com.flyfishxu.kadb.cert.platform
 
 import android.os.Build
 
-fun defaultDeviceName(software: String?): String {
+fun defaultDeviceName(software: String? = null): String {
     software
         ?.trim()
         ?.takeIf { it.isNotEmpty() }
