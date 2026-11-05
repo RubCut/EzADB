@@ -24,12 +24,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material.icons.filled.Terminal
-import androidx.compose.material3.AssistChip
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilledIconButton
-import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -43,16 +38,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.ezadb.R
 import dev.ezadb.core.Risk
 import dev.ezadb.core.RiskAssessor
-import dev.ezadb.core.TerminalKind
 import dev.ezadb.ui.components.ConfirmDialog
 import dev.ezadb.ui.components.EmptyState
+import dev.ezadb.ui.components.ExpressiveIconButton
+import dev.ezadb.ui.components.ExpressiveToggleChip
 import dev.ezadb.ui.components.terminalColor
+import dev.ezadb.ui.i18n.riskReasonText
 import dev.ezadb.ui.viewmodel.EzUiState
 import dev.ezadb.ui.viewmodel.EzViewModel
 import dev.ezadb.util.ShareUtils
@@ -71,7 +70,6 @@ private val quickCommands = listOf(
     "help",
 )
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TerminalScreen(vm: EzViewModel, state: EzUiState) {
     val context = LocalContext.current
@@ -92,7 +90,7 @@ fun TerminalScreen(vm: EzViewModel, state: EzUiState) {
     }
 
     if (!state.connected) {
-        EmptyState(Icons.Filled.Terminal, "Терминал недоступен", "Подключитесь к устройству, чтобы открыть ADB-оболочку.")
+        EmptyState(Icons.Filled.Terminal, stringResource(R.string.terminal_unavailable), stringResource(R.string.terminal_empty))
         return
     }
 
@@ -102,13 +100,13 @@ fun TerminalScreen(vm: EzViewModel, state: EzUiState) {
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             quickCommands.forEach { command ->
-                AssistChip(onClick = { requestSend(command) }, label = { Text(command, maxLines = 1) })
+                ExpressiveToggleChip(selected = false, onClick = { requestSend(command) }, label = command)
             }
         }
         Surface(
             modifier = Modifier.weight(1f).fillMaxWidth().padding(horizontal = 12.dp),
             shape = MaterialTheme.shapes.large,
-            color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.45f),
+            color = MaterialTheme.colorScheme.surfaceContainerLow,
         ) {
             LazyColumn(state = listState, modifier = Modifier.fillMaxSize().padding(12.dp)) {
                 items(state.terminalLines) { line ->
@@ -127,28 +125,35 @@ fun TerminalScreen(vm: EzViewModel, state: EzUiState) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(6.dp),
         ) {
-            FilledTonalIconButton(onClick = { vm.terminalHistoryPrevious()?.let(vm::setTerminalInput) }) { Icon(Icons.Filled.KeyboardArrowUp, "Предыдущая команда") }
-            FilledTonalIconButton(onClick = { vm.terminalHistoryNext()?.let(vm::setTerminalInput) }) { Icon(Icons.Filled.KeyboardArrowDown, "Следующая команда") }
+            ExpressiveIconButton(onClick = { vm.terminalHistoryPrevious()?.let(vm::setTerminalInput) }, icon = Icons.Filled.KeyboardArrowUp, contentDescription = stringResource(R.string.terminal_previous))
+            ExpressiveIconButton(onClick = { vm.terminalHistoryNext()?.let(vm::setTerminalInput) }, icon = Icons.Filled.KeyboardArrowDown, contentDescription = stringResource(R.string.terminal_next))
             OutlinedTextField(
                 value = state.terminalInput,
                 onValueChange = vm::setTerminalInput,
                 modifier = Modifier.weight(1f),
-                placeholder = { Text("Введите команду…") },
+                placeholder = { Text(stringResource(R.string.terminal_command_hint)) },
                 singleLine = true,
                 textStyle = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
                 keyboardActions = KeyboardActions(onSend = { requestSend(state.terminalInput) }),
                 shape = MaterialTheme.shapes.large,
             )
-            FilledIconButton(onClick = { requestSend(state.terminalInput) }) { Icon(Icons.Filled.Send, "Отправить") }
+            ExpressiveIconButton(
+                onClick = { requestSend(state.terminalInput) },
+                icon = Icons.Filled.Send,
+                contentDescription = stringResource(R.string.terminal_send),
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+            )
         }
         Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            AssistChip(onClick = { vm.interruptTerminal() }, label = { Text("Ctrl+C") }, leadingIcon = { Icon(Icons.Filled.Stop, null, Modifier.size(16.dp)) })
-            AssistChip(onClick = { vm.clearTerminal() }, label = { Text("Очистить") }, leadingIcon = { Icon(Icons.Filled.ClearAll, null, Modifier.size(16.dp)) })
-            AssistChip(
+            ExpressiveToggleChip(selected = false, onClick = { vm.interruptTerminal() }, label = "Ctrl+C", icon = Icons.Filled.Stop)
+            ExpressiveToggleChip(selected = false, onClick = { vm.clearTerminal() }, label = stringResource(R.string.clear), icon = Icons.Filled.ClearAll)
+            ExpressiveToggleChip(
+                selected = false,
                 onClick = { ShareUtils.copyText(context, state.terminalLines.joinToString("\n") { it.text }) },
-                label = { Text("Копировать") },
-                leadingIcon = { Icon(Icons.Filled.ContentCopy, null, Modifier.size(16.dp)) },
+                label = stringResource(R.string.copy),
+                icon = Icons.Filled.ContentCopy,
             )
             Spacer(Modifier.weight(1f))
             Text(
@@ -162,11 +167,12 @@ fun TerminalScreen(vm: EzViewModel, state: EzUiState) {
 
     pendingCommand?.let { command ->
         val risk = RiskAssessor.assess(command)
+        val reason = riskReasonText(risk.reason)
         ConfirmDialog(
-            title = "Опасная команда",
-            text = "${risk.reason}.\n\n$command\n\nВыполнить на подключённом устройстве?",
+            title = stringResource(R.string.terminal_danger_title),
+            text = stringResource(R.string.terminal_danger_text, reason, command),
             danger = true,
-            confirmLabel = "Выполнить",
+            confirmLabel = stringResource(R.string.terminal_execute),
             onConfirm = { pendingCommand = null; vm.sendTerminal(command) },
             onDismiss = { pendingCommand = null },
         )

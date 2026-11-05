@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ez_background">#101410</color>
+    <color name="ez_background">#0F140E</color>
+    <color name="ez_splash_background">#00390A</color>
+    <color name="ez_primary">#7BDC7B</color>
 </resources>

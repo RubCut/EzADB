@@ -28,6 +28,7 @@ import okio.buffer
 import okio.sink
 import okio.source
 import java.io.IOException
+import dev.ezadb.R
 
 class DeviceRepository(
     private val context: Context,
@@ -42,7 +43,7 @@ class DeviceRepository(
 
     suspend fun execChecked(vararg args: String): String {
         val result = exec(*args)
-        if (!result.success) throw IOException(result.allOutput.ifBlank { "Команда завершилась с кодом ${result.exitCode}" })
+        if (!result.success) throw IOException(result.allOutput.ifBlank { context.getString(R.string.command_failed, result.exitCode) })
         return result.output
     }
 
@@ -125,7 +126,7 @@ class DeviceRepository(
         execChecked("am", "start", "-a", "android.settings.APPLICATION_DETAILS_SETTINGS", "-d", "package:$packageName")
 
     suspend fun installApk(uri: Uri) = connection.use { kadb ->
-        val document = DocumentFile.fromSingleUri(context, uri) ?: throw IOException("Не удалось открыть APK")
+        val document = DocumentFile.fromSingleUri(context, uri) ?: throw IOException(context.getString(R.string.apk_open_failed))
         kadb.install(document, context)
     }
 
@@ -134,10 +135,10 @@ class DeviceRepository(
             .map { it.removePrefix("package:").trim() }
             .filter { it.isNotBlank() }
             .toList()
-        val apk = paths.firstOrNull { it.endsWith("base.apk") } ?: paths.firstOrNull() ?: throw IOException("APK не найден")
+        val apk = paths.firstOrNull { it.endsWith("base.apk") } ?: paths.firstOrNull() ?: throw IOException(context.getString(R.string.apk_not_found))
         context.contentResolver.openOutputStream(target)?.use { output ->
             output.sink().buffer().use { sink -> kadb.pull(sink, apk) }
-        } ?: throw IOException("Не удалось открыть файл для записи")
+        } ?: throw IOException(context.getString(R.string.file_write_open_failed))
     }
 
     suspend fun listFiles(path: String): List<RemoteFile> = connection.use { kadb ->
@@ -181,7 +182,7 @@ class DeviceRepository(
 
     suspend fun readFile(path: String, maxBytes: Long = 1024 * 1024): ByteArray = connection.use { kadb ->
         val info = stat(path)
-        if (info.sizeBytes > maxBytes) throw IOException("Файл слишком большой для редактора (${Formatters.bytes(info.sizeBytes)}). Лимит ${Formatters.bytes(maxBytes)}.")
+        if (info.sizeBytes > maxBytes) throw IOException(context.getString(R.string.file_too_large, Formatters.bytes(info.sizeBytes), Formatters.bytes(maxBytes)))
         val buffer = Buffer()
         kadb.pull(buffer, path)
         buffer.readByteArray()
@@ -201,7 +202,7 @@ class DeviceRepository(
     suspend fun pullToUri(remotePath: String, target: Uri) = connection.use { kadb ->
         context.contentResolver.openOutputStream(target)?.use { output ->
             output.sink().buffer().use { sink -> kadb.pull(sink, remotePath) }
-        } ?: throw IOException("Не удалось открыть файл для записи")
+        } ?: throw IOException(context.getString(R.string.file_write_open_failed))
     }
 
     suspend fun pushFromUri(source: Uri, remotePath: String, mode: Int = 0b110100100) = connection.use { kadb ->
@@ -209,7 +210,7 @@ class DeviceRepository(
             input.source().buffer().use { buffered ->
                 kadb.push(buffered, remotePath, mode, System.currentTimeMillis())
             }
-        } ?: throw IOException("Не удалось открыть локальный файл")
+        } ?: throw IOException(context.getString(R.string.local_file_open_failed))
     }
 
     suspend fun listSettings(namespace: SettingNamespace): List<SettingEntry> {
@@ -221,7 +222,7 @@ class DeviceRepository(
         }
         actual.forEach { (key, value) ->
             if (key !in entries) {
-                entries[key] = SettingEntry(namespace, key, value, SettingType.STRING, "Пользовательский параметр")
+                entries[key] = SettingEntry(namespace, key, value, SettingType.STRING, context.getString(R.string.custom_setting))
             }
         }
         return entries.values.sortedBy { it.key }
@@ -258,7 +259,7 @@ class DeviceRepository(
         listOf("window_animation_scale", "transition_animation_scale", "animator_duration_scale").forEach { key ->
             putSetting(SettingNamespace.GLOBAL, key, scale)
         }
-        return "Масштаб анимаций: $scale"
+        return context.getString(R.string.animation_scale, scale)
     }
 
     suspend fun enableWifiAdb(port: Int = 5555): String =

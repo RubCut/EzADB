@@ -7,6 +7,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.core.content.FileProvider
 import java.io.File
+import dev.ezadb.R
 
 object ShareUtils {
     fun shareFile(context: Context, file: File, mime: String = "application/octet-stream") {
@@ -16,7 +17,7 @@ object ShareUtils {
             putExtra(Intent.EXTRA_STREAM, uri)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
-        context.startActivity(Intent.createChooser(intent, "Поделиться"))
+        context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)))
     }
 
     fun copyText(context: Context, text: String, label: String = "EzADB") {

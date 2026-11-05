@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ez_background">#F7FBF1</color>
-    <color name="ic_launcher_background">#006E1C</color>
+    <color name="ez_background">#F6FAF0</color>
+    <color name="ez_splash_background">#006E1C</color>
+    <color name="ez_primary">#006E1C</color>
 </resources>

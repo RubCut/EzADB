@@ -4,17 +4,37 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+    <!-- Android robot antennas -->
+    <path
+        android:pathData="M42,20 L46,27"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M66,20 L62,27"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:strokeLineCap="round" />
+    <!-- Android head -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M30,32h48a8,8 0 0 1 8,8v28a8,8 0 0 1 -8,8h-48a8,8 0 0 1 -8,-8v-28a8,8 0 0 1 8,-8z" />
+        android:pathData="M38,34 A16,16 0 0 1 70,34 Z" />
     <path
         android:fillColor="#006E1C"
-        android:pathData="M36,45l9,7 -9,7 -3.2,-4.2 3.8,-2.8 -3.8,-2.8z" />
+        android:pathData="M45,28 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0" />
     <path
         android:fillColor="#006E1C"
-        android:pathData="M50,58h20v4h-20z" />
+        android:pathData="M59,28 a2,2 0 1,0 4,0 a2,2 0 1,0 -4,0" />
+    <!-- Terminal window -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M30,42 h48 a6,6 0 0 1 6,6 v26 a6,6 0 0 1 -6,6 h-48 a6,6 0 0 1 -6,-6 v-26 a6,6 0 0 1 6,-6 z" />
+    <!-- Prompt > -->
     <path
         android:fillColor="#006E1C"
-        android:pathData="M50,48h12v3h-12z"
-        android:fillAlpha="0.55" />
+        android:pathData="M36,52 L44,58 L36,64 L33,60 L38,58 L33,56 Z" />
+    <!-- Cursor _ -->
+    <path
+        android:fillColor="#006E1C"
+        android:pathData="M48,62 h16 v4 h-16 z" />
 </vector>

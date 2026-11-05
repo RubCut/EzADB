@@ -22,6 +22,8 @@ import dev.ezadb.core.SettingEntry
 import dev.ezadb.core.SettingNamespace
 import dev.ezadb.core.TerminalKind
 import dev.ezadb.core.TerminalLine
+import dev.ezadb.R
+import dev.ezadb.data.AppLanguage
 import dev.ezadb.data.AppPreferences
 import dev.ezadb.data.DemoBackend
 import dev.ezadb.data.TerminalSession
@@ -83,6 +85,8 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
     private val quickToggles = app.quickToggles
     private val demo: DemoBackend = app.demo
 
+    private fun str(res: Int, vararg args: Any?): String = getApplication<Application>().getString(res, *args)
+
     private val _state = MutableStateFlow(EzUiState())
     val state: StateFlow<EzUiState> = _state.asStateFlow()
     val prefs: StateFlow<AppPreferences> = _state.map { it.prefs }
@@ -120,20 +124,20 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     // region connection
-    fun connectTcp(host: String, port: Int) = action("Подключение") {
+    fun connectTcp(host: String, port: Int) = action(str(R.string.connect)) {
         connection.connectTcp(host, port)
         prefsRepo.addRecent(Endpoint(host, port, "$host:$port", ConnectionKind.TCP))
-        showMessage("Подключено к $host:$port")
+        showMessage(str(R.string.connected_to, host, port))
     }
 
-    fun pair(host: String, port: Int, code: String) = action("Сопряжение") {
+    fun pair(host: String, port: Int, code: String) = action(str(R.string.pair)) {
         connection.pair(host, port, code)
-        showMessage("Сопряжение выполнено. Подключитесь к порту из раздела «Беспроводная отладка».")
+        showMessage(str(R.string.pairing_success))
     }
 
     fun connectDiscovered(endpoint: DiscoveredEndpoint) {
         if (endpoint.type == dev.ezadb.core.DiscoveryType.PAIR) {
-            showMessage("Для сопряжения введите код с экрана устройства")
+            showMessage(str(R.string.pairing_code_hint))
         } else {
             connectTcp(endpoint.host, endpoint.port)
         }
@@ -145,24 +149,24 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
             connectUsb(device)
         } else {
             UsbHelper.requestPermission(getApplication(), device)
-            showMessage("Разрешите доступ к USB-устройству")
+            showMessage(str(R.string.allow_usb_access))
         }
     }
 
     fun onUsbPermission(device: UsbDevice, granted: Boolean) {
-        if (granted) connectUsb(device) else showMessage("Доступ к USB не предоставлен")
+        if (granted) connectUsb(device) else showMessage(str(R.string.usb_permission_denied))
     }
 
     fun onUsbDetached(device: UsbDevice) {
         connection.onUsbDetached(device)
     }
 
-    fun connectUsb(device: UsbDevice) = action("USB-подключение") {
+    fun connectUsb(device: UsbDevice) = action(str(R.string.action_usb)) {
         connection.connectUsb(device)
-        showMessage("USB-устройство подключено")
+        showMessage(str(R.string.usb_connected))
     }
 
-    fun disconnect() = action("Отключение") {
+    fun disconnect() = action(str(R.string.disconnect)) {
         closeTerminal()
         if (_state.value.prefs.demoMode) {
             prefsRepo.setDemoMode(false)
@@ -177,7 +181,7 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
                 editorFile = null, terminalLines = emptyList(), terminalRunning = false,
             )
         }
-        showMessage("Отключено")
+        showMessage(str(R.string.disconnected_message))
     }
 
     fun refreshUsbDevices(): List<UsbDevice> = UsbHelper.adbDevices(getApplication())
@@ -195,12 +199,12 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
                 currentPath = "/sdcard",
                 settings = demo.listSettings(SettingNamespace.GLOBAL),
                 toggles = demo.toggles(),
-                terminalLines = listOf(TerminalLine("EzADB demo shell. Введите help для списка команд.", TerminalKind.SYSTEM)),
+                terminalLines = listOf(TerminalLine(str(R.string.demo_shell_welcome), TerminalKind.SYSTEM)),
                 terminalRunning = true,
                 terminalInteractive = false,
             )
         }
-        showMessage("Демо-режим включён")
+        showMessage(str(R.string.demo_enabled))
     }
 
     private fun disableDemo() {
@@ -212,7 +216,7 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
                 settings = emptyList(), toggles = emptyList(), terminalLines = emptyList(), terminalRunning = false,
             )
         }
-        showMessage("Демо-режим выключен")
+        showMessage(str(R.string.demo_disabled))
     }
     // endregion
 
@@ -224,7 +228,7 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
         }
         runCatching { repo.deviceInfo() }
             .onSuccess { info -> _state.update { it.copy(device = info, connection = ConnectionState.Connected(info)) } }
-            .onFailure { error -> showMessage("Не удалось получить сведения: ${error.message}") }
+            .onFailure { error -> showMessage(str(R.string.device_info_error, error.message)) }
     }
 
     fun refreshToggles() = viewModelScope.launch {
@@ -233,48 +237,48 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
             if (_state.value.prefs.demoMode) demo.toggles() else quickToggles.readAll()
         }
         _state.update { it.copy(toggles = result.getOrElse { emptyList() }, togglesLoading = false) }
-        result.exceptionOrNull()?.let { showMessage("Переключатели: ${it.message}") }
+        result.exceptionOrNull()?.let { showMessage(str(R.string.toggles_error, it.message)) }
     }
 
-    fun setToggle(id: String, enabled: Boolean) = action("Переключатель") {
+    fun setToggle(id: String, enabled: Boolean) = action(str(R.string.action_toggle)) {
         _state.update { state -> state.copy(toggles = state.toggles.map { if (it.id == id) it.copy(busy = true) else it }) }
         runCatching {
             if (_state.value.prefs.demoMode) demo.setToggle(id, enabled) else quickToggles.set(id, enabled)
         }.onFailure { error ->
             _state.update { state -> state.copy(toggles = state.toggles.map { if (it.id == id) it.copy(busy = false, error = error.message) else it }) }
-            showMessage("Не удалось переключить: ${error.message}")
+            showMessage(str(R.string.toggle_error, error.message))
             return@action
         }
         refreshToggles()
     }
 
-    fun reboot(mode: String = "") = action("Перезагрузка") {
+    fun reboot(mode: String = "") = action(str(R.string.reboot)) {
         if (_state.value.prefs.demoMode) demo.shell("reboot $mode") else repo.reboot(mode)
-        showMessage(if (mode.isBlank()) "Устройство перезагружается" else "Перезагрузка в $mode")
+        showMessage(if (mode.isBlank()) str(R.string.rebooting) else str(R.string.rebooting_mode, mode))
         if (!_state.value.prefs.demoMode) disconnect()
     }
 
-    fun setScreen(on: Boolean) = action("Экран") {
+    fun setScreen(on: Boolean) = action(str(R.string.action_screen)) {
         if (_state.value.prefs.demoMode) demo.setToggle("screen", on) else repo.setScreenOn(on)
         refreshToggles()
     }
 
-    fun enableWifiAdb() = action("Wi-Fi ADB") {
-        val output = if (_state.value.prefs.demoMode) "Демо: ADB по Wi-Fi включён на порту 5555" else repo.enableWifiAdb()
-        showMessage(output.ifBlank { "ADB по Wi-Fi включён. Подключитесь к IP устройства, порт 5555." })
+    fun enableWifiAdb() = action(str(R.string.action_wifi_adb)) {
+        val output = if (_state.value.prefs.demoMode) str(R.string.demo_wifi_adb) else repo.enableWifiAdb()
+        showMessage(output.ifBlank { str(R.string.wifi_adb_enabled) })
     }
 
-    fun screenshot(target: Uri) = action("Скриншот") {
+    fun screenshot(target: Uri) = action(str(R.string.action_screenshot)) {
         if (_state.value.prefs.demoMode) {
             getApplication<EzAdbApp>().contentResolver.openOutputStream(target)?.use { it.write(ByteArray(1024)) }
-            showMessage("Демо-скриншот сохранён")
+            showMessage(str(R.string.demo_screenshot_saved))
             return@action
         }
         val remote = "/data/local/tmp/ezadb-screen-${System.currentTimeMillis()}.png"
         try {
             repo.screenshot(remote)
             repo.pullToUri(remote, target)
-            showMessage("Скриншот сохранён")
+            showMessage(str(R.string.screenshot_saved))
         } finally {
             runCatching { repo.delete(remote, recursive = false) }
         }
@@ -286,7 +290,7 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
         _state.update { it.copy(appsLoading = true) }
         runCatching { if (_state.value.prefs.demoMode) demo.apps() else repo.listApps() }
             .onSuccess { apps -> _state.update { it.copy(apps = apps, appsLoading = false) } }
-            .onFailure { error -> _state.update { it.copy(appsLoading = false) }; showMessage("Приложения: ${error.message}") }
+            .onFailure { error -> _state.update { it.copy(appsLoading = false) }; showMessage(str(R.string.apps_error, error.message)) }
     }
 
     fun setAppQuery(query: String) = _state.update { it.copy(appQuery = query) }
@@ -294,9 +298,9 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
     fun setAppSort(sort: AppSort) = _state.update { it.copy(appSort = sort) }
     fun selectApp(app: AppInfo?) = _state.update { it.copy(selectedApp = app) }
 
-    fun loadAppDetails(packageName: String) = action("Сведения о приложении") {
+    fun loadAppDetails(packageName: String) = action(str(R.string.action_app_details)) {
         val details = if (_state.value.prefs.demoMode) {
-            demo.apps().firstOrNull { it.packageName == packageName } ?: throw IOException("Приложение не найдено")
+            demo.apps().firstOrNull { it.packageName == packageName } ?: throw IOException(str(R.string.app_not_found))
         } else repo.appDetails(packageName)
         _state.update { state ->
             state.copy(
@@ -306,48 +310,48 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun setAppEnabled(packageName: String, enabled: Boolean) = action("Состояние приложения") {
+    fun setAppEnabled(packageName: String, enabled: Boolean) = action(str(R.string.action_app_state)) {
         if (_state.value.prefs.demoMode) demo.setAppEnabled(packageName, enabled) else repo.setAppEnabled(packageName, enabled)
-        showMessage(if (enabled) "Приложение включено" else "Приложение отключено")
+        showMessage(if (enabled) str(R.string.app_enabled) else str(R.string.app_disabled))
         refreshApps()
     }
 
-    fun forceStop(packageName: String) = action("Остановка") {
+    fun forceStop(packageName: String) = action(str(R.string.action_stop)) {
         if (_state.value.prefs.demoMode) demo.forceStop(packageName) else repo.forceStop(packageName)
-        showMessage("Приложение остановлено")
+        showMessage(str(R.string.app_stopped))
     }
 
-    fun clearAppData(packageName: String) = action("Очистка данных") {
+    fun clearAppData(packageName: String) = action(str(R.string.action_clear)) {
         if (_state.value.prefs.demoMode) demo.clearData(packageName) else repo.clearAppData(packageName)
-        showMessage("Данные приложения очищены")
+        showMessage(str(R.string.app_data_cleared))
     }
 
-    fun uninstallApp(packageName: String) = action("Удаление") {
+    fun uninstallApp(packageName: String) = action(str(R.string.action_delete)) {
         if (_state.value.prefs.demoMode) demo.uninstall(packageName) else repo.uninstallApp(packageName)
-        showMessage("Приложение удалено")
+        showMessage(str(R.string.app_uninstalled))
         refreshApps()
     }
 
-    fun launchApp(packageName: String) = action("Запуск") {
-        if (_state.value.prefs.demoMode) showMessage("Демо: запуск $packageName") else repo.launchApp(packageName)
-        showMessage("Приложение запущено")
+    fun launchApp(packageName: String) = action(str(R.string.action_launch)) {
+        if (_state.value.prefs.demoMode) showMessage(str(R.string.demo_launch, packageName)) else repo.launchApp(packageName)
+        showMessage(str(R.string.app_launched))
     }
 
-    fun openAppSettings(packageName: String) = action("Настройки приложения") {
-        if (_state.value.prefs.demoMode) showMessage("Демо: настройки $packageName") else repo.openAppSettings(packageName)
+    fun openAppSettings(packageName: String) = action(str(R.string.action_app_settings)) {
+        if (_state.value.prefs.demoMode) showMessage(str(R.string.demo_app_settings, packageName)) else repo.openAppSettings(packageName)
     }
 
-    fun installApk(uri: Uri) = action("Установка APK") {
-        if (_state.value.prefs.demoMode) showMessage("Демо: APK установлен") else repo.installApk(uri)
-        showMessage("APK установлен")
+    fun installApk(uri: Uri) = action(str(R.string.action_install_apk)) {
+        if (_state.value.prefs.demoMode) showMessage(str(R.string.demo_apk_installed)) else repo.installApk(uri)
+        showMessage(str(R.string.apk_installed))
         refreshApps()
     }
 
-    fun extractApk(packageName: String, target: Uri) = action("Извлечение APK") {
+    fun extractApk(packageName: String, target: Uri) = action(str(R.string.action_extract_apk)) {
         if (_state.value.prefs.demoMode) {
             getApplication<EzAdbApp>().contentResolver.openOutputStream(target)?.use { it.write("demo apk".toByteArray()) }
         } else repo.extractApk(packageName, target)
-        showMessage("APK сохранён")
+        showMessage(str(R.string.apk_saved))
     }
     // endregion
 
@@ -357,7 +361,7 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
         _state.update { it.copy(filesLoading = true, currentPath = normalized) }
         runCatching { if (_state.value.prefs.demoMode) demo.listFiles(normalized) else repo.listFiles(normalized) }
             .onSuccess { files -> _state.update { it.copy(files = files, filesLoading = false) } }
-            .onFailure { error -> _state.update { it.copy(filesLoading = false) }; showMessage("Файлы: ${error.message}") }
+            .onFailure { error -> _state.update { it.copy(filesLoading = false) }; showMessage(str(R.string.files_error, error.message)) }
     }
 
     fun navigateUp() = refreshFiles(PathUtils.parent(_state.value.currentPath))
@@ -371,10 +375,10 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
             return
         }
         if (!PathUtils.isTextFile(file.path)) {
-            showMessage("Это не текстовый файл. Скачайте его для просмотра.")
+            showMessage(str(R.string.not_text_file))
             return
         }
-        action("Открытие файла") {
+        action(str(R.string.action_open_file)) {
             val bytes = if (_state.value.prefs.demoMode) demo.readFile(file.path) else repo.readFile(file.path)
             _state.update { it.copy(editorFile = file, editorText = String(bytes, Charsets.UTF_8), editorDirty = false) }
         }
@@ -383,52 +387,52 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
     fun updateEditor(text: String) = _state.update { it.copy(editorText = text, editorDirty = true) }
     fun closeEditor() = _state.update { it.copy(editorFile = null, editorText = "", editorDirty = false) }
 
-    fun saveEditor() = action("Сохранение файла") {
+    fun saveEditor() = action(str(R.string.action_save_file)) {
         val file = _state.value.editorFile ?: return@action
         val bytes = _state.value.editorText.toByteArray(Charsets.UTF_8)
         if (_state.value.prefs.demoMode) demo.writeFile(file.path, bytes) else repo.writeFile(file.path, bytes)
         _state.update { it.copy(editorDirty = false) }
-        showMessage("Файл сохранён")
+        showMessage(str(R.string.file_saved))
         refreshFiles()
     }
 
-    fun downloadFile(file: RemoteFile, target: Uri) = action("Скачивание") {
+    fun downloadFile(file: RemoteFile, target: Uri) = action(str(R.string.action_download)) {
         if (_state.value.prefs.demoMode) {
             getApplication<EzAdbApp>().contentResolver.openOutputStream(target)?.use { it.write(demo.readFile(file.path)) }
         } else repo.pullToUri(file.path, target)
-        showMessage("Файл скачан")
+        showMessage(str(R.string.file_downloaded))
     }
 
-    fun uploadFile(source: Uri) = action("Загрузка файла") {
+    fun uploadFile(source: Uri) = action(str(R.string.action_upload)) {
         val name = PathUtils.sanitizeLocalName(SafUtils.displayName(getApplication(), source))
         val remote = PathUtils.join(_state.value.currentPath, name)
         if (_state.value.prefs.demoMode) {
             getApplication<EzAdbApp>().contentResolver.openInputStream(source)?.use { input -> demo.writeFile(remote, input.readBytes()) }
         } else repo.pushFromUri(source, remote)
-        showMessage("Файл загружен: $remote")
+        showMessage(str(R.string.file_uploaded, remote))
         refreshFiles()
     }
 
-    fun mkdir(name: String) = action("Создание папки") {
+    fun mkdir(name: String) = action(str(R.string.action_mkdir)) {
         val path = PathUtils.join(_state.value.currentPath, name)
         if (_state.value.prefs.demoMode) demo.mkdir(path) else repo.mkdir(path)
         refreshFiles()
     }
 
-    fun renameFile(file: RemoteFile, newName: String) = action("Переименование") {
+    fun renameFile(file: RemoteFile, newName: String) = action(str(R.string.action_rename)) {
         val newPath = PathUtils.join(PathUtils.parent(file.path), newName)
         if (_state.value.prefs.demoMode) demo.rename(file.path, newPath) else repo.rename(file.path, newPath)
         refreshFiles()
     }
 
-    fun deleteFile(file: RemoteFile) = action("Удаление") {
+    fun deleteFile(file: RemoteFile) = action(str(R.string.action_delete)) {
         if (_state.value.prefs.demoMode) demo.delete(file.path) else repo.delete(file.path, file.isDirectory)
-        showMessage("Удалено: ${file.name}")
+        showMessage(str(R.string.file_deleted, file.name))
         refreshFiles()
     }
 
-    fun chmodFile(file: RemoteFile, mode: String) = action("Права доступа") {
-        if (_state.value.prefs.demoMode) showMessage("Демо: chmod $mode ${file.path}") else repo.chmod(file.path, mode)
+    fun chmodFile(file: RemoteFile, mode: String) = action(str(R.string.action_chmod)) {
+        if (_state.value.prefs.demoMode) showMessage(str(R.string.demo_chmod, mode, file.path)) else repo.chmod(file.path, mode)
         refreshFiles()
     }
     // endregion
@@ -438,28 +442,28 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
         _state.update { it.copy(settingsLoading = true, settingsNamespace = namespace) }
         runCatching { if (_state.value.prefs.demoMode) demo.listSettings(namespace) else repo.listSettings(namespace) }
             .onSuccess { entries -> _state.update { it.copy(settings = entries, settingsLoading = false) } }
-            .onFailure { error -> _state.update { it.copy(settingsLoading = false) }; showMessage("Настройки: ${error.message}") }
+            .onFailure { error -> _state.update { it.copy(settingsLoading = false) }; showMessage(str(R.string.settings_error, error.message)) }
     }
 
     fun setSettingsQuery(query: String) = _state.update { it.copy(settingsQuery = query) }
 
-    fun putSetting(entry: SettingEntry, value: String) = action("Сохранение параметра") {
+    fun putSetting(entry: SettingEntry, value: String) = action(str(R.string.action_save_setting)) {
         val normalized = if (entry.type == dev.ezadb.core.SettingType.BOOL) dev.ezadb.core.SettingsCatalog.normalizeBool(value) else value
-        if (!dev.ezadb.core.SettingsCatalog.validate(entry.type, normalized)) throw IOException("Некорректное значение для типа ${entry.type}")
+        if (!dev.ezadb.core.SettingsCatalog.validate(entry.type, normalized)) throw IOException(str(R.string.setting_invalid_value, entry.type))
         if (_state.value.prefs.demoMode) demo.putSetting(entry.namespace, entry.key, normalized)
         else repo.putSetting(entry.namespace, entry.key, normalized)
-        showMessage("${entry.key} = $normalized")
+        showMessage(str(R.string.setting_saved, entry.key, normalized))
         refreshSettings()
         refreshToggles()
     }
 
-    fun deleteSetting(entry: SettingEntry) = action("Удаление параметра") {
+    fun deleteSetting(entry: SettingEntry) = action(str(R.string.action_delete_setting)) {
         if (_state.value.prefs.demoMode) demo.deleteSetting(entry.namespace, entry.key) else repo.deleteSetting(entry.namespace, entry.key)
         refreshSettings()
     }
 
-    fun addCustomSetting(namespace: SettingNamespace, key: String, value: String) = action("Добавление параметра") {
-        if (key.isBlank()) throw IOException("Ключ не может быть пустым")
+    fun addCustomSetting(namespace: SettingNamespace, key: String, value: String) = action(str(R.string.action_add_setting)) {
+        if (key.isBlank()) throw IOException(str(R.string.key_empty))
         if (_state.value.prefs.demoMode) demo.putSetting(namespace, key, value) else repo.putSetting(namespace, key, value)
         refreshSettings()
     }
@@ -476,15 +480,16 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
         }
         if (terminalSession != null) return
         val kadb = connection.current() ?: return
-        appendTerminal(TerminalLine("Подключение к оболочке устройства…", TerminalKind.SYSTEM))
+        appendTerminal(TerminalLine(str(R.string.terminal_connecting), TerminalKind.SYSTEM))
         val session = TerminalSession(
             kadb = kadb,
+            context = getApplication(),
             scope = viewModelScope,
             onLine = { line -> appendTerminal(line) },
             onClosed = { reason ->
                 terminalSession = null
                 _state.update { it.copy(terminalRunning = false) }
-                appendTerminal(TerminalLine(reason ?: "Сессия терминала завершена", TerminalKind.SYSTEM))
+                appendTerminal(TerminalLine(reason ?: str(R.string.terminal_closed), TerminalKind.SYSTEM))
             },
         )
         runCatching {
@@ -493,7 +498,7 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
             _state.update { it.copy(terminalRunning = true, terminalInteractive = session.interactive) }
             if (session.interactive) session.sendLine("stty -echo")
         }.onFailure { error ->
-            appendTerminal(TerminalLine("Не удалось открыть терминал: ${error.message}", TerminalKind.STDERR))
+            appendTerminal(TerminalLine(str(R.string.terminal_open_error, error.message), TerminalKind.STDERR))
         }
     }
 
@@ -509,7 +514,7 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
             val result = demo.shell(trimmed)
             if (result.output.isNotBlank()) appendTerminal(TerminalLine(result.output.trimEnd('\n'), TerminalKind.STDOUT))
             if (result.error.isNotBlank()) appendTerminal(TerminalLine(result.error.trimEnd('\n'), TerminalKind.STDERR))
-            if (!result.success) appendTerminal(TerminalLine("[код ${result.exitCode}]", TerminalKind.EXIT))
+            if (!result.success) appendTerminal(TerminalLine(str(R.string.terminal_exit_code, result.exitCode), TerminalKind.EXIT))
             return
         }
         val session = terminalSession
@@ -522,7 +527,7 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
             return
         }
         runCatching { session.sendLine(trimmed) }
-            .onFailure { error -> appendTerminal(TerminalLine("Ошибка отправки: ${error.message}", TerminalKind.STDERR)) }
+            .onFailure { error -> appendTerminal(TerminalLine(str(R.string.terminal_send_error, error.message), TerminalKind.STDERR)) }
     }
 
     fun terminalHistoryPrevious(): String? {
@@ -569,6 +574,8 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
     fun setKeepScreenOn(value: Boolean) = viewModelScope.launch { prefsRepo.setKeepScreenOn(value) }
     fun setHaptics(value: Boolean) = viewModelScope.launch { prefsRepo.setHaptics(value) }
     fun setDemoMode(value: Boolean) = viewModelScope.launch { prefsRepo.setDemoMode(value) }
+    fun setLanguage(language: AppLanguage) = viewModelScope.launch { prefsRepo.setLanguage(language) }
+    fun setIntroSeen(value: Boolean) = viewModelScope.launch { prefsRepo.setIntroSeen(value) }
     fun removeRecent(endpoint: Endpoint) = viewModelScope.launch { prefsRepo.removeRecent(endpoint) }
 
     fun showMessage(text: String) = _state.update { it.copy(message = text) }
@@ -579,7 +586,7 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
         try {
             block()
         } catch (error: Throwable) {
-            showMessage("$label: ${error.message ?: error.javaClass.simpleName}")
+            showMessage(str(R.string.action_error, label, error.message ?: error.javaClass.simpleName))
         } finally {
             _state.update { it.copy(busy = false) }
         }

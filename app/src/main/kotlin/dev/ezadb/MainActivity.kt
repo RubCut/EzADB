@@ -5,28 +5,34 @@ import android.content.Intent
 import android.hardware.usb.UsbManager
 import android.os.Bundle
 import android.view.WindowManager
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.ezadb.data.UsbHelper
 import dev.ezadb.ui.EzApp
 import dev.ezadb.ui.theme.EzTheme
 import dev.ezadb.ui.viewmodel.EzViewModel
+import dev.ezadb.util.toLocaleList
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     private var usbReceiver: BroadcastReceiver? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        val app = application as EzAdbApp
         setContent {
             val vm: EzViewModel = viewModel()
             val prefs by vm.prefs.collectAsStateWithLifecycle()
+            LaunchedEffect(prefs.language) {
+                AppCompatDelegate.setApplicationLocales(prefs.language.toLocaleList())
+            }
             LaunchedEffect(prefs.keepScreenOn) {
                 if (prefs.keepScreenOn) window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
                 else window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)

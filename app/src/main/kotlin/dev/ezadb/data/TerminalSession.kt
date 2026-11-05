@@ -12,9 +12,12 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import okio.Buffer
+import android.content.Context
+import dev.ezadb.R
 
 class TerminalSession(
     private val kadb: Kadb,
+    private val context: Context,
     private val scope: CoroutineScope,
     private val onLine: (TerminalLine) -> Unit,
     private val onClosed: (String?) -> Unit,
@@ -72,14 +75,14 @@ class TerminalSession(
                     is AdbShellPacket.StdError -> emit(String(packet.payload, Charsets.UTF_8), TerminalKind.STDERR)
                     is AdbShellPacket.Exit -> {
                         val code = packet.payload.firstOrNull()?.toInt()?.and(0xFF) ?: 0
-                        onLine(TerminalLine("[процесс завершился с кодом $code]", TerminalKind.EXIT))
+                        onLine(TerminalLine(context.getString(R.string.terminal_exit_code, code), TerminalKind.EXIT))
                         break
                     }
                 }
             }
             onClosed(null)
         } catch (error: Throwable) {
-            onClosed(error.message ?: "Сессия терминала закрыта")
+            onClosed(error.message ?: context.getString(R.string.terminal_closed))
         } finally {
             runCatching { session.close() }
         }
@@ -96,7 +99,7 @@ class TerminalSession(
             }
             onClosed(null)
         } catch (error: Throwable) {
-            onClosed(error.message ?: "Сессия терминала закрыта")
+            onClosed(error.message ?: context.getString(R.string.terminal_closed))
         } finally {
             runCatching { stream.close() }
         }

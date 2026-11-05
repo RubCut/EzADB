@@ -24,14 +24,15 @@ class EzAdbApp : Application() {
     lateinit var deviceRepository: DeviceRepository
     lateinit var quickToggles: QuickToggleRepository
     lateinit var discovery: WirelessDiscovery
-    val demo = DemoBackend()
+    lateinit var demo: DemoBackend
 
     override fun onCreate() {
         super.onCreate()
         preferences = PreferencesRepository(this)
         connection = ConnectionManager(this)
         deviceRepository = DeviceRepository(this, connection)
-        quickToggles = QuickToggleRepository(deviceRepository)
+        quickToggles = QuickToggleRepository(this, deviceRepository)
+        demo = DemoBackend(this)
         discovery = WirelessDiscovery(this)
 
         val keyFile = File(filesDir, "adbkey.pem")

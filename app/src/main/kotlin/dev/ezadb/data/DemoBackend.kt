@@ -1,5 +1,8 @@
 package dev.ezadb.data
 
+import android.content.Context
+import dev.ezadb.R
+
 import dev.ezadb.core.AppInfo
 import dev.ezadb.core.BatteryInfo
 import dev.ezadb.core.ConnectionKind
@@ -16,7 +19,7 @@ import dev.ezadb.core.ShellResult
 import dev.ezadb.core.StorageInfo
 
 /** In-memory device used only when the user explicitly enables demo mode. */
-class DemoBackend {
+class DemoBackend(private val context: Context) {
     private data class Node(
         val name: String,
         val path: String,
@@ -47,25 +50,25 @@ class DemoBackend {
         dir("/data")
         dir("/data/local")
         dir("/data/local/tmp")
-        file("/sdcard/Download/welcome.txt", "Добро пожаловать в EzADB!\nЭто демонстрационный файл.\nПодключите реальное устройство, чтобы работать с его файлами.\n")
-        file("/sdcard/Documents/notes.md", "# Заметки\n\n- Проверить ADB\n- Обновить настройки\n- Сделать скриншот\n")
+        file("/sdcard/Download/welcome.txt", context.getString(R.string.demo_welcome_file))
+        file("/sdcard/Documents/notes.md", context.getString(R.string.demo_notes_file))
         file("/sdcard/Download/script.sh", "#!/system/bin/sh\necho \"Hello from EzADB\"\ngetprop ro.product.model\n")
         file("/system/build.prop", "ro.product.model=Pixel 8\nro.build.version.release=15\nro.build.version.sdk=35\nro.product.manufacturer=Google\n")
-        file("/data/local/tmp/readme.txt", "Временные файлы ADB обычно живут здесь.\n")
+        file("/data/local/tmp/readme.txt", context.getString(R.string.demo_tmp_file))
         nodes["/sdcard/DCIM/photo.jpg"] = Node("photo.jpg", "/sdcard/DCIM/photo.jpg", false, ByteArray(2048) { it.toByte() })
 
         apps.addAll(listOf(
-            AppInfo("com.android.settings", "Настройки", "/system/priv-app/Settings/Settings.apk", 1000, "15", 35, true, true, 18_000_000),
+            AppInfo("com.android.settings", context.getString(R.string.demo_settings), "/system/priv-app/Settings/Settings.apk", 1000, "15", 35, true, true, 18_000_000),
             AppInfo("com.android.chrome", "Chrome", "/data/app/com.android.chrome-1/base.apk", 10123, "130.0.6723.58", 672305801, false, true, 210_000_000),
-            AppInfo("com.google.android.gms", "Сервисы Google Play", "/data/app/com.google.android.gms-1/base.apk", 10080, "24.40.13", 244013000, true, true, 320_000_000),
+            AppInfo("com.google.android.gms", context.getString(R.string.demo_gms), "/data/app/com.google.android.gms-1/base.apk", 10080, "24.40.13", 244013000, true, true, 320_000_000),
             AppInfo("org.telegram.messenger", "Telegram", "/data/app/org.telegram.messenger-1/base.apk", 10201, "11.2.3", 112030, false, true, 95_000_000),
             AppInfo("com.whatsapp", "WhatsApp", "/data/app/com.whatsapp-1/base.apk", 10202, "2.24.21.78", 242178000, false, true, 120_000_000),
             AppInfo("com.spotify.music", "Spotify", "/data/app/com.spotify.music-1/base.apk", 10203, "8.9.84", 89840000, false, true, 140_000_000),
-            AppInfo("com.example.gallery", "Галерея", "/data/app/com.example.gallery-1/base.apk", 10204, "3.1.0", 31000, false, true, 45_000_000),
-            AppInfo("com.example.music", "Музыка", "/data/app/com.example.music-1/base.apk", 10205, "2.0.4", 20400, false, true, 32_000_000),
-            AppInfo("com.example.notes", "Заметки", "/data/app/com.example.notes-1/base.apk", 10206, "1.8.2", 18200, false, true, 18_000_000),
-            AppInfo("com.example.filemanager", "Файлы", "/data/app/com.example.filemanager-1/base.apk", 10207, "4.2.1", 42100, false, true, 24_000_000),
-            AppInfo("com.android.camera2", "Камера", "/system/app/Camera2/Camera2.apk", 10090, "9.0", 90000, true, true, 60_000_000),
+            AppInfo("com.example.gallery", context.getString(R.string.demo_gallery), "/data/app/com.example.gallery-1/base.apk", 10204, "3.1.0", 31000, false, true, 45_000_000),
+            AppInfo("com.example.music", context.getString(R.string.demo_music), "/data/app/com.example.music-1/base.apk", 10205, "2.0.4", 20400, false, true, 32_000_000),
+            AppInfo("com.example.notes", context.getString(R.string.demo_notes), "/data/app/com.example.notes-1/base.apk", 10206, "1.8.2", 18200, false, true, 18_000_000),
+            AppInfo("com.example.filemanager", context.getString(R.string.demo_files), "/data/app/com.example.filemanager-1/base.apk", 10207, "4.2.1", 42100, false, true, 24_000_000),
+            AppInfo("com.android.camera2", context.getString(R.string.demo_camera), "/system/app/Camera2/Camera2.apk", 10090, "9.0", 90000, true, true, 60_000_000),
             AppInfo("com.disabled.bloat", "Bloatware", "/system/app/Bloat/Bloat.apk", 10099, "1.0", 10000, true, false, 12_000_000),
         ))
 
@@ -100,7 +103,7 @@ class DemoBackend {
         securityPatch = "2025-10-05",
         serial = "DEMO0123456789",
         abi = "arm64-v8a",
-        battery = BatteryInfo(87, "Заряжается", 31.0, "Хорошее", "USB"),
+        battery = BatteryInfo(87, context.getString(R.string.demo_charging), 31.0, context.getString(R.string.demo_health_good), "USB"),
         storage = StorageInfo(128_000_000_000L, 54_000_000_000L),
         uptimeSeconds = 2 * 86400 + 3 * 3600 + 12 * 60,
         ipAddresses = listOf("192.168.1.42"),
@@ -109,7 +112,7 @@ class DemoBackend {
         densityDpi = 420,
         suAvailable = false,
         connectionKind = ConnectionKind.DEMO,
-        endpointLabel = "Демо-устройство",
+        endpointLabel = context.getString(R.string.demo_device),
     )
 
     fun apps(): List<AppInfo> = apps.toList()
@@ -133,9 +136,9 @@ class DemoBackend {
         return nodes.values.filter { PathUtils.parent(it.path) == parent && it.path != parent }.map { it.toRemote() }
     }
 
-    fun stat(path: String): RemoteFile = nodes[PathUtils.normalize(path)]?.toRemote() ?: throw NoSuchElementException("Нет такого файла: $path")
+    fun stat(path: String): RemoteFile = nodes[PathUtils.normalize(path)]?.toRemote() ?: throw NoSuchElementException(context.getString(R.string.demo_no_file, path))
 
-    fun readFile(path: String): ByteArray = nodes[PathUtils.normalize(path)]?.content ?: throw NoSuchElementException("Нет такого файла: $path")
+    fun readFile(path: String): ByteArray = nodes[PathUtils.normalize(path)]?.content ?: throw NoSuchElementException(context.getString(R.string.demo_no_file, path))
 
     fun writeFile(path: String, bytes: ByteArray) {
         val normalized = PathUtils.normalize(path)
@@ -172,7 +175,7 @@ class DemoBackend {
             entries[def.key] = SettingEntry(namespace, def.key, actual[def.key], def.type, def.description, def.risk, def.presets)
         }
         actual.forEach { (key, value) ->
-            if (key !in entries) entries[key] = SettingEntry(namespace, key, value, SettingType.STRING, "Пользовательский параметр")
+            if (key !in entries) entries[key] = SettingEntry(namespace, key, value, SettingType.STRING, context.getString(R.string.custom_setting))
         }
         return entries.values.sortedBy { it.key }
     }
@@ -260,7 +263,7 @@ class DemoBackend {
                 runCatching { ShellResult(String(readFile(path))) }.getOrElse { ShellResult("cat: $path: No such file or directory\n", exitCode = 1) }
             }
             "df" -> ShellResult("Filesystem 1K-blocks Used Available Use% Mounted on\n/dev/block/dm-0 125000000 71000000 54000000 57% /data\n")
-            "dumpsys" -> if (parts.getOrNull(1) == "battery") ShellResult("Current Battery Service state:\n  level: 87\n  status: 2\n  health: 2\n  plugged: 2\n  temperature: 310\n") else ShellResult("Демо: dumpsys ${parts.getOrNull(1) ?: ""}\n")
+            "dumpsys" -> if (parts.getOrNull(1) == "battery") ShellResult("Current Battery Service state:\n  level: 87\n  status: 2\n  health: 2\n  plugged: 2\n  temperature: 310\n") else ShellResult(context.getString(R.string.demo_dumpsys, parts.getOrNull(1) ?: "") + "\n")
             "wm" -> when (parts.getOrNull(1)) {
                 "size" -> ShellResult("Physical size: 1080x2400\n")
                 "density" -> ShellResult("Physical density: 420\n")
@@ -271,20 +274,9 @@ class DemoBackend {
             "svc" -> ShellResult("")
             "cmd" -> if (trimmed.contains("uimode night")) ShellResult("Night mode: ${if (toggles["dark_mode"] == true) "yes" else "no"}\n") else ShellResult("")
             "input" -> ShellResult("")
-            "reboot" -> ShellResult("Демо: устройство было бы перезагружено\n")
-            "screencap" -> ShellResult("Демо: скриншот сохранён\n")
-            "help" -> ShellResult(
-                """
-                EzADB demo shell. Попробуйте:
-                  getprop ro.product.model
-                  pm list packages
-                  settings list global
-                  ls /sdcard
-                  cat /sdcard/Download/welcome.txt
-                  dumpsys battery
-                  wm size
-                """.trimIndent() + "\n"
-            )
+            "reboot" -> ShellResult(context.getString(R.string.demo_reboot) + "\n")
+            "screencap" -> ShellResult(context.getString(R.string.demo_screencap) + "\n")
+            "help" -> ShellResult(context.getString(R.string.demo_help) + "\n")
             else -> ShellResult("sh: ${parts[0]}: not found\n", exitCode = 127)
         }
     }
@@ -333,18 +325,38 @@ class DemoBackend {
     )
 
     private fun toggleTitle(id: String): String = when (id) {
-        "wifi" -> "Wi-Fi"; "bluetooth" -> "Bluetooth"; "airplane" -> "Режим полёта"
-        "mobile_data" -> "Мобильные данные"; "location" -> "Геолокация"; "auto_rotate" -> "Автоповорот"
-        "stay_awake" -> "Не спать"; "dark_mode" -> "Тёмная тема"; "animations" -> "Анимации"
-        "screen" -> "Экран"; "show_touches" -> "Касания"; "pointer_location" -> "Координаты"
-        "haptic" -> "Виброотклик"; "auto_brightness" -> "Автояркость"; else -> id
+        "wifi" -> context.getString(R.string.toggle_wifi)
+        "bluetooth" -> context.getString(R.string.toggle_bluetooth)
+        "airplane" -> context.getString(R.string.toggle_airplane)
+        "mobile_data" -> context.getString(R.string.toggle_mobile_data)
+        "location" -> context.getString(R.string.toggle_location)
+        "auto_rotate" -> context.getString(R.string.toggle_auto_rotate)
+        "stay_awake" -> context.getString(R.string.toggle_stay_awake)
+        "dark_mode" -> context.getString(R.string.toggle_dark_mode)
+        "animations" -> context.getString(R.string.toggle_animations)
+        "screen" -> context.getString(R.string.toggle_screen)
+        "show_touches" -> context.getString(R.string.toggle_show_touches)
+        "pointer_location" -> context.getString(R.string.toggle_pointer_location)
+        "haptic" -> context.getString(R.string.toggle_haptic)
+        "auto_brightness" -> context.getString(R.string.toggle_auto_brightness)
+        else -> id
     }
 
     private fun toggleSubtitle(id: String): String = when (id) {
-        "wifi" -> "Беспроводная сеть"; "bluetooth" -> "Bluetooth-адаптер"; "airplane" -> "Отключает радиомодули"
-        "mobile_data" -> "Передача данных SIM"; "location" -> "Службы геолокации"; "auto_rotate" -> "Поворот экрана"
-        "stay_awake" -> "Экран при зарядке"; "dark_mode" -> "Ночной режим"; "animations" -> "Системные анимации"
-        "screen" -> "Вкл/выкл дисплей"; "show_touches" -> "Точки касаний"; "pointer_location" -> "Оверлей координат"
-        "haptic" -> "Тактильная отдача"; "auto_brightness" -> "Адаптивная яркость"; else -> ""
+        "wifi" -> context.getString(R.string.toggle_wifi_desc)
+        "bluetooth" -> context.getString(R.string.toggle_bluetooth_desc)
+        "airplane" -> context.getString(R.string.toggle_airplane_desc)
+        "mobile_data" -> context.getString(R.string.toggle_mobile_data_desc)
+        "location" -> context.getString(R.string.toggle_location_desc)
+        "auto_rotate" -> context.getString(R.string.toggle_auto_rotate_desc)
+        "stay_awake" -> context.getString(R.string.toggle_stay_awake_desc)
+        "dark_mode" -> context.getString(R.string.toggle_dark_mode_desc)
+        "animations" -> context.getString(R.string.toggle_animations_desc)
+        "screen" -> context.getString(R.string.toggle_screen_desc)
+        "show_touches" -> context.getString(R.string.toggle_show_touches_desc)
+        "pointer_location" -> context.getString(R.string.toggle_pointer_location_desc)
+        "haptic" -> context.getString(R.string.toggle_haptic_desc)
+        "auto_brightness" -> context.getString(R.string.toggle_auto_brightness_desc)
+        else -> ""
     }
 }

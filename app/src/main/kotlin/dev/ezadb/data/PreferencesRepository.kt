@@ -23,10 +23,23 @@ enum class Accent(val seed: Long) {
     ORANGE(0xFF8B5000),
 }
 
+enum class AppLanguage(val tag: String) {
+    SYSTEM(""),
+    ENGLISH("en"),
+    RUSSIAN("ru"),
+    UKRAINIAN("uk"),
+    GERMAN("de"),
+    SPANISH("es"),
+    FRENCH("fr"),
+    CHINESE("zh-CN"),
+}
+
 data class AppPreferences(
     val themeMode: ThemeMode = ThemeMode.SYSTEM,
     val dynamicColor: Boolean = true,
     val accent: Accent = Accent.GREEN,
+    val language: AppLanguage = AppLanguage.SYSTEM,
+    val introSeen: Boolean = false,
     val terminalFontSize: Int = 13,
     val confirmDestructive: Boolean = true,
     val demoMode: Boolean = false,
@@ -42,6 +55,8 @@ class PreferencesRepository(private val context: Context) {
         val theme = stringPreferencesKey("theme_mode")
         val dynamic = booleanPreferencesKey("dynamic_color")
         val accent = stringPreferencesKey("accent")
+        val language = stringPreferencesKey("app_language")
+        val introSeen = booleanPreferencesKey("intro_seen")
         val fontSize = intPreferencesKey("terminal_font_size")
         val confirm = booleanPreferencesKey("confirm_destructive")
         val demo = booleanPreferencesKey("demo_mode")
@@ -55,6 +70,8 @@ class PreferencesRepository(private val context: Context) {
             themeMode = prefs[Keys.theme]?.let { runCatching { ThemeMode.valueOf(it) }.getOrNull() } ?: ThemeMode.SYSTEM,
             dynamicColor = prefs[Keys.dynamic] ?: true,
             accent = prefs[Keys.accent]?.let { runCatching { Accent.valueOf(it) }.getOrNull() } ?: Accent.GREEN,
+            language = prefs[Keys.language]?.let { runCatching { AppLanguage.valueOf(it) }.getOrNull() } ?: AppLanguage.SYSTEM,
+            introSeen = prefs[Keys.introSeen] ?: false,
             terminalFontSize = prefs[Keys.fontSize] ?: 13,
             confirmDestructive = prefs[Keys.confirm] ?: true,
             demoMode = prefs[Keys.demo] ?: false,
@@ -67,6 +84,8 @@ class PreferencesRepository(private val context: Context) {
     suspend fun setThemeMode(mode: ThemeMode) = edit { it[Keys.theme] = mode.name }
     suspend fun setDynamicColor(value: Boolean) = edit { it[Keys.dynamic] = value }
     suspend fun setAccent(accent: Accent) = edit { it[Keys.accent] = accent.name }
+    suspend fun setLanguage(language: AppLanguage) = edit { it[Keys.language] = language.name }
+    suspend fun setIntroSeen(value: Boolean) = edit { it[Keys.introSeen] = value }
     suspend fun setTerminalFontSize(size: Int) = edit { it[Keys.fontSize] = size.coerceIn(10, 22) }
     suspend fun setConfirmDestructive(value: Boolean) = edit { it[Keys.confirm] = value }
     suspend fun setDemoMode(value: Boolean) = edit { it[Keys.demo] = value }

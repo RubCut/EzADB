@@ -1,0 +1,432 @@
+app_name|EzADB|EzADB|EzADB|EzADB|EzADB|EzADB|EzADB
+ok|OK|ОК|OK|OK|OK|OK|确定
+cancel|Cancel|Отмена|Скасувати|Abbrechen|Cancelar|Annuler|取消
+confirm|Confirm|Подтвердить|Підтвердити|Bestätigen|Confirmar|Confirmer|确认
+delete|Delete|Удалить|Видалити|Löschen|Eliminar|Supprimer|删除
+save|Save|Сохранить|Зберегти|Speichern|Guardar|Enregistrer|保存
+apply|Apply|Применить|Застосувати|Anwenden|Aplicar|Appliquer|应用
+create|Create|Создать|Створити|Erstellen|Crear|Créer|创建
+refresh|Refresh|Обновить|Оновити|Aktualisieren|Actualizar|Actualiser|刷新
+close|Close|Закрыть|Закрити|Schließen|Cerrar|Fermer|关闭
+search|Search|Поиск|Пошук|Suchen|Buscar|Rechercher|搜索
+actions|Actions|Действия|Дії|Aktionen|Acciones|Actions|操作
+loading|Loading…|Загрузка…|Завантаження…|Wird geladen…|Cargando…|Chargement…|加载中…
+error|Error|Ошибка|Помилка|Fehler|Error|Erreur|错误
+retry|Retry|Повторить|Повторити|Erneut versuchen|Reintentar|Réessayer|重试
+copy|Copy|Копировать|Копіювати|Kopieren|Copiar|Copier|复制
+share|Share|Поделиться|Поділитися|Teilen|Compartir|Partager|分享
+on|On|Вкл|Увімк|Ein|Activado|Activé|开
+off|Off|Выкл|Вимк|Aus|Desactivado|Désactivé|关
+unknown|Unknown|Неизвестно|Невідомо|Unbekannt|Desconocido|Inconnu|未知
+none|None|Нет|Немає|Keine|Ninguno|Aucun|无
+demo|Demo|Демо|Демо|Demo|Demo|Démo|演示
+connected|Connected|Подключено|Підключено|Verbunden|Conectado|Connecté|已连接
+disconnected|No device|Нет устройства|Немає пристрою|Kein Gerät|Sin dispositivo|Aucun appareil|无设备
+connecting|Connecting…|Подключение…|Підключення…|Verbinden…|Conectando…|Connexion…|连接中…
+connect|Connect|Подключение|Підключення|Verbinden|Conectar|Connexion|连接
+disconnect|Disconnect|Отключить|Відключити|Trennen|Desconectar|Déconnecter|断开
+pair|Pair|Сопряжение|Сполучення|Koppeln|Emparejar|Appairer|配对
+wifi|Wi-Fi|Wi-Fi|Wi-Fi|WLAN|Wi-Fi|Wi-Fi|Wi-Fi
+usb|USB|USB|USB|USB|USB|USB|USB
+bluetooth|Bluetooth|Bluetooth|Bluetooth|Bluetooth|Bluetooth|Bluetooth|蓝牙
+port|Port|Порт|Порт|Port|Puerto|Port|端口
+ip_address|IP address|IP-адрес|IP-адреса|IP-Adresse|Dirección IP|Adresse IP|IP 地址
+code|Code|Код|Код|Code|Código|Code|代码
+recent|Recent|Недавние|Нещодавні|Zuletzt|Recientes|Récents|最近
+discovered|Found on network|Найдено в сети|Знайдено в мережі|Im Netzwerk gefunden|Encontrados en la red|Trouvés sur le réseau|网络中发现
+add|Add|Добавить|Додати|Hinzufügen|Añadir|Ajouter|添加
+remove|Remove|Удалить|Видалити|Entfernen|Quitar|Retirer|移除
+edit|Edit|Изменить|Змінити|Bearbeiten|Editar|Modifier|编辑
+rename|Rename|Переименовать|Перейменувати|Umbenennen|Renombrar|Renommer|重命名
+properties|Properties|Свойства|Властивості|Eigenschaften|Propiedades|Propriétés|属性
+download|Download|Скачать|Завантажити|Herunterladen|Descargar|Télécharger|下载
+upload|Upload|Загрузить|Вивантажити|Hochladen|Subir|Téléverser|上传
+install|Install|Установить|Встановити|Installieren|Instalar|Installer|安装
+uninstall|Uninstall|Удалить|Видалити|Deinstallieren|Desinstalar|Désinstaller|卸载
+enable|Enable|Включить|Увімкнути|Aktivieren|Activar|Activer|启用
+disable|Disable|Отключить|Вимкнути|Deaktivieren|Desactivar|Désactiver|停用
+launch|Launch|Запуск|Запуск|Starten|Iniciar|Lancer|启动
+stop|Stop|Стоп|Стоп|Stopp|Detener|Arrêter|停止
+clear|Clear|Очистить|Очистити|Leeren|Borrar|Effacer|清除
+extract|Extract|Извлечь|Витягти|Extrahieren|Extraer|Extraire|提取
+screenshot|Screenshot|Скриншот|Знімок екрана|Screenshot|Captura|Capture d’écran|截图
+reboot|Reboot|Перезагрузка|Перезавантаження|Neustart|Reiniciar|Redémarrer|重启
+recovery|Recovery|Recovery|Recovery|Recovery|Recovery|Récupération|恢复模式
+bootloader|Bootloader|Bootloader|Bootloader|Bootloader|Bootloader|Bootloader|引导加载程序
+system|System|Система|Система|System|Sistema|Système|系统
+screen|Screen|Экран|Екран|Bildschirm|Pantalla|Écran|屏幕
+wake|Wake|Разбудить|Розбудити|Aufwecken|Despertar|Réveiller|唤醒
+root|Root (su)|Root (su)|Root (su)|Root (su)|Root (su)|Root (su)|Root (su)
+su_found|su found|su найден|su знайдено|su gefunden|su encontrado|su trouvé|找到 su
+su_not_found|not found|не обнаружен|не знайдено|nicht gefunden|no encontrado|introuvable|未找到
+battery|Battery|Батарея|Батарея|Akku|Batería|Batterie|电池
+storage|Storage|Хранилище|Сховище|Speicher|Almacenamiento|Stockage|存储
+uptime|uptime|аптайм|час роботи|Laufzeit|tiempo activo|durée de fonctionnement|运行时间
+free|free|свободно|вільно|frei|libre|libre|可用
+security_patch|security patch|патч безопасности|патч безпеки|Sicherheitspatch|parche de seguridad|correctif de sécurité|安全补丁
+build|Build|Сборка|Збірка|Build|Compilación|Build|版本
+serial|Serial number|Серийный номер|Серійний номер|Seriennummer|Número de serie|Numéro de série|序列号
+ip_addresses|IP addresses|IP-адреса|IP-адреси|IP-Adressen|Direcciones IP|Adresses IP|IP 地址
+version|Version|Версия|Версія|Version|Versión|Version|版本
+size|Size|Размер|Розмір|Größe|Tamaño|Taille|大小
+name|Name|Имя|Ім’я|Name|Nombre|Nom|名称
+package|Package|Пакет|Пакет|Paket|Paquete|Paquet|包名
+uid|UID|UID|UID|UID|UID|UID|UID
+date|Date|Дата|Дата|Datum|Fecha|Date|日期
+type|Type|Тип|Тип|Typ|Tipo|Type|类型
+path|Path|Путь|Шлях|Pfad|Ruta|Chemin|路径
+permissions|Permissions|Права доступа|Права доступу|Berechtigungen|Permisos|Autorisations|权限
+mode|Mode|Режим|Режим|Modus|Modo|Mode|模式
+modified|modified|изменён|змінено|geändert|modificado|modifié|已修改
+folder|Folder|Папка|Папка|Ordner|Carpeta|Dossier|文件夹
+file|File|Файл|Файл|Datei|Archivo|Fichier|文件
+new_folder|New folder|Новая папка|Нова папка|Neuer Ordner|Nueva carpeta|Nouveau dossier|新建文件夹
+folder_name|Folder name|Имя папки|Ім’я папки|Ordnername|Nombre de carpeta|Nom du dossier|文件夹名称
+new_name|New name|Новое имя|Нове ім’я|Neuer Name|Nuevo nombre|Nouveau nom|新名称
+chmod_hint|chmod (e.g. 644)|chmod (например 644)|chmod (наприклад 644)|chmod (z. B. 644)|chmod (p. ej. 644)|chmod (ex. 644)|chmod（例如 644）
+not_text_file|This is not a text file. Download it to view.|Это не текстовый файл. Скачайте его для просмотра.|Це не текстовий файл. Завантажте його для перегляду.|Dies ist keine Textdatei. Laden Sie sie zum Ansehen herunter.|No es un archivo de texto. Descárgalo para verlo.|Ce n’est pas un fichier texte. Téléchargez-le pour le consulter.|这不是文本文件。请下载后查看。
+file_too_large|File is too large for the editor (%1$s). Limit %2$s.|Файл слишком большой для редактора (%1$s). Лимит %2$s.|Файл завеликий для редактора (%1$s). Ліміт %2$s.|Datei ist zu groß für den Editor (%1$s). Limit %2$s.|El archivo es demasiado grande para el editor (%1$s). Límite %2$s.|Fichier trop volumineux pour l’éditeur (%1$s). Limite %2$s.|文件太大，无法在编辑器中打开（%1$s）。限制 %2$s。
+command_failed|Command exited with code %1$d|Команда завершилась с кодом %1$d|Команда завершилася з кодом %1$d|Befehl endete mit Code %1$d|El comando terminó con código %1$d|La commande s’est terminée avec le code %1$d|命令退出，代码 %1$d
+unexpected_response|Unexpected device response: %1$s|Неожиданный ответ устройства: %1$s|Неочікувана відповідь пристрою: %1$s|Unerwartete Geräteantwort: %1$s|Respuesta inesperada del dispositivo: %1$s|Réponse inattendue de l’appareil : %1$s|设备响应异常：%1$s
+no_connection|No active connection|Нет активного подключения|Немає активного підключення|Keine aktive Verbindung|Sin conexión activa|Aucune connexion active|无活动连接
+connect_failed|Connection failed|Не удалось подключиться|Не вдалося підключитися|Verbindung fehlgeschlagen|Error de conexión|Échec de la connexion|连接失败
+usb_connect_failed|USB connection failed|Не удалось подключиться по USB|Не вдалося підключитися через USB|USB-Verbindung fehlgeschlagen|Error de conexión USB|Échec de la connexion USB|USB 连接失败
+usb_permission_denied|USB access denied|Доступ к USB не предоставлен|Доступ до USB не надано|USB-Zugriff verweigert|Acceso USB denegado|Accès USB refusé|USB 访问被拒绝
+allow_usb_access|Allow access to the USB device|Разрешите доступ к USB-устройству|Дозвольте доступ до USB-пристрою|Zugriff auf das USB-Gerät erlauben|Permite el acceso al dispositivo USB|Autorisez l’accès au périphérique USB|请允许访问 USB 设备
+usb_connected|USB device connected|USB-устройство подключено|USB-пристрій підключено|USB-Gerät verbunden|Dispositivo USB conectado|Périphérique USB connecté|USB 设备已连接
+wifi_adb_enabled|Wi-Fi ADB enabled. Connect to the device IP, port 5555.|ADB по Wi-Fi включён. Подключитесь к IP устройства, порт 5555.|ADB через Wi-Fi увімкнено. Підключіться до IP пристрою, порт 5555.|WLAN-ADB aktiviert. Verbinden Sie sich mit der Geräte-IP, Port 5555.|ADB por Wi-Fi activado. Conéctate a la IP del dispositivo, puerto 5555.|ADB Wi-Fi activé. Connectez-vous à l’IP de l’appareil, port 5555.|Wi-Fi ADB 已启用。请连接设备 IP，端口 5555。
+pairing_success|Pairing complete. Connect to the port shown in Wireless debugging.|Сопряжение выполнено. Подключитесь к порту из раздела «Беспроводная отладка».|Сполучення виконано. Підключіться до порту з розділу «Бездротове налагодження».|Kopplung abgeschlossen. Verbinden Sie sich mit dem Port aus „Kabelloses Debugging“.|Emparejamiento completo. Conéctate al puerto de Depuración inalámbrica.|Appairage terminé. Connectez-vous au port indiqué dans Débogage sans fil.|配对完成。请连接“无线调试”中显示的端口。
+pairing_code_hint|Enter the code shown on the device|Для сопряжения введите код с экрана устройства|Для сполучення введіть код з екрана пристрою|Geben Sie den auf dem Gerät angezeigten Code ein|Introduce el código que aparece en el dispositivo|Saisissez le code affiché sur l’appareil|请输入设备上显示的代码
+pairing_port_hint|Pairing port and connection port are different. After pairing, use the Wi-Fi tab or a discovered device.|Подсказка: порт сопряжения и порт подключения — разные. После успешного сопряжения используйте вкладку Wi-Fi или найденное устройство.|Підказка: порт сполучення та порт підключення різні. Після успішного сполучення використайте вкладку Wi-Fi або знайдений пристрій.|Hinweis: Kopplungsport und Verbindungsport sind unterschiedlich. Nutzen Sie nach der Kopplung den WLAN-Tab oder ein gefundenes Gerät.|El puerto de emparejamiento y el de conexión son distintos. Tras emparejar, usa la pestaña Wi-Fi o un dispositivo encontrado.|Le port d’appairage et le port de connexion sont différents. Après l’appairage, utilisez l’onglet Wi-Fi ou un appareil découvert.|配对端口和连接端口不同。配对成功后，请使用 Wi-Fi 标签页或发现的设备。
+wireless_debug_hint|Turn on Wireless debugging on the target device and enter the IP and connection port.|Включите «Беспроводная отладка» на целевом устройстве и укажите IP и порт подключения.|Увімкніть «Бездротове налагодження» на цільовому пристрої та вкажіть IP і порт підключення.|Aktivieren Sie „Kabelloses Debugging“ auf dem Zielgerät und geben Sie IP und Verbindungsport ein.|Activa Depuración inalámbrica en el dispositivo de destino e introduce la IP y el puerto de conexión.|Activez Débogage sans fil sur l’appareil cible, puis saisissez l’IP et le port de connexion.|请在目标设备上开启“无线调试”，并输入 IP 和连接端口。
+usb_otg_hint|Connect the target device to this phone with an OTG cable. USB debugging must be enabled on the target device.|Подключите целевое устройство к этому телефону кабелем OTG. На целевом устройстве должна быть включена отладка по USB.|Підключіть цільовий пристрій до цього телефону кабелем OTG. На цільовому пристрої має бути увімкнено налагодження через USB.|Verbinden Sie das Zielgerät per OTG-Kabel mit diesem Telefon. Auf dem Zielgerät muss USB-Debugging aktiviert sein.|Conecta el dispositivo de destino a este teléfono con un cable OTG. La depuración USB debe estar activada en el destino.|Connectez l’appareil cible à ce téléphone avec un câble OTG. Le débogage USB doit être activé sur l’appareil cible.|请用 OTG 线将目标设备连接到此手机。目标设备必须已启用 USB 调试。
+no_usb_devices|No ADB-compatible USB devices found.|ADB-совместимые USB-устройства не найдены.|ADB-сумісних USB-пристроїв не знайдено.|Keine ADB-kompatiblen USB-Geräte gefunden.|No se encontraron dispositivos USB compatibles con ADB.|Aucun périphérique USB compatible ADB trouvé.|未找到兼容 ADB 的 USB 设备。
+refresh_usb|Refresh USB list|Обновить список USB|Оновити список USB|USB-Liste aktualisieren|Actualizar lista USB|Actualiser la liste USB|刷新 USB 列表
+connect_to_device|Connect to a device|Подключитесь к устройству|Підключіться до пристрою|Mit einem Gerät verbinden|Conéctate a un dispositivo|Connectez-vous à un appareil|请连接设备
+apps_empty|Connect to a device to manage apps.|Подключитесь к устройству, чтобы управлять приложениями.|Підключіться до пристрою, щоб керувати програмами.|Verbinden Sie sich mit einem Gerät, um Apps zu verwalten.|Conéctate a un dispositivo para gestionar aplicaciones.|Connectez-vous à un appareil pour gérer les applications.|连接设备以管理应用。
+files_empty|Connect to a device to open the file manager.|Подключитесь к устройству, чтобы открыть файловый менеджер.|Підключіться до пристрою, щоб відкрити файловий менеджер.|Verbinden Sie sich mit einem Gerät, um den Dateimanager zu öffnen.|Conéctate a un dispositivo para abrir el gestor de archivos.|Connectez-vous à un appareil pour ouvrir le gestionnaire de fichiers.|连接设备以打开文件管理器。
+settings_empty|Connect to a device to edit global/secure/system settings.|Подключитесь к устройству, чтобы редактировать global/secure/system параметры.|Підключіться до пристрою, щоб редагувати параметри global/secure/system.|Verbinden Sie sich mit einem Gerät, um global/secure/system-Einstellungen zu bearbeiten.|Conéctate a un dispositivo para editar ajustes global/secure/system.|Connectez-vous à un appareil pour modifier les paramètres global/secure/system.|连接设备以编辑 global/secure/system 设置。
+terminal_empty|Connect to a device to open an ADB shell.|Подключитесь к устройству, чтобы открыть ADB-оболочку.|Підключіться до пристрою, щоб відкрити оболонку ADB.|Verbinden Sie sich mit einem Gerät, um eine ADB-Shell zu öffnen.|Conéctate a un dispositivo para abrir una shell ADB.|Connectez-vous à un appareil pour ouvrir un shell ADB.|连接设备以打开 ADB shell。
+terminal_unavailable|Terminal unavailable|Терминал недоступен|Термінал недоступний|Terminal nicht verfügbar|Terminal no disponible|Terminal indisponible|终端不可用
+terminal_closed|Terminal session closed|Сессия терминала закрыта|Сесію терміналу закрито|Terminal-Sitzung geschlossen|Sesión de terminal cerrada|Session de terminal fermée|终端会话已关闭
+terminal_exit_code|[process exited with code %1$d]|[процесс завершился с кодом %1$d]|[процес завершився з кодом %1$d]|[Prozess endete mit Code %1$d]|[proceso terminó con código %1$d]|[processus terminé avec le code %1$d]|[进程退出，代码 %1$d]
+terminal_send_error|Send error: %1$s|Ошибка отправки: %1$s|Помилка надсилання: %1$s|Sendefehler: %1$s|Error de envío: %1$s|Erreur d’envoi : %1$s|发送错误：%1$s
+terminal_connecting|Connecting to device shell…|Подключение к оболочке устройства…|Підключення до оболонки пристрою…|Verbinde mit Geräte-Shell…|Conectando con la shell del dispositivo…|Connexion au shell de l’appareil…|正在连接设备 shell…
+terminal_command_hint|Enter command…|Введите команду…|Введіть команду…|Befehl eingeben…|Introduce un comando…|Saisissez une commande…|输入命令…
+terminal_previous|Previous command|Предыдущая команда|Попередня команда|Vorheriger Befehl|Comando anterior|Commande précédente|上一条命令
+terminal_next|Next command|Следующая команда|Наступна команда|Nächster Befehl|Comando siguiente|Commande suivante|下一条命令
+terminal_send|Send|Отправить|Надіслати|Senden|Enviar|Envoyer|发送
+terminal_execute|Execute|Выполнить|Виконати|Ausführen|Ejecutar|Exécuter|执行
+terminal_danger_title|Dangerous command|Опасная команда|Небезпечна команда|Gefährlicher Befehl|Comando peligroso|Commande dangereuse|危险命令
+terminal_danger_text|%1$s.\n\n%2$s\n\nRun on the connected device?|%1$s.\n\n%2$s\n\nВыполнить на подключённом устройстве?|%1$s.\n\n%2$s\n\nВиконати на підключеному пристрої?|%1$s.\n\n%2$s\n\nAuf dem verbundenen Gerät ausführen?|%1$s.\n\n%2$s\n\n¿Ejecutar en el dispositivo conectado?|%1$s.\n\n%2$s\n\nExécuter sur l’appareil connecté ?|%1$s。\n\n%2$s\n\n要在已连接设备上执行吗？
+demo_shell_welcome|EzADB demo shell. Type help for a list of commands.|EzADB demo shell. Введите help для списка команд.|Демо-оболонка EzADB. Введіть help для списку команд.|EzADB-Demo-Shell. Geben Sie help für eine Befehlsliste ein.|Shell de demostración de EzADB. Escribe help para ver los comandos.|Shell de démo EzADB. Tapez help pour la liste des commandes.|EzADB 演示 shell。输入 help 查看命令列表。
+demo_enabled|Demo mode enabled|Демо-режим включён|Демо-режим увімкнено|Demo-Modus aktiviert|Modo demo activado|Mode démo activé|演示模式已启用
+demo_disabled|Demo mode disabled|Демо-режим выключен|Демо-режим вимкнено|Demo-Modus deaktiviert|Modo demo desactivado|Mode démo désactivé|演示模式已停用
+demo_device|Demo device|Демо-устройство|Демо-пристрій|Demo-Gerät|Dispositivo demo|Appareil de démo|演示设备
+demo_charging|Charging|Заряжается|Заряджається|Wird geladen|Cargando|En charge|充电中
+demo_health_good|Good|Хорошее|Добрий|Gut|Buena|Bon|良好
+demo_notes|Notes|Заметки|Нотатки|Notizen|Notas|Notes|笔记
+demo_gallery|Gallery|Галерея|Галерея|Galerie|Galería|Galerie|图库
+demo_music|Music|Музыка|Музика|Musik|Música|Musique|音乐
+demo_settings|Settings|Настройки|Налаштування|Einstellungen|Ajustes|Paramètres|设置
+demo_files|Files|Файлы|Файли|Dateien|Archivos|Fichiers|文件
+demo_camera|Camera|Камера|Камера|Kamera|Cámara|Appareil photo|相机
+demo_gms|Google Play services|Сервисы Google Play|Сервіси Google Play|Google Play-Dienste|Servicios de Google Play|Services Google Play|Google Play 服务
+demo_welcome_file|Welcome to EzADB!\nThis is a demo file.\nConnect a real device to work with its files.|Добро пожаловать в EzADB!\nЭто демонстрационный файл.\nПодключите реальное устройство, чтобы работать с его файлами.|Ласкаво просимо до EzADB!\nЦе демонстраційний файл.\nПідключіть реальний пристрій, щоб працювати з його файлами.|Willkommen bei EzADB!\nDies ist eine Demo-Datei.\nVerbinden Sie ein echtes Gerät, um mit dessen Dateien zu arbeiten.|¡Bienvenido a EzADB!\nEste es un archivo de demostración.\nConecta un dispositivo real para trabajar con sus archivos.|Bienvenue dans EzADB !\nCeci est un fichier de démo.\nConnectez un appareil réel pour travailler avec ses fichiers.|欢迎使用 EzADB！\n这是演示文件。\n请连接真实设备以管理其文件。
+demo_notes_file|# Notes\n\n- Check ADB\n- Update settings\n- Take a screenshot|# Заметки\n\n- Проверить ADB\n- Обновить настройки\n- Сделать скриншот|# Нотатки\n\n- Перевірити ADB\n- Оновити налаштування\n- Зробити знімок екрана|# Notizen\n\n- ADB prüfen\n- Einstellungen aktualisieren\n- Screenshot aufnehmen|# Notas\n\n- Comprobar ADB\n- Actualizar ajustes\n- Hacer una captura|# Notes\n\n- Vérifier ADB\n- Mettre à jour les paramètres\n- Prendre une capture|# 笔记\n\n- 检查 ADB\n- 更新设置\n- 截图
+demo_tmp_file|Temporary ADB files usually live here.|Временные файлы ADB обычно живут здесь.|Тимчасові файли ADB зазвичай тут.|Temporäre ADB-Dateien liegen meist hier.|Los archivos temporales de ADB suelen estar aquí.|Les fichiers temporaires ADB se trouvent généralement ici.|ADB 临时文件通常位于此处。
+demo_no_file|No such file: %1$s|Нет такого файла: %1$s|Немає такого файла: %1$s|Datei nicht gefunden: %1$s|No existe el archivo: %1$s|Fichier introuvable : %1$s|没有此文件：%1$s
+custom_setting|Custom setting|Пользовательский параметр|Користувацький параметр|Benutzerdefinierte Einstellung|Ajuste personalizado|Paramètre personnalisé|自定义参数
+setting_value|Value|Значение|Значення|Wert|Valor|Valeur|值
+setting_key|Key|Ключ|Ключ|Schlüssel|Clave|Clé|键
+setting_namespace|Namespace: %1$s|Пространство: %1$s|Простір: %1$s|Namespace: %1$s|Espacio: %1$s|Espace : %1$s|命名空间：%1$s
+setting_count|%1$d settings · %2$s|%1$d параметров · %2$s|%1$d параметрів · %2$s|%1$d Einstellungen · %2$s|%1$d ajustes · %2$s|%1$d paramètres · %2$s|%1$d 个参数 · %2$s
+setting_reset_confirm|%1$s/%2$s will be reset to its default value.|%1$s/%2$s будет сброшен к значению по умолчанию.|%1$s/%2$s буде скинуто до стандартного значення.|%1$s/%2$s wird auf den Standardwert zurückgesetzt.|%1$s/%2$s se restablecerá a su valor predeterminado.|%1$s/%2$s sera réinitialisé à sa valeur par défaut.|%1$s/%2$s 将重置为默认值。
+setting_delete_title|Delete setting?|Удалить параметр?|Видалити параметр?|Einstellung löschen?|¿Eliminar ajuste?|Supprimer le paramètre ?|删除参数？
+setting_high_risk|High risk: changing this may affect the device.|Высокий риск: изменение может повлиять на работу устройства.|Високий ризик: зміна може вплинути на роботу пристрою.|Hohes Risiko: Änderungen können das Gerät beeinträchtigen.|Alto riesgo: cambiar esto puede afectar al dispositivo.|Risque élevé : cette modification peut affecter l’appareil.|高风险：更改可能影响设备运行。
+setting_invalid_value|Invalid value for type %1$s|Некорректное значение для типа %1$s|Некоректне значення для типу %1$s|Ungültiger Wert für Typ %1$s|Valor no válido para el tipo %1$s|Valeur invalide pour le type %1$s|类型 %1$s 的值无效
+setting_empty_preset|empty|пусто|порожньо|leer|vacío|vide|空
+add_setting|Add setting|Добавить параметр|Додати параметр|Einstellung hinzufügen|Añadir ajuste|Ajouter un paramètre|添加参数
+write_setting|Write|Записать|Записати|Schreiben|Escribir|Écrire|写入
+appearance|Appearance|Оформление|Оформлення|Darstellung|Apariencia|Apparence|外观
+theme|Theme|Тема|Тема|Design|Tema|Thème|主题
+theme_system|System|Системная|Системна|System|Sistema|Système|跟随系统
+theme_light|Light|Светлая|Світла|Hell|Claro|Clair|浅色
+theme_dark|Dark|Тёмная|Темна|Dunkel|Oscuro|Sombre|深色
+dynamic_color|Dynamic color (Material You)|Динамические цвета (Material You)|Динамічні кольори (Material You)|Dynamische Farben (Material You)|Color dinámico (Material You)|Couleurs dynamiques (Material You)|动态颜色（Material You）
+dynamic_color_desc|Android 12+: colors from system wallpaper|Android 12+: цвета из обоев системы|Android 12+: кольори зі шпалер системи|Android 12+: Farben aus dem Systemhintergrund|Android 12+: colores del fondo de pantalla|Android 12+ : couleurs du fond d’écran système|Android 12+：取自系统壁纸的颜色
+accent|Accent|Акцент|Акцент|Akzent|Acento|Accent|强调色
+accent_green|Green|Зелёный|Зелений|Grün|Verde|Vert|绿色
+accent_teal|Teal|Бирюзовый|Бірюзовий|Türkis|Turquesa|Turquoise|青色
+accent_blue|Blue|Синий|Синій|Blau|Azul|Bleu|蓝色
+accent_purple|Purple|Фиолетовый|Фіолетовый|Lila|Morado|Violet|紫色
+accent_orange|Orange|Оранжевый|Помаранчевый|Orange|Naranja|Orange|橙色
+language|Language|Язык|Мова|Sprache|Idioma|Langue|语言
+language_system|System default|Системный|Системна|Systemstandard|Predeterminado del sistema|Par défaut du système|系统默认
+language_english|English|Английский|Англійська|Englisch|Inglés|Anglais|英语
+language_russian|Russian|Русский|Російська|Russisch|Ruso|Russe|俄语
+language_ukrainian|Ukrainian|Украинский|Українська|Ukrainisch|Ucraniano|Ukrainien|乌克兰语
+language_german|German|Немецкий|Німецька|Deutsch|Alemán|Allemand|德语
+language_spanish|Spanish|Испанский|Іспанська|Spanisch|Español|Espagnol|西班牙语
+language_french|French|Французский|Французька|Französisch|Francés|Français|法语
+language_chinese|Chinese (Simplified)|Китайский (упрощённый)|Китайська (спрощена)|Chinesisch (vereinfacht)|Chino (simplificado)|Chinois (simplifié)|中文（简体）
+behavior|Behavior|Поведение|Поведінка|Verhalten|Comportamiento|Comportement|行为
+confirm_destructive|Confirm dangerous actions|Подтверждать опасные действия|Підтверджувати небезпечні дії|Gefährliche Aktionen bestätigen|Confirmar acciones peligrosas|Confirmer les actions dangereuses|确认危险操作
+confirm_destructive_desc|Ask before deleting, clearing data and changing critical settings|Запрос перед удалением, очисткой и изменением критичных настроек|Запит перед видаленням, очищенням і зміною критичних налаштувань|Vor Löschen, Datenbereinigung und kritischen Einstellungen fragen|Preguntar antes de eliminar, borrar datos y cambiar ajustes críticos|Demander avant suppression, effacement et modification de paramètres critiques|删除、清除数据和更改关键设置前询问
+keep_screen_on|Keep screen on|Не выключать экран|Не вимикати екран|Bildschirm anlassen|Mantener pantalla encendida|Garder l’écran allumé|保持屏幕常亮
+keep_screen_on_desc|Keep the screen on while EzADB is open|Держать экран включённым, пока EzADB открыт|Тримати екран увімкненим, поки EzADB відкрито|Bildschirm anlassen, solange EzADB geöffnet ist|Mantener la pantalla encendida mientras EzADB está abierto|Garder l’écran allumé tant qu’EzADB est ouvert|EzADB 打开时保持屏幕常亮
+haptics|Haptic feedback|Виброотклик|Вібровідгук|Haptisches Feedback|Respuesta háptica|Retour haptique|触感反馈
+haptics_desc|Interface haptic feedback|Тактильная отдача интерфейса|Тактильна віддача інтерфейсу|Haptisches Feedback der Oberfläche|Respuesta háptica de la interfaz|Retour haptique de l’interface|界面触感反馈
+demo_mode|Demo mode|Демо-режим|Демо-режим|Demo-Modus|Modo demo|Mode démo|演示模式
+demo_mode_desc|Show a fictional device without real ADB|Показывать вымышленное устройство без реального ADB|Показувати вигаданий пристрій без реального ADB|Fiktives Gerät ohne echtes ADB anzeigen|Mostrar un dispositivo ficticio sin ADB real|Afficher un appareil fictif sans ADB réel|显示虚拟设备，无需真实 ADB
+terminal_font_size|Font size: %1$d sp|Размер шрифта: %1$d sp|Розмір шрифту: %1$d sp|Schriftgröße: %1$d sp|Tamaño de fuente: %1$d sp|Taille de police : %1$d sp|字体大小：%1$d sp
+about|About|О приложении|Про програму|Über|Acerca de|À propos|关于
+about_desc|Material 3 Expressive · Kotlin · Jetpack Compose|Material 3 Expressive · Kotlin · Jetpack Compose|Material 3 Expressive · Kotlin · Jetpack Compose|Material 3 Expressive · Kotlin · Jetpack Compose|Material 3 Expressive · Kotlin · Jetpack Compose|Material 3 Expressive · Kotlin · Jetpack Compose|Material 3 Expressive · Kotlin · Jetpack Compose
+license_desc|ADB client: Kadb 2.1.5 (Apache 2.0). EzADB license: GPL-3.0.|ADB-клиент: Kadb 2.1.5 (Apache 2.0). Лицензия EzADB: GPL-3.0.|ADB-клієнт: Kadb 2.1.5 (Apache 2.0). Ліцензія EzADB: GPL-3.0.|ADB-Client: Kadb 2.1.5 (Apache 2.0). EzADB-Lizenz: GPL-3.0.|Cliente ADB: Kadb 2.1.5 (Apache 2.0). Licencia EzADB: GPL-3.0.|Client ADB : Kadb 2.1.5 (Apache 2.0). Licence EzADB : GPL-3.0.|ADB 客户端：Kadb 2.1.5（Apache 2.0）。EzADB 许可证：GPL-3.0。
+root_not_required|This app controls another Android device over USB OTG or Wi-Fi. Root is not required on the controlling phone.|Приложение управляет другим Android-устройством по USB OTG или Wi-Fi. Root на управляющем телефоне не требуется.|Програма керує іншим Android-пристроєм через USB OTG або Wi-Fi. Root на керуючому телефоні не потрібен.|Diese App steuert ein anderes Android-Gerät über USB-OTG oder WLAN. Root ist auf dem steuernden Telefon nicht erforderlich.|Esta app controla otro dispositivo Android por USB OTG o Wi-Fi. No se requiere root en el teléfono que controla.|Cette application contrôle un autre appareil Android via USB OTG ou Wi-Fi. Root n’est pas requis sur le téléphone qui contrôle.|此应用通过 USB OTG 或 Wi-Fi 控制另一台 Android 设备。控制端手机无需 root。
+show_intro_again|Show intro again|Показать интро снова|Показати інтро знову|Intro erneut anzeigen|Mostrar intro de nuevo|Revoir l’intro|重新显示介绍
+intro_skip|Skip|Пропустить|Пропустити|Überspringen|Omitir|Passer|跳过
+intro_next|Next|Далее|Далі|Weiter|Siguiente|Suivant|下一步
+intro_start|Get started|Начать|Почати|Loslegen|Comenzar|Commencer|开始使用
+intro_title_1|Control another Android|Управляйте другим Android|Керуйте іншим Android|Steuern Sie ein anderes Android|Controla otro Android|Contrôlez un autre Android|控制另一台 Android
+intro_desc_1|EzADB turns this phone into an ADB host. Use a terminal, manage apps, files and device settings.|EzADB превращает этот телефон в ADB-хост. Терминал, приложения, файлы и настройки устройства.|EzADB перетворює цей телефон на ADB-хост. Термінал, програми, файли та налаштування пристрою.|EzADB macht dieses Telefon zum ADB-Host. Terminal, Apps, Dateien und Geräteeinstellungen.|EzADB convierte este teléfono en un host ADB. Terminal, aplicaciones, archivos y ajustes del dispositivo.|EzADB transforme ce téléphone en hôte ADB. Terminal, applications, fichiers et paramètres de l’appareil.|EzADB 将此手机变为 ADB 主机。终端、应用、文件和设备设置。
+intro_title_2|USB OTG or Wi-Fi|USB OTG или Wi-Fi|USB OTG або Wi-Fi|USB-OTG oder WLAN|USB OTG o Wi-Fi|USB OTG ou Wi-Fi|USB OTG 或 Wi-Fi
+intro_desc_2|Connect with an OTG cable, classic port 5555, or Android 11+ wireless pairing.|Подключайтесь кабелем OTG, через порт 5555 или беспроводное сопряжение Android 11+.|Підключайтеся кабелем OTG, через порт 5555 або бездротове сполучення Android 11+.|Verbinden Sie per OTG-Kabel, klassischem Port 5555 oder kabelloser Kopplung ab Android 11.|Conecta por cable OTG, puerto clásico 5555 o emparejamiento inalámbrico de Android 11+.|Connectez-vous par câble OTG, port classique 5555 ou appairage sans fil Android 11+.|通过 OTG 线、经典 5555 端口或 Android 11+ 无线配对连接。
+intro_title_3|Apps, files, settings|Приложения, файлы, настройки|Програми, файли, налаштування|Apps, Dateien, Einstellungen|Aplicaciones, archivos, ajustes|Applications, fichiers, paramètres|应用、文件、设置
+intro_desc_3|Install and disable apps, transfer files, edit typed settings and use quick toggles.|Устанавливайте и отключайте приложения, передавайте файлы, редактируйте настройки и используйте быстрые переключатели.|Встановлюйте та вимикайте програми, передавайте файли, редагуйте налаштування та використовуйте швидкі перемикачі.|Apps installieren/deaktivieren, Dateien übertragen, typisierte Einstellungen bearbeiten und Schnellschalter nutzen.|Instala y desactiva apps, transfiere archivos, edita ajustes tipados y usa interruptores rápidos.|Installez/désactivez des applications, transférez des fichiers, modifiez des paramètres typés et utilisez les raccourcis.|安装和停用应用、传输文件、编辑类型化设置并使用快速开关。
+intro_title_4|Safe by default|Безопасность по умолчанию|Безпека за замовчуванням|Standardmäßig sicher|Seguro por defecto|Sécurisé par défaut|默认安全
+intro_desc_4|Dangerous commands ask for confirmation. Demo mode lets you explore without a real device.|Опасные команды требуют подтверждения. Демо-режим позволяет изучить интерфейс без реального устройства.|Небезпечні команди потребують підтвердження. Демо-режим дозволяє вивчити інтерфейс без реального пристрою.|Gefährliche Befehle erfordern eine Bestätigung. Im Demo-Modus können Sie ohne echtes Gerät üben.|Los comandos peligrosos piden confirmación. El modo demo permite explorar sin un dispositivo real.|Les commandes dangereuses demandent confirmation. Le mode démo permet d’explorer sans appareil réel.|危险命令需要确认。演示模式可让您在没有真实设备时探索。
+overview|Overview|Обзор|Огляд|Übersicht|Resumen|Aperçu|概览
+terminal|Terminal|Терминал|Термінал|Terminal|Terminal|Terminal|终端
+apps|Apps|Приложения|Програми|Apps|Aplicaciones|Applications|应用
+files|Files|Файлы|Файли|Dateien|Archivos|Fichiers|文件
+settings|Settings|Настройки|Налаштування|Einstellungen|Ajustes|Paramètres|设置
+device_settings|Device settings|Настройки устройства|Налаштування пристрою|Geräteeinstellungen|Ajustes del dispositivo|Paramètres de l’appareil|设备设置
+app_settings|App settings|Настройки приложения|Налаштування програми|App-Einstellungen|Ajustes de la app|Paramètres de l’application|应用设置
+quick_toggles|Quick toggles|Быстрые переключатели|Швидкі перемикачі|Schnellschalter|Interruptores rápidos|Raccourcis|快速开关
+device_info|Device info|Сведения об устройстве|Відомості про пристрій|Geräteinfos|Información del dispositivo|Infos sur l’appareil|设备信息
+toggles_loading|Reading toggle states…|Чтение состояния переключателей…|Читання стану перемикачів…|Schalterzustände werden gelesen…|Leyendo estados de interruptores…|Lecture des états des raccourcis…|正在读取开关状态…
+demo_banner|Demo mode: data is fictional and commands are not run on a real device.|Демо-режим: данные вымышлены, команды не выполняются на реальном устройстве.|Демо-режим: дані вигадані, команди не виконуються на реальному пристрої.|Demo-Modus: Daten sind fiktiv, Befehle laufen nicht auf einem echten Gerät.|Modo demo: los datos son ficticios y los comandos no se ejecutan en un dispositivo real.|Mode démo : les données sont fictives et les commandes ne sont pas exécutées sur un appareil réel.|演示模式：数据为虚拟，命令不会在真实设备上执行。
+connect_hint|Use USB OTG or Wi-Fi ADB. You can also enable demo mode in app settings.|Используйте USB OTG или Wi-Fi ADB. Можно также включить демо-режим в настройках приложения.|Використовуйте USB OTG або Wi-Fi ADB. Також можна увімкнути демо-режим у налаштуваннях програми.|Nutzen Sie USB-OTG oder WLAN-ADB. Sie können auch den Demo-Modus in den App-Einstellungen aktivieren.|Usa USB OTG o Wi-Fi ADB. También puedes activar el modo demo en los ajustes de la app.|Utilisez USB OTG ou Wi-Fi ADB. Vous pouvez aussi activer le mode démo dans les paramètres.|使用 USB OTG 或 Wi-Fi ADB。也可以在应用设置中启用演示模式。
+reboot_choose|Choose a reboot mode for the target device.|Выберите режим перезагрузки целевого устройства.|Оберіть режим перезавантаження цільового пристрою.|Wählen Sie einen Neustartmodus für das Zielgerät.|Elige un modo de reinicio para el dispositivo de destino.|Choisissez un mode de redémarrage pour l’appareil cible.|选择目标设备的重启模式。
+reboot_confirm|Confirm reboot|Подтвердите перезагрузку|Підтвердьте перезавантаження|Neustart bestätigen|Confirmar reinicio|Confirmer le redémarrage|确认重启
+reboot_confirm_text|The device will reboot.|Устройство будет перезагружено.|Пристрій буде перезавантажено.|Das Gerät wird neu gestartet.|El dispositivo se reiniciará.|L’appareil va redémarrer.|设备将重启。
+reboot_confirm_mode_text|The device will reboot into %1$s. This may interrupt the current ADB session.|Устройство будет перезагружено в %1$s. Это может прервать текущую сессию ADB.|Пристрій буде перезавантажено в %1$s. Це може перервати поточну сесію ADB.|Das Gerät wird in %1$s neu gestartet. Dies kann die aktuelle ADB-Sitzung unterbrechen.|El dispositivo se reiniciará en %1$s. Esto puede interrumpir la sesión ADB actual.|L’appareil redémarrera en %1$s. Cela peut interrompre la session ADB en cours.|设备将重启到 %1$s。这可能会中断当前 ADB 会话。
+toggle_wifi|Wi-Fi|Wi-Fi|Wi-Fi|WLAN|Wi-Fi|Wi-Fi|Wi-Fi
+toggle_wifi_desc|Wireless network|Беспроводная сеть|Бездротова мережа|Drahtloses Netzwerk|Red inalámbrica|Réseau sans fil|无线网络
+toggle_bluetooth|Bluetooth|Bluetooth|Bluetooth|Bluetooth|Bluetooth|Bluetooth|蓝牙
+toggle_bluetooth_desc|Bluetooth adapter|Bluetooth-адаптер|Bluetooth-адаптер|Bluetooth-Adapter|Adaptador Bluetooth|Adaptateur Bluetooth|蓝牙适配器
+toggle_airplane|Airplane mode|Режим полёта|Режим польоту|Flugmodus|Modo avión|Mode avion|飞行模式
+toggle_airplane_desc|Disables radios|Отключает радиомодули|Вимикає радіомодулі|Deaktiviert Funkmodule|Desactiva las radios|Désactive les radios|关闭无线通信
+toggle_mobile_data|Mobile data|Мобильные данные|Мобільні дані|Mobile Daten|Datos móviles|Données mobiles|移动数据
+toggle_mobile_data_desc|SIM data|Передача данных SIM|Передача даних SIM|SIM-Daten|Datos SIM|Données SIM|SIM 数据
+toggle_location|Location|Геолокация|Геолокація|Standort|Ubicación|Localisation|位置信息
+toggle_location_desc|Location services|Службы определения местоположения|Служби визначення місцезнаходження|Standortdienste|Servicios de ubicación|Services de localisation|定位服务
+toggle_auto_rotate|Auto-rotate|Автоповорот|Автоповорот|Automatisch drehen|Rotación automática|Rotation automatique|自动旋转
+toggle_auto_rotate_desc|Rotate screen by sensor|Поворот экрана по датчику|Поворот екрана за датчиком|Bildschirm nach Sensor drehen|Rotar pantalla según sensor|Rotation selon le capteur|根据传感器旋转屏幕
+toggle_stay_awake|Stay awake|Не спать|Не спати|Wach bleiben|Permanecer activo|Rester éveillé|保持唤醒
+toggle_stay_awake_desc|Screen on while charging|Экран включён при зарядке|Екран увімкнено під час заряджання|Bildschirm beim Laden an|Pantalla encendida al cargar|Écran allumé pendant la charge|充电时屏幕常亮
+toggle_dark_mode|Dark theme|Тёмная тема|Темна тема|Dunkles Design|Tema oscuro|Thème sombre|深色主题
+toggle_dark_mode_desc|System night mode|Системный ночной режим|Системний нічний режим|System-Nachtmodus|Modo noche del sistema|Mode nuit système|系统夜间模式
+toggle_animations|Animations|Анимации|Анімації|Animationen|Animaciones|Animations|动画
+toggle_animations_desc|System animation scale|Масштаб системных анимаций|Масштаб системних анімацій|System-Animationsskala|Escala de animación del sistema|Échelle des animations système|系统动画缩放
+toggle_screen|Screen|Экран|Екран|Bildschirm|Pantalla|Écran|屏幕
+toggle_screen_desc|Turn display on/off|Включить / выключить дисплей|Увімкнути / вимкнути дисплей|Display ein-/ausschalten|Encender/apagar pantalla|Allumer/éteindre l’écran|打开/关闭显示屏
+toggle_show_touches|Touches|Касания|Дотики|Berührungen|Toques|Touches|触摸
+toggle_show_touches_desc|Show touch points|Показывать точки касания|Показувати точки дотику|Berührungspunkte anzeigen|Mostrar puntos de toque|Afficher les points de contact|显示触摸点
+toggle_pointer_location|Pointer location|Координаты|Координати|Zeigerposition|Ubicación del puntero|Position du pointeur|指针位置
+toggle_pointer_location_desc|Touch coordinate overlay|Оверлей с координатами касаний|Оверлей із координатами дотиків|Overlay für Berührungskoordinaten|Superposición de coordenadas|Superposition des coordonnées|触摸坐标叠加
+toggle_haptic|Haptic feedback|Виброотклик|Вібровідгук|Haptisches Feedback|Respuesta háptica|Retour haptique|触感反馈
+toggle_haptic_desc|Tactile feedback|Тактильная отдача|Тактильна віддача|Taktiles Feedback|Respuesta táctil|Retour tactile|触觉反馈
+toggle_auto_brightness|Auto-brightness|Автояркость|Автояскравість|Automatische Helligkeit|Brillo automático|Luminosité automatique|自动亮度
+toggle_auto_brightness_desc|Adaptive screen brightness|Адаптивная яркость экрана|Адаптивна яскравість екрана|Adaptive Bildschirmhelligkeit|Brillo adaptable de pantalla|Luminosité adaptative|自适应屏幕亮度
+unknown_toggle|Unknown toggle: %1$s|Неизвестный переключатель: %1$s|Невідомий перемикач: %1$s|Unbekannter Schalter: %1$s|Interruptor desconocido: %1$s|Raccourci inconnu : %1$s|未知开关：%1$s
+risk_rm_root|Recursive deletion of the root directory|Рекурсивное удаление корневого каталога|Рекурсивне видалення кореневого каталогу|Rekursives Löschen des Wurzelverzeichnisses|Eliminación recursiva del directorio raíz|Suppression récursive du répertoire racine|递归删除根目录
+risk_rm_system|Deletion of a system partition|Удаление системного раздела|Видалення системного розділу|Löschen einer Systempartition|Eliminación de una partición del sistema|Suppression d’une partition système|删除系统分区
+risk_dd_block|Writing to a block device|Запись на блочное устройство|Запис на блочний пристрій|Schreiben auf ein Blockgerät|Escritura en un dispositivo de bloque|Écriture sur un périphérique bloc|写入块设备
+risk_flash|Flashing/formatting|Прошивка/форматирование|Прошивка/форматування|Flashen/Formatieren|Flashear/formatear|Flasher/formater|刷机/格式化
+risk_reboot_bootloader|Reboot to bootloader/recovery|Перезагрузка в загрузчик/recovery|Перезавантаження в завантажувач/recovery|Neustart in Bootloader/Recovery|Reinicio a bootloader/recovery|Redémarrage en bootloader/récupération|重启到引导加载程序/恢复模式
+risk_pm_uninstall_clear|App uninstall or data clear|Удаление приложения или очистка данных|Видалення програми або очищення даних|App-Deinstallation oder Datenlöschung|Desinstalar app o borrar datos|Désinstallation d’app ou effacement des données|卸载应用或清除数据
+risk_critical_global|Critical global setting|Критический глобальный параметр|Критичний глобальний параметр|Kritische globale Einstellung|Ajuste global crítico|Paramètre global critique|关键全局设置
+risk_disable_network|Disabling a network interface|Отключение сетевого интерфейса|Вимкнення мережевого інтерфейсу|Netzwerkschnittstelle deaktivieren|Desactivar interfaz de red|Désactivation d’une interface réseau|禁用网络接口
+risk_chmod_root|Dangerous permissions on root|Опасные права на корень|Небезпечні права на корінь|Gefährliche Berechtigungen auf Root|Permisos peligrosos en raíz|Autorisations dangereuses sur la racine|根目录危险权限
+risk_overwrite_block|Overwriting a block device|Перезапись блочного устройства|Перезапис блочного пристрою|Blockgerät überschreiben|Sobrescribir dispositivo de bloque|Écraser un périphérique bloc|覆盖块设备
+risk_reboot|Device reboot|Перезагрузка устройства|Перезавантаження пристрою|Geräteneustart|Reinicio del dispositivo|Redémarrage de l’appareil|设备重启
+risk_settings_change|Changing device settings|Изменение настроек устройства|Зміна налаштувань пристрою|Geräteeinstellungen ändern|Cambiar ajustes del dispositivo|Modification des paramètres|更改设备设置
+risk_app_state|Changing app state|Изменение состояния приложения|Зміна стану програми|App-Zustand ändern|Cambiar estado de la app|Modification de l’état de l’app|更改应用状态
+risk_force_stop|Force-stopping an app|Принудительная остановка приложения|Примусова зупинка програми|App zwangsweise beenden|Forzar detención de app|Arrêt forcé d’une app|强制停止应用
+risk_fs_process|Changing filesystem or processes|Изменение файловой системы или процессов|Зміна файлової системи або процесів|Dateisystem oder Prozesse ändern|Cambiar sistema de archivos o procesos|Modification du système de fichiers ou des processus|更改文件系统或进程
+risk_svc|Managing system services|Управление системными сервисами|Керування системними службами|Systemdienste verwalten|Gestionar servicios del sistema|Gestion des services système|管理系统服务
+risk_cmd_service|Managing system services|Управление системными сервисами|Керування системними службами|Systemdienste verwalten|Gestionar servicios del sistema|Gestion des services système|管理系统服务
+risk_low|No recognized destructive pattern|Команда без распознанных разрушительных шаблонов|Команда без розпізнаних руйнівних шаблонів|Kein erkanntes destruktives Muster|Sin patrón destructivo reconocido|Aucun modèle destructeur reconnu|未识别到破坏性模式
+apps_count|%1$d apps|%1$d приложений
+app_search_hint|Search by name or package|Поиск по имени или пакету
+app_filter_all|All|Все
+app_filter_user|User|Пользовательские
+app_filter_system|System|Системные
+app_filter_disabled|Disabled|Отключённые
+app_sort_name|Name|Имя
+app_sort_package|Package|Пакет
+app_sort_size|Size|Размер
+app_sort_uid|UID|UID
+install_apk|Install APK|Установить APK
+app_actions|Actions|Действия
+app_details|App details|Сведения о приложении
+app_enable_title|Enable app?|Включить приложение?
+app_disable_title|Disable app?|Отключить приложение?
+app_uninstall_title|Uninstall app?|Удалить приложение?
+app_clear_title|Clear data?|Очистить данные?
+app_stop_title|Stop app?|Остановить приложение?
+app_enable_text|%1$s will be enabled.|%1$s будет включено.
+app_disable_text|%1$s will be disabled for user 0.|%1$s будет отключено для пользователя 0.
+app_uninstall_text|%1$s will be uninstalled for user 0.|%1$s будет удалено для пользователя 0.
+app_clear_text|All data for %1$s will be deleted.|Все данные %1$s будут удалены.
+app_stop_text|Force-stop %1$s.|Принудительная остановка %1$s.
+app_open_settings|Open app settings|Открыть настройки приложения
+app_extract_apk|Extract APK|Извлечь APK
+app_disabled_badge|off|выкл
+app_system_badge|system|системное
+app_version_code|Version code: %1$s|Код версии: %1$s
+app_size|Size: %1$s|Размер: %1$s
+app_uid|UID: %1$s|UID: %1$s
+files_count|%1$d items|%1$d объектов
+file_search_hint|Search in current folder|Поиск в текущей папке
+file_up|Up|Вверх
+file_delete_title|Delete %1$s?|Удалить %1$s?
+file_delete_folder_text|The folder and all its contents will be permanently deleted.|Папка и всё её содержимое будут удалены безвозвратно.
+file_delete_file_text|The file will be permanently deleted.|Файл будет удалён безвозвратно.
+file_properties|Properties|Свойства
+file_modified|Modified: %1$s|Изменён: %1$s
+file_size|Size: %1$s|Размер: %1$s
+file_permissions|Permissions: %1$s|Права: %1$s
+file_mode|Mode: %1$s|Режим: %1$s
+file_path|Path: %1$s|Путь: %1$s
+file_type|Type: %1$s|Тип: %1$s
+file_chmod|Permissions|Права доступа
+file_editor_dirty|modified|изменён
+file_save|Save|Сохранить
+file_download|Download|Скачать
+file_upload|Upload file|Загрузить файл
+file_new_folder|New folder|Новая папка
+file_rename|Rename|Переименовать
+settings_search|Search setting|Поиск параметра
+setting_type_label|%1$s · %2$s|%1$s · %2$s
+setting_custom_title|Custom setting|Свой параметр
+connect_title|Connect|Подключение
+wifi_tab|Wi-Fi|Wi-Fi
+usb_tab|USB|USB
+pair_tab|Pairing|Сопряжение
+pair_port|Pairing port|Порт сопряжения
+pair_button|Pair|Выполнить сопряжение
+connect_button|Connect|Подключиться
+pair_action|Pair|Спарить
+connect_action|Connect|Подключить
+discovered_pair|pairing|сопряжение
+discovered_connect|connection|подключение
+usb_vid_pid|%1$s · VID %2$d PID %3$d|%1$s · VID %2$d PID %3$d
+app_enabled|App enabled|Приложение включено
+app_disabled|App disabled|Приложение отключено
+app_stopped|App stopped|Приложение остановлено
+app_data_cleared|App data cleared|Данные приложения очищены
+app_uninstalled|App uninstalled|Приложение удалено
+app_launched|App launched|Приложение запущено
+app_not_found|App not found|Приложение не найдено
+apk_saved|APK saved|APK сохранён
+apk_installed|APK installed|APK установлен
+file_saved|File saved|Файл сохранён
+file_downloaded|File downloaded|Файл скачан
+file_uploaded|File uploaded: %1$s|Файл загружен: %1$s
+file_deleted|Deleted: %1$s|Удалено: %1$s
+setting_saved|%1$s = %2$s|%1$s = %2$s
+key_empty|Key cannot be empty|Ключ не может быть пустым
+action_error|%1$s: %2$s|%1$s: %2$s
+device_info_error|Could not get device info: %1$s|Не удалось получить сведения: %1$s
+toggles_error|Toggles: %1$s|Переключатели: %1$s
+apps_error|Apps: %1$s|Приложения: %1$s
+files_error|Files: %1$s|Файлы: %1$s
+settings_error|Settings: %1$s|Настройки: %1$s
+toggle_error|Could not toggle: %1$s|Не удалось переключить: %1$s
+rebooting|Device is rebooting|Устройство перезагружается
+rebooting_mode|Rebooting into %1$s|Перезагрузка в %1$s
+screenshot_saved|Screenshot saved|Скриншот сохранён
+demo_screenshot_saved|Demo screenshot saved|Демо-скриншот сохранён
+demo_wifi_adb|Demo: Wi-Fi ADB enabled on port 5555|Демо: ADB по Wi-Fi включён на порту 5555
+demo_apk_installed|Demo: APK installed|Демо: APK установлен
+demo_chmod|Demo: chmod %1$s %2$s|Демо: chmod %1$s %2$s
+demo_launch|Demo: launch %1$s|Демо: запуск %1$s
+demo_app_settings|Demo: settings %1$s|Демо: настройки %1$s
+demo_action|Demo: %1$s|Демо: %1$s
+action_app_details|App details|Сведения о приложении
+action_app_state|App state|Состояние приложения
+action_stop|Stopping|Остановка
+action_clear|Clearing data|Очистка данных
+action_uninstall|Uninstalling|Удаление
+action_launch|Launching|Запуск
+action_app_settings|App settings|Настройки приложения
+action_install_apk|Installing APK|Установка APK
+action_extract_apk|Extracting APK|Извлечение APK
+action_open_file|Opening file|Открытие файла
+action_save_file|Saving file|Сохранение файла
+action_download|Downloading|Скачивание
+action_upload|Uploading file|Загрузка файла
+action_mkdir|Creating folder|Создание папки
+action_rename|Renaming|Переименование
+action_delete|Deleting|Удаление
+action_chmod|Permissions|Права доступа
+action_save_setting|Saving setting|Сохранение параметра
+action_delete_setting|Deleting setting|Удаление параметра
+action_add_setting|Adding setting|Добавление параметра
+action_usb|USB connection|USB-подключение
+action_wifi_adb|Wi-Fi ADB|Wi-Fi ADB
+action_toggle|Toggle|Переключатель
+action_screen|Screen|Экран
+action_screenshot|Screenshot|Скриншот
+setting_desc_global_airplane_mode_on|Airplane mode|Режим полёта
+setting_desc_global_wifi_on|Wi-Fi|Wi-Fi
+setting_desc_global_bluetooth_on|Bluetooth|Bluetooth
+setting_desc_global_mobile_data|Mobile data|Мобильные данные
+setting_desc_global_adb_enabled|USB debugging|Отладка по USB
+setting_desc_global_development_settings_enabled|Developer options|Меню разработчика
+setting_desc_global_stay_on_while_plugged_in|Stay awake while charging (bitmask: 1=AC, 2=USB, 4=Wireless)|Не спать при зарядке (битовая маска: 1=AC, 2=USB, 4=Wireless)
+setting_desc_global_window_animation_scale|Window animation scale|Масштаб анимации окон
+setting_desc_global_transition_animation_scale|Transition animation scale|Масштаб анимации переходов
+setting_desc_global_animator_duration_scale|Animator duration scale|Длительность аниматоров
+setting_desc_global_auto_time|Automatic time|Автоматическое время
+setting_desc_global_auto_time_zone|Automatic time zone|Автоматический часовой пояс
+setting_desc_global_low_power|Battery saver|Режим энергосбережения
+setting_desc_global_hidden_api_policy|Hidden API policy|Политика скрытых API
+setting_desc_global_heads_up_notifications_enabled|Heads-up notifications|Всплывающие уведомления
+setting_desc_global_zen_mode|Do Not Disturb mode|Режим «Не беспокоить»
+setting_desc_secure_location_mode|Location mode (0=off, 3=high accuracy)|Режим геолокации (0=выкл, 3=высокая точность)
+setting_desc_secure_location_providers_allowed|Allowed location providers|Разрешённые провайдеры геолокации
+setting_desc_secure_backup_enabled|Backup|Резервное копирование
+setting_desc_secure_screensaver_enabled|Screen saver|Заставка
+setting_desc_secure_immersive_mode_confirmations|Immersive mode confirmations|Подтверждения полноэкранного режима
+setting_desc_secure_enabled_notification_assistant|Notification assistant component|Компонент помощника уведомлений
+setting_desc_secure_lockscreen_password_type|Lock screen type|Тип блокировки экрана
+setting_desc_secure_usb_migration_expected|USB migration expected|Ожидание переноса по USB
+setting_desc_system_accelerometer_rotation|Auto-rotate screen|Автоповорот экрана
+setting_desc_system_screen_brightness|Screen brightness (0–255)|Яркость экрана (0–255)
+setting_desc_system_screen_brightness_mode|Automatic brightness|Автоматическая яркость
+setting_desc_system_screen_off_timeout|Screen timeout, ms|Тайм-аут экрана, мс
+setting_desc_system_haptic_feedback_enabled|Haptic feedback|Виброотклик
+setting_desc_system_sound_effects_enabled|Touch sounds|Звуки нажатий
+setting_desc_system_vibrate_when_ringing|Vibrate when ringing|Вибрация при звонке
+setting_desc_system_font_scale|Font scale|Масштаб шрифта
+setting_desc_system_show_touches|Show touches|Показывать касания
+setting_desc_system_pointer_location|Pointer location|Координаты касаний
+setting_desc_system_pointer_speed|Pointer speed|Скорость указателя
+apk_not_found|APK not found|APK не найден
+apk_open_failed|Could not open APK|Не удалось открыть APK
+local_file_open_failed|Could not open local file|Не удалось открыть локальный файл
+file_write_open_failed|Could not open file for writing|Не удалось открыть файл для записи
+animation_scale|Animation scale: %1$s|Масштаб анимаций: %1$s
+demo_dumpsys|Demo: dumpsys %1$s|Демо: dumpsys %1$s
+demo_reboot|Demo: the device would be rebooted|Демо: устройство было бы перезагружено
+demo_screencap|Demo: screenshot saved|Демо: скриншот сохранён
+demo_help|EzADB demo shell. Try:\n  getprop ro.product.model\n  pm list packages\n  settings list global\n  ls /sdcard\n  cat /sdcard/Download/welcome.txt\n  dumpsys battery\n  wm size|EzADB demo shell. Попробуйте:\n  getprop ro.product.model\n  pm list packages\n  settings list global\n  ls /sdcard\n  cat /sdcard/Download/welcome.txt\n  dumpsys battery\n  wm size
+connected_to|Connected to %1$s:%2$d|Подключено к %1$s:%2$d
+disconnected_message|Disconnected|Отключено
+terminal_open_error|Could not open terminal: %1$s|Не удалось открыть терминал: %1$s
+usb_or_wifi|USB OTG or Wi-Fi ADB|USB OTG или Wi-Fi ADB
+symlink|symlink|ссылка

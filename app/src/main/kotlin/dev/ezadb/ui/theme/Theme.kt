@@ -27,14 +27,21 @@ private val GreenLight = lightColorScheme(
     onTertiary = Color(0xFFFFFFFF),
     tertiaryContainer = Color(0xFFBCEBF0),
     onTertiaryContainer = Color(0xFF002023),
-    background = Color(0xFFF7FBF1),
-    onBackground = Color(0xFF191D17),
-    surface = Color(0xFFF7FBF1),
-    onSurface = Color(0xFF191D17),
+    background = Color(0xFFF6FAF0),
+    onBackground = Color(0xFF181D16),
+    surface = Color(0xFFF6FAF0),
+    onSurface = Color(0xFF181D16),
     surfaceVariant = Color(0xFFDEE5D8),
     onSurfaceVariant = Color(0xFF424940),
+    surfaceContainerLowest = Color(0xFFFFFFFF),
+    surfaceContainerLow = Color(0xFFF0F5EA),
+    surfaceContainer = Color(0xFFEAEFE3),
+    surfaceContainerHigh = Color(0xFFE4E9DC),
+    surfaceContainerHighest = Color(0xFFDEE4D6),
     error = Color(0xFFBA1A1A),
     onError = Color(0xFFFFFFFF),
+    errorContainer = Color(0xFFFFDAD6),
+    onErrorContainer = Color(0xFF410002),
 )
 
 private val GreenDark = darkColorScheme(
@@ -50,14 +57,21 @@ private val GreenDark = darkColorScheme(
     onTertiary = Color(0xFF00363B),
     tertiaryContainer = Color(0xFF1E4D52),
     onTertiaryContainer = Color(0xFFBCEBF0),
-    background = Color(0xFF101410),
-    onBackground = Color(0xFFE1E4DA),
-    surface = Color(0xFF101410),
-    onSurface = Color(0xFFE1E4DA),
+    background = Color(0xFF0F140E),
+    onBackground = Color(0xFFE0E4D9),
+    surface = Color(0xFF0F140E),
+    onSurface = Color(0xFFE0E4D9),
     surfaceVariant = Color(0xFF424940),
     onSurfaceVariant = Color(0xFFC2C9BD),
+    surfaceContainerLowest = Color(0xFF0A0F09),
+    surfaceContainerLow = Color(0xFF171C15),
+    surfaceContainer = Color(0xFF1B2119),
+    surfaceContainerHigh = Color(0xFF252B22),
+    surfaceContainerHighest = Color(0xFF30362C),
     error = Color(0xFFFFB4AB),
     onError = Color(0xFF690005),
+    errorContainer = Color(0xFF93000A),
+    onErrorContainer = Color(0xFFFFDAD6),
 )
 
 @Composable
@@ -76,6 +90,7 @@ fun EzTheme(prefs: AppPreferences, content: @Composable () -> Unit) {
         dark -> darkColorScheme(primary = Color(prefs.accent.seed))
         else -> lightColorScheme(primary = Color(prefs.accent.seed))
     }
+    // Stable Material 3 theme with expressive shapes, emphasized type and spring motion.
     MaterialTheme(
         colorScheme = scheme,
         typography = EzTypography,

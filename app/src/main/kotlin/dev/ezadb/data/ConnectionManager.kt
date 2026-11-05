@@ -22,6 +22,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import java.io.IOException
+import dev.ezadb.R
 
 class ConnectionManager(private val context: Context) {
     private val _state = MutableStateFlow<ConnectionState>(ConnectionState.Disconnected)
@@ -58,7 +59,7 @@ class ConnectionManager(private val context: Context) {
             } catch (error: Throwable) {
                 runCatching { client?.close() }
                 client = null
-                _state.value = ConnectionState.Error(error.message ?: "Не удалось подключиться", label)
+                _state.value = ConnectionState.Error(error.message ?: context.getString(R.string.connect_failed), label)
                 throw error
             }
         }
@@ -87,7 +88,7 @@ class ConnectionManager(private val context: Context) {
                 runCatching { client?.close() }
                 client = null
                 usbDeviceName = null
-                _state.value = ConnectionState.Error(error.message ?: "Не удалось подключиться по USB", label)
+                _state.value = ConnectionState.Error(error.message ?: context.getString(R.string.usb_connect_failed), label)
                 throw error
             }
         }
@@ -113,7 +114,7 @@ class ConnectionManager(private val context: Context) {
     }
 
     suspend fun <T> use(block: suspend (Kadb) -> T): T {
-        val kadb = client ?: throw IOException("Нет активного подключения")
+        val kadb = client ?: throw IOException(context.getString(R.string.no_connection))
         return withContext(Dispatchers.IO) { block(kadb) }
     }
 
@@ -136,7 +137,7 @@ class ConnectionManager(private val context: Context) {
                 try {
                     val response = kadb.shell("echo ezadb")
                     val text = (response.output + response.errorOutput).trim()
-                    if (text != "ezadb") throw IOException("Неожиданный ответ устройства: $text")
+                    if (text != "ezadb") throw IOException(context.getString(R.string.unexpected_response, text))
                 } finally {
                     watchdog.cancelAndJoin()
                 }

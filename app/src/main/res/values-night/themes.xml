@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.EzADB" parent="android:Theme.Material.NoActionBar">
+    <style name="Theme.EzADB" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/ez_primary</item>
+        <item name="colorPrimaryDark">@color/ez_splash_background</item>
+        <item name="colorAccent">@color/ez_primary</item>
         <item name="android:windowBackground">@color/ez_background</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
