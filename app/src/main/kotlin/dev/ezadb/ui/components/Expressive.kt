@@ -216,7 +216,7 @@ fun ExpressiveToggleChip(
         contentColor = content,
     ) {
         Row(Modifier.padding(horizontal = 14.dp, vertical = 9.dp), verticalAlignment = Alignment.CenterVertically) {
-            AnimatedVisibility(visible = selected, enter = scaleIn(EzMotion.fastSpatial()) + fadeIn(EzMotion.fade()), exit = scaleOut(EzMotion.fastSpatial()) + fadeOut(EzMotion.fade())) {
+            androidx.compose.animation.AnimatedVisibility(visible = selected, enter = scaleIn(EzMotion.fastSpatial()) + fadeIn(EzMotion.fade()), exit = scaleOut(EzMotion.fastSpatial()) + fadeOut(EzMotion.fade())) {
                 Row {
                     Icon(Icons.Filled.Check, contentDescription = null, modifier = Modifier.size(18.dp))
                     androidx.compose.foundation.layout.Spacer(Modifier.width(6.dp))
