@@ -46,8 +46,20 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          tail -n 180 build.log > failure.txt
-          jq -Rs '{body: ("## Build failure\n\n```\n" + . + "\n```")}' failure.txt \
+          {
+            echo '## Build failure'
+            echo
+            echo '### Compiler / task errors'
+            echo '```'
+            grep -E '^e:|^w:|error:|FAILED|Unresolved reference|Type mismatch|Cannot access|None of the following' build.log | head -n 160 || true
+            echo '```'
+            echo
+            echo '### Log tail'
+            echo '```'
+            tail -n 60 build.log
+            echo '```'
+          } > failure.md
+          jq -Rs '{body: .}' failure.md \
             | gh api "repos/${{ github.repository }}/commits/${{ github.sha }}/comments" --input -
 
       - name: Upload APK
