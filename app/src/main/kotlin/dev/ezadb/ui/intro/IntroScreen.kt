@@ -93,7 +93,7 @@ fun IntroScreen(onFinish: () -> Unit) {
                 pages.forEachIndexed { index, _ ->
                     val selected = index == pagerState.currentPage
                     val width by animateDpAsState(if (selected) 28.dp else 8.dp, EzMotion.fastSpatial(), label = "introDot")
-                    val color by androidx.compose.animation.core.animateColorAsState(
+                    val color by animateColorAsState(
                         if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f),
                         EzMotion.fastEffects(),
                         label = "introDotColor",
