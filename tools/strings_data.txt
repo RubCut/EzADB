@@ -259,174 +259,174 @@ risk_fs_process|Changing filesystem or processes|Изменение файлов
 risk_svc|Managing system services|Управление системными сервисами|Керування системними службами|Systemdienste verwalten|Gestionar servicios del sistema|Gestion des services système|管理系统服务
 risk_cmd_service|Managing system services|Управление системными сервисами|Керування системними службами|Systemdienste verwalten|Gestionar servicios del sistema|Gestion des services système|管理系统服务
 risk_low|No recognized destructive pattern|Команда без распознанных разрушительных шаблонов|Команда без розпізнаних руйнівних шаблонів|Kein erkanntes destruktives Muster|Sin patrón destructivo reconocido|Aucun modèle destructeur reconnu|未识别到破坏性模式
-apps_count|%1$d apps|%1$d приложений
-app_search_hint|Search by name or package|Поиск по имени или пакету
-app_filter_all|All|Все
-app_filter_user|User|Пользовательские
-app_filter_system|System|Системные
-app_filter_disabled|Disabled|Отключённые
-app_sort_name|Name|Имя
-app_sort_package|Package|Пакет
-app_sort_size|Size|Размер
-app_sort_uid|UID|UID
-install_apk|Install APK|Установить APK
-app_actions|Actions|Действия
-app_details|App details|Сведения о приложении
-app_enable_title|Enable app?|Включить приложение?
-app_disable_title|Disable app?|Отключить приложение?
-app_uninstall_title|Uninstall app?|Удалить приложение?
-app_clear_title|Clear data?|Очистить данные?
-app_stop_title|Stop app?|Остановить приложение?
-app_enable_text|%1$s will be enabled.|%1$s будет включено.
-app_disable_text|%1$s will be disabled for user 0.|%1$s будет отключено для пользователя 0.
-app_uninstall_text|%1$s will be uninstalled for user 0.|%1$s будет удалено для пользователя 0.
-app_clear_text|All data for %1$s will be deleted.|Все данные %1$s будут удалены.
-app_stop_text|Force-stop %1$s.|Принудительная остановка %1$s.
-app_open_settings|Open app settings|Открыть настройки приложения
-app_extract_apk|Extract APK|Извлечь APK
-app_disabled_badge|off|выкл
-app_system_badge|system|системное
-app_version_code|Version code: %1$s|Код версии: %1$s
-app_size|Size: %1$s|Размер: %1$s
-app_uid|UID: %1$s|UID: %1$s
-files_count|%1$d items|%1$d объектов
-file_search_hint|Search in current folder|Поиск в текущей папке
-file_up|Up|Вверх
-file_delete_title|Delete %1$s?|Удалить %1$s?
-file_delete_folder_text|The folder and all its contents will be permanently deleted.|Папка и всё её содержимое будут удалены безвозвратно.
-file_delete_file_text|The file will be permanently deleted.|Файл будет удалён безвозвратно.
-file_properties|Properties|Свойства
-file_modified|Modified: %1$s|Изменён: %1$s
-file_size|Size: %1$s|Размер: %1$s
-file_permissions|Permissions: %1$s|Права: %1$s
-file_mode|Mode: %1$s|Режим: %1$s
-file_path|Path: %1$s|Путь: %1$s
-file_type|Type: %1$s|Тип: %1$s
-file_chmod|Permissions|Права доступа
-file_editor_dirty|modified|изменён
-file_save|Save|Сохранить
-file_download|Download|Скачать
-file_upload|Upload file|Загрузить файл
-file_new_folder|New folder|Новая папка
-file_rename|Rename|Переименовать
-settings_search|Search setting|Поиск параметра
-setting_type_label|%1$s · %2$s|%1$s · %2$s
-setting_custom_title|Custom setting|Свой параметр
-connect_title|Connect|Подключение
-wifi_tab|Wi-Fi|Wi-Fi
-usb_tab|USB|USB
-pair_tab|Pairing|Сопряжение
-pair_port|Pairing port|Порт сопряжения
-pair_button|Pair|Выполнить сопряжение
-connect_button|Connect|Подключиться
-pair_action|Pair|Спарить
-connect_action|Connect|Подключить
-discovered_pair|pairing|сопряжение
-discovered_connect|connection|подключение
-usb_vid_pid|%1$s · VID %2$d PID %3$d|%1$s · VID %2$d PID %3$d
-app_enabled|App enabled|Приложение включено
-app_disabled|App disabled|Приложение отключено
-app_stopped|App stopped|Приложение остановлено
-app_data_cleared|App data cleared|Данные приложения очищены
-app_uninstalled|App uninstalled|Приложение удалено
-app_launched|App launched|Приложение запущено
-app_not_found|App not found|Приложение не найдено
-apk_saved|APK saved|APK сохранён
-apk_installed|APK installed|APK установлен
-file_saved|File saved|Файл сохранён
-file_downloaded|File downloaded|Файл скачан
-file_uploaded|File uploaded: %1$s|Файл загружен: %1$s
-file_deleted|Deleted: %1$s|Удалено: %1$s
-setting_saved|%1$s = %2$s|%1$s = %2$s
-key_empty|Key cannot be empty|Ключ не может быть пустым
-action_error|%1$s: %2$s|%1$s: %2$s
-device_info_error|Could not get device info: %1$s|Не удалось получить сведения: %1$s
-toggles_error|Toggles: %1$s|Переключатели: %1$s
-apps_error|Apps: %1$s|Приложения: %1$s
-files_error|Files: %1$s|Файлы: %1$s
-settings_error|Settings: %1$s|Настройки: %1$s
-toggle_error|Could not toggle: %1$s|Не удалось переключить: %1$s
-rebooting|Device is rebooting|Устройство перезагружается
-rebooting_mode|Rebooting into %1$s|Перезагрузка в %1$s
-screenshot_saved|Screenshot saved|Скриншот сохранён
-demo_screenshot_saved|Demo screenshot saved|Демо-скриншот сохранён
-demo_wifi_adb|Demo: Wi-Fi ADB enabled on port 5555|Демо: ADB по Wi-Fi включён на порту 5555
-demo_apk_installed|Demo: APK installed|Демо: APK установлен
-demo_chmod|Demo: chmod %1$s %2$s|Демо: chmod %1$s %2$s
-demo_launch|Demo: launch %1$s|Демо: запуск %1$s
-demo_app_settings|Demo: settings %1$s|Демо: настройки %1$s
-demo_action|Demo: %1$s|Демо: %1$s
-action_app_details|App details|Сведения о приложении
-action_app_state|App state|Состояние приложения
-action_stop|Stopping|Остановка
-action_clear|Clearing data|Очистка данных
-action_uninstall|Uninstalling|Удаление
-action_launch|Launching|Запуск
-action_app_settings|App settings|Настройки приложения
-action_install_apk|Installing APK|Установка APK
-action_extract_apk|Extracting APK|Извлечение APK
-action_open_file|Opening file|Открытие файла
-action_save_file|Saving file|Сохранение файла
-action_download|Downloading|Скачивание
-action_upload|Uploading file|Загрузка файла
-action_mkdir|Creating folder|Создание папки
-action_rename|Renaming|Переименование
-action_delete|Deleting|Удаление
-action_chmod|Permissions|Права доступа
-action_save_setting|Saving setting|Сохранение параметра
-action_delete_setting|Deleting setting|Удаление параметра
-action_add_setting|Adding setting|Добавление параметра
-action_usb|USB connection|USB-подключение
-action_wifi_adb|Wi-Fi ADB|Wi-Fi ADB
-action_toggle|Toggle|Переключатель
-action_screen|Screen|Экран
-action_screenshot|Screenshot|Скриншот
-setting_desc_global_airplane_mode_on|Airplane mode|Режим полёта
-setting_desc_global_wifi_on|Wi-Fi|Wi-Fi
-setting_desc_global_bluetooth_on|Bluetooth|Bluetooth
-setting_desc_global_mobile_data|Mobile data|Мобильные данные
-setting_desc_global_adb_enabled|USB debugging|Отладка по USB
-setting_desc_global_development_settings_enabled|Developer options|Меню разработчика
-setting_desc_global_stay_on_while_plugged_in|Stay awake while charging (bitmask: 1=AC, 2=USB, 4=Wireless)|Не спать при зарядке (битовая маска: 1=AC, 2=USB, 4=Wireless)
-setting_desc_global_window_animation_scale|Window animation scale|Масштаб анимации окон
-setting_desc_global_transition_animation_scale|Transition animation scale|Масштаб анимации переходов
-setting_desc_global_animator_duration_scale|Animator duration scale|Длительность аниматоров
-setting_desc_global_auto_time|Automatic time|Автоматическое время
-setting_desc_global_auto_time_zone|Automatic time zone|Автоматический часовой пояс
-setting_desc_global_low_power|Battery saver|Режим энергосбережения
-setting_desc_global_hidden_api_policy|Hidden API policy|Политика скрытых API
-setting_desc_global_heads_up_notifications_enabled|Heads-up notifications|Всплывающие уведомления
-setting_desc_global_zen_mode|Do Not Disturb mode|Режим «Не беспокоить»
-setting_desc_secure_location_mode|Location mode (0=off, 3=high accuracy)|Режим геолокации (0=выкл, 3=высокая точность)
-setting_desc_secure_location_providers_allowed|Allowed location providers|Разрешённые провайдеры геолокации
-setting_desc_secure_backup_enabled|Backup|Резервное копирование
-setting_desc_secure_screensaver_enabled|Screen saver|Заставка
-setting_desc_secure_immersive_mode_confirmations|Immersive mode confirmations|Подтверждения полноэкранного режима
-setting_desc_secure_enabled_notification_assistant|Notification assistant component|Компонент помощника уведомлений
-setting_desc_secure_lockscreen_password_type|Lock screen type|Тип блокировки экрана
-setting_desc_secure_usb_migration_expected|USB migration expected|Ожидание переноса по USB
-setting_desc_system_accelerometer_rotation|Auto-rotate screen|Автоповорот экрана
-setting_desc_system_screen_brightness|Screen brightness (0–255)|Яркость экрана (0–255)
-setting_desc_system_screen_brightness_mode|Automatic brightness|Автоматическая яркость
-setting_desc_system_screen_off_timeout|Screen timeout, ms|Тайм-аут экрана, мс
-setting_desc_system_haptic_feedback_enabled|Haptic feedback|Виброотклик
-setting_desc_system_sound_effects_enabled|Touch sounds|Звуки нажатий
-setting_desc_system_vibrate_when_ringing|Vibrate when ringing|Вибрация при звонке
-setting_desc_system_font_scale|Font scale|Масштаб шрифта
-setting_desc_system_show_touches|Show touches|Показывать касания
-setting_desc_system_pointer_location|Pointer location|Координаты касаний
-setting_desc_system_pointer_speed|Pointer speed|Скорость указателя
-apk_not_found|APK not found|APK не найден
-apk_open_failed|Could not open APK|Не удалось открыть APK
-local_file_open_failed|Could not open local file|Не удалось открыть локальный файл
-file_write_open_failed|Could not open file for writing|Не удалось открыть файл для записи
-animation_scale|Animation scale: %1$s|Масштаб анимаций: %1$s
-demo_dumpsys|Demo: dumpsys %1$s|Демо: dumpsys %1$s
-demo_reboot|Demo: the device would be rebooted|Демо: устройство было бы перезагружено
-demo_screencap|Demo: screenshot saved|Демо: скриншот сохранён
-demo_help|EzADB demo shell. Try:\n  getprop ro.product.model\n  pm list packages\n  settings list global\n  ls /sdcard\n  cat /sdcard/Download/welcome.txt\n  dumpsys battery\n  wm size|EzADB demo shell. Попробуйте:\n  getprop ro.product.model\n  pm list packages\n  settings list global\n  ls /sdcard\n  cat /sdcard/Download/welcome.txt\n  dumpsys battery\n  wm size
-connected_to|Connected to %1$s:%2$d|Подключено к %1$s:%2$d
-disconnected_message|Disconnected|Отключено
-terminal_open_error|Could not open terminal: %1$s|Не удалось открыть терминал: %1$s
-usb_or_wifi|USB OTG or Wi-Fi ADB|USB OTG или Wi-Fi ADB
-symlink|symlink|ссылка
+apps_count|%1$d apps|%1$d приложений|%1$d програм|%1$d Apps|%1$d aplicaciones|%1$d applications|%1$d 个应用
+app_search_hint|Search by name or package|Поиск по имени или пакету|Пошук за назвою або пакунком|Nach Name oder Paket suchen|Buscar por nombre o paquete|Rechercher par nom ou paquet|按名称或包名搜索
+app_filter_all|All|Все|Усі|Alle|Todas|Toutes|全部
+app_filter_user|User|Пользовательские|Користувацькі|Benutzer|De usuario|Utilisateur|用户
+app_filter_system|System|Системные|Системні|System|Del sistema|Système|系统
+app_filter_disabled|Disabled|Отключённые|Вимкнені|Deaktiviert|Desactivadas|Désactivées|已禁用
+app_sort_name|Name|Имя|Назва|Name|Nombre|Nom|名称
+app_sort_package|Package|Пакет|Пакунок|Paket|Paquete|Paquet|包名
+app_sort_size|Size|Размер|Розмір|Größe|Tamaño|Taille|大小
+app_sort_uid|UID|UID|UID|UID|UID|UID|UID
+install_apk|Install APK|Установить APK|Встановити APK|APK installieren|Instalar APK|Installer l'APK|安装 APK
+app_actions|Actions|Действия|Дії|Aktionen|Acciones|Actions|操作
+app_details|App details|Сведения о приложении|Відомості про програму|App-Details|Detalles de la aplicación|Détails de l'application|应用详情
+app_enable_title|Enable app?|Включить приложение?|Увімкнути програму?|App aktivieren?|¿Activar aplicación?|Activer l'application ?|启用应用？
+app_disable_title|Disable app?|Отключить приложение?|Вимкнути програму?|App deaktivieren?|¿Desactivar aplicación?|Désactiver l'application ?|禁用应用？
+app_uninstall_title|Uninstall app?|Удалить приложение?|Видалити програму?|App deinstallieren?|¿Desinstalar aplicación?|Désinstaller l'application ?|卸载应用？
+app_clear_title|Clear data?|Очистить данные?|Очистити дані?|Daten löschen?|¿Borrar datos?|Effacer les données ?|清除数据？
+app_stop_title|Stop app?|Остановить приложение?|Зупинити програму?|App stoppen?|¿Detener aplicación?|Arrêter l'application ?|停止应用？
+app_enable_text|%1$s will be enabled.|%1$s будет включено.|%1$s буде увімкнено.|%1$s wird aktiviert.|%1$s se activará.|%1$s sera activée.|%1$s 将被启用。
+app_disable_text|%1$s will be disabled for user 0.|%1$s будет отключено для пользователя 0.|%1$s буде вимкнено для користувача 0.|%1$s wird für Benutzer 0 deaktiviert.|%1$s se desactivará para el usuario 0.|%1$s sera désactivée pour l'utilisateur 0.|%1$s 将对用户 0 禁用。
+app_uninstall_text|%1$s will be uninstalled for user 0.|%1$s будет удалено для пользователя 0.|%1$s буде видалено для користувача 0.|%1$s wird für Benutzer 0 deinstalliert.|%1$s se desinstalará para el usuario 0.|%1$s sera désinstallée pour l'utilisateur 0.|%1$s 将对用户 0 卸载。
+app_clear_text|All data for %1$s will be deleted.|Все данные %1$s будут удалены.|Усі дані %1$s буде видалено.|Alle Daten von %1$s werden gelöscht.|Se eliminarán todos los datos de %1$s.|Toutes les données de %1$s seront supprimées.|%1$s 的所有数据将被删除。
+app_stop_text|Force-stop %1$s.|Принудительная остановка %1$s.|Примусова зупинка %1$s.|%1$s zwangsweise stoppen.|Forzar detención de %1$s.|Forcer l'arrêt de %1$s.|强制停止 %1$s。
+app_open_settings|Open app settings|Открыть настройки приложения|Відкрити налаштування програми|App-Einstellungen öffnen|Abrir ajustes de la aplicación|Ouvrir les paramètres de l'application|打开应用设置
+app_extract_apk|Extract APK|Извлечь APK|Витягти APK|APK extrahieren|Extraer APK|Extraire l'APK|提取 APK
+app_disabled_badge|off|выкл|вимк|aus|off|off|关
+app_system_badge|system|системное|системна|System|sistema|système|系统
+app_version_code|Version code: %1$s|Код версии: %1$s|Код версії: %1$s|Versionscode: %1$s|Código de versión: %1$s|Code de version : %1$s|版本号：%1$s
+app_size|Size: %1$s|Размер: %1$s|Розмір: %1$s|Größe: %1$s|Tamaño: %1$s|Taille : %1$s|大小：%1$s
+app_uid|UID: %1$s|UID: %1$s|UID: %1$s|UID: %1$s|UID: %1$s|UID : %1$s|UID：%1$s
+files_count|%1$d items|%1$d объектов|%1$d об'єктів|%1$d Elemente|%1$d elementos|%1$d éléments|%1$d 个项目
+file_search_hint|Search in current folder|Поиск в текущей папке|Пошук у поточній папці|Im aktuellen Ordner suchen|Buscar en la carpeta actual|Rechercher dans le dossier actuel|在当前文件夹中搜索
+file_up|Up|Вверх|Вгору|Nach oben|Subir|Monter|向上
+file_delete_title|Delete %1$s?|Удалить %1$s?|Видалити %1$s?|%1$s löschen?|¿Eliminar %1$s?|Supprimer %1$s ?|删除 %1$s？
+file_delete_folder_text|The folder and all its contents will be permanently deleted.|Папка и всё её содержимое будут удалены безвозвратно.|Папку та весь її вміст буде видалено назавжди.|Der Ordner und sein gesamter Inhalt werden endgültig gelöscht.|La carpeta y todo su contenido se eliminarán permanentemente.|Le dossier et tout son contenu seront supprimés définitivement.|文件夹及其所有内容将被永久删除。
+file_delete_file_text|The file will be permanently deleted.|Файл будет удалён безвозвратно.|Файл буде видалено назавжди.|Die Datei wird endgültig gelöscht.|El archivo se eliminará permanentemente.|Le fichier sera supprimé définitivement.|文件将被永久删除。
+file_properties|Properties|Свойства|Властивості|Eigenschaften|Propiedades|Propriétés|属性
+file_modified|Modified: %1$s|Изменён: %1$s|Змінено: %1$s|Geändert: %1$s|Modificado: %1$s|Modifié : %1$s|修改时间：%1$s
+file_size|Size: %1$s|Размер: %1$s|Розмір: %1$s|Größe: %1$s|Tamaño: %1$s|Taille : %1$s|大小：%1$s
+file_permissions|Permissions: %1$s|Права: %1$s|Права: %1$s|Berechtigungen: %1$s|Permisos: %1$s|Permissions : %1$s|权限：%1$s
+file_mode|Mode: %1$s|Режим: %1$s|Режим: %1$s|Modus: %1$s|Modo: %1$s|Mode : %1$s|模式：%1$s
+file_path|Path: %1$s|Путь: %1$s|Шлях: %1$s|Pfad: %1$s|Ruta: %1$s|Chemin : %1$s|路径：%1$s
+file_type|Type: %1$s|Тип: %1$s|Тип: %1$s|Typ: %1$s|Tipo: %1$s|Type : %1$s|类型：%1$s
+file_chmod|Permissions|Права доступа|Права доступу|Berechtigungen|Permisos|Permissions|权限
+file_editor_dirty|modified|изменён|змінено|geändert|modificado|modifié|已修改
+file_save|Save|Сохранить|Зберегти|Speichern|Guardar|Enregistrer|保存
+file_download|Download|Скачать|Завантажити|Herunterladen|Descargar|Télécharger|下载
+file_upload|Upload file|Загрузить файл|Вивантажити файл|Datei hochladen|Subir archivo|Téléverser un fichier|上传文件
+file_new_folder|New folder|Новая папка|Нова папка|Neuer Ordner|Nueva carpeta|Nouveau dossier|新建文件夹
+file_rename|Rename|Переименовать|Перейменувати|Umbenennen|Renombrar|Renommer|重命名
+settings_search|Search setting|Поиск параметра|Пошук параметра|Einstellung suchen|Buscar ajuste|Rechercher un paramètre|搜索设置
+setting_type_label|%1$s · %2$s|%1$s · %2$s|%1$s · %2$s|%1$s · %2$s|%1$s · %2$s|%1$s · %2$s|%1$s · %2$s
+setting_custom_title|Custom setting|Свой параметр|Власний параметр|Benutzerdefinierte Einstellung|Ajuste personalizado|Paramètre personnalisé|自定义设置
+connect_title|Connect|Подключение|Підключення|Verbinden|Conectar|Connexion|连接
+wifi_tab|Wi-Fi|Wi-Fi|Wi-Fi|WLAN|Wi-Fi|Wi-Fi|Wi-Fi
+usb_tab|USB|USB|USB|USB|USB|USB|USB
+pair_tab|Pairing|Сопряжение|Спряження|Koppeln|Emparejamiento|Appairage|配对
+pair_port|Pairing port|Порт сопряжения|Порт спряження|Kopplungsport|Puerto de emparejamiento|Port d'appairage|配对端口
+pair_button|Pair|Выполнить сопряжение|Виконати спряження|Koppeln|Emparejar|Appairer|配对
+connect_button|Connect|Подключиться|Підключитися|Verbinden|Conectar|Se connecter|连接
+pair_action|Pair|Спарить|Спрягти|Koppeln|Emparejar|Appairer|配对
+connect_action|Connect|Подключить|Підключити|Verbinden|Conectar|Connecter|连接
+discovered_pair|pairing|сопряжение|спряження|Kopplung|emparejamiento|appairage|配对
+discovered_connect|connection|подключение|підключення|Verbindung|conexión|connexion|连接
+usb_vid_pid|%1$s · VID %2$d PID %3$d|%1$s · VID %2$d PID %3$d|%1$s · VID %2$d PID %3$d|%1$s · VID %2$d PID %3$d|%1$s · VID %2$d PID %3$d|%1$s · VID %2$d PID %3$d|%1$s · VID %2$d PID %3$d
+app_enabled|App enabled|Приложение включено|Програму увімкнено|App aktiviert|Aplicación activada|Application activée|应用已启用
+app_disabled|App disabled|Приложение отключено|Програму вимкнено|App deaktiviert|Aplicación desactivada|Application désactivée|应用已禁用
+app_stopped|App stopped|Приложение остановлено|Програму зупинено|App gestoppt|Aplicación detenida|Application arrêtée|应用已停止
+app_data_cleared|App data cleared|Данные приложения очищены|Дані програми очищено|App-Daten gelöscht|Datos de la aplicación borrados|Données de l'application effacées|应用数据已清除
+app_uninstalled|App uninstalled|Приложение удалено|Програму видалено|App deinstalliert|Aplicación desinstalada|Application désinstallée|应用已卸载
+app_launched|App launched|Приложение запущено|Програму запущено|App gestartet|Aplicación iniciada|Application lancée|应用已启动
+app_not_found|App not found|Приложение не найдено|Програму не знайдено|App nicht gefunden|Aplicación no encontrada|Application introuvable|未找到应用
+apk_saved|APK saved|APK сохранён|APK збережено|APK gespeichert|APK guardado|APK enregistré|APK 已保存
+apk_installed|APK installed|APK установлен|APK встановлено|APK installiert|APK instalado|APK installé|APK 已安装
+file_saved|File saved|Файл сохранён|Файл збережено|Datei gespeichert|Archivo guardado|Fichier enregistré|文件已保存
+file_downloaded|File downloaded|Файл скачан|Файл завантажено|Datei heruntergeladen|Archivo descargado|Fichier téléchargé|文件已下载
+file_uploaded|File uploaded: %1$s|Файл загружен: %1$s|Файл вивантажено: %1$s|Datei hochgeladen: %1$s|Archivo subido: %1$s|Fichier téléversé : %1$s|文件已上传：%1$s
+file_deleted|Deleted: %1$s|Удалено: %1$s|Видалено: %1$s|Gelöscht: %1$s|Eliminado: %1$s|Supprimé : %1$s|已删除：%1$s
+setting_saved|%1$s = %2$s|%1$s = %2$s|%1$s = %2$s|%1$s = %2$s|%1$s = %2$s|%1$s = %2$s|%1$s = %2$s
+key_empty|Key cannot be empty|Ключ не может быть пустым|Ключ не може бути порожнім|Schlüssel darf nicht leer sein|La clave no puede estar vacía|La clé ne peut pas être vide|键不能为空
+action_error|%1$s: %2$s|%1$s: %2$s|%1$s: %2$s|%1$s: %2$s|%1$s: %2$s|%1$s : %2$s|%1$s：%2$s
+device_info_error|Could not get device info: %1$s|Не удалось получить сведения: %1$s|Не вдалося отримати відомості: %1$s|Geräteinformationen konnten nicht abgerufen werden: %1$s|No se pudo obtener la información del dispositivo: %1$s|Impossible d'obtenir les informations de l'appareil : %1$s|无法获取设备信息：%1$s
+toggles_error|Toggles: %1$s|Переключатели: %1$s|Перемикачі: %1$s|Schalter: %1$s|Interruptores: %1$s|Bascules : %1$s|开关：%1$s
+apps_error|Apps: %1$s|Приложения: %1$s|Програми: %1$s|Apps: %1$s|Aplicaciones: %1$s|Applications : %1$s|应用：%1$s
+files_error|Files: %1$s|Файлы: %1$s|Файли: %1$s|Dateien: %1$s|Archivos: %1$s|Fichiers : %1$s|文件：%1$s
+settings_error|Settings: %1$s|Настройки: %1$s|Налаштування: %1$s|Einstellungen: %1$s|Ajustes: %1$s|Paramètres : %1$s|设置：%1$s
+toggle_error|Could not toggle: %1$s|Не удалось переключить: %1$s|Не вдалося перемкнути: %1$s|Umschalten fehlgeschlagen: %1$s|No se pudo cambiar: %1$s|Impossible de basculer : %1$s|无法切换：%1$s
+rebooting|Device is rebooting|Устройство перезагружается|Пристрій перезапускається|Gerät wird neu gestartet|El dispositivo se está reiniciando|L'appareil redémarre|设备正在重启
+rebooting_mode|Rebooting into %1$s|Перезагрузка в %1$s|Перезапуск у %1$s|Neustart in %1$s|Reiniciando en %1$s|Redémarrage en %1$s|正在重启到 %1$s
+screenshot_saved|Screenshot saved|Скриншот сохранён|Знімок екрана збережено|Screenshot gespeichert|Captura de pantalla guardada|Capture d'écran enregistrée|截图已保存
+demo_screenshot_saved|Demo screenshot saved|Демо-скриншот сохранён|Демо-знімок екрана збережено|Demo-Screenshot gespeichert|Captura de pantalla de demostración guardada|Capture d'écran de démonstration enregistrée|演示截图已保存
+demo_wifi_adb|Demo: Wi-Fi ADB enabled on port 5555|Демо: ADB по Wi-Fi включён на порту 5555|Демо: ADB через Wi-Fi увімкнено на порту 5555|Demo: WLAN-ADB auf Port 5555 aktiviert|Demo: ADB por Wi-Fi activado en el puerto 5555|Démo : ADB Wi-Fi activé sur le port 5555|演示：已在端口 5555 启用 Wi-Fi ADB
+demo_apk_installed|Demo: APK installed|Демо: APK установлен|Демо: APK встановлено|Demo: APK installiert|Demo: APK instalado|Démo : APK installé|演示：APK 已安装
+demo_chmod|Demo: chmod %1$s %2$s|Демо: chmod %1$s %2$s|Демо: chmod %1$s %2$s|Demo: chmod %1$s %2$s|Demo: chmod %1$s %2$s|Démo : chmod %1$s %2$s|演示：chmod %1$s %2$s
+demo_launch|Demo: launch %1$s|Демо: запуск %1$s|Демо: запуск %1$s|Demo: %1$s starten|Demo: iniciar %1$s|Démo : lancer %1$s|演示：启动 %1$s
+demo_app_settings|Demo: settings %1$s|Демо: настройки %1$s|Демо: налаштування %1$s|Demo: Einstellungen %1$s|Demo: ajustes %1$s|Démo : paramètres %1$s|演示：设置 %1$s
+demo_action|Demo: %1$s|Демо: %1$s|Демо: %1$s|Demo: %1$s|Demo: %1$s|Démo : %1$s|演示：%1$s
+action_app_details|App details|Сведения о приложении|Відомості про програму|App-Details|Detalles de la aplicación|Détails de l'application|应用详情
+action_app_state|App state|Состояние приложения|Стан програми|App-Status|Estado de la aplicación|État de l'application|应用状态
+action_stop|Stopping|Остановка|Зупинка|Stoppen|Deteniendo|Arrêt|正在停止
+action_clear|Clearing data|Очистка данных|Очищення даних|Daten löschen|Borrando datos|Effacement des données|正在清除数据
+action_uninstall|Uninstalling|Удаление|Видалення|Deinstallieren|Desinstalando|Désinstallation|正在卸载
+action_launch|Launching|Запуск|Запуск|Starten|Iniciando|Lancement|正在启动
+action_app_settings|App settings|Настройки приложения|Налаштування програми|App-Einstellungen|Ajustes de la aplicación|Paramètres de l'application|应用设置
+action_install_apk|Installing APK|Установка APK|Встановлення APK|APK installieren|Instalando APK|Installation de l'APK|正在安装 APK
+action_extract_apk|Extracting APK|Извлечение APK|Витягнення APK|APK extrahieren|Extrayendo APK|Extraction de l'APK|正在提取 APK
+action_open_file|Opening file|Открытие файла|Відкриття файлу|Datei öffnen|Abriendo archivo|Ouverture du fichier|正在打开文件
+action_save_file|Saving file|Сохранение файла|Збереження файлу|Datei speichern|Guardando archivo|Enregistrement du fichier|正在保存文件
+action_download|Downloading|Скачивание|Завантаження|Herunterladen|Descargando|Téléchargement|正在下载
+action_upload|Uploading file|Загрузка файла|Вивантаження файлу|Datei hochladen|Subiendo archivo|Téléversement du fichier|正在上传文件
+action_mkdir|Creating folder|Создание папки|Створення папки|Ordner erstellen|Creando carpeta|Création du dossier|正在创建文件夹
+action_rename|Renaming|Переименование|Перейменування|Umbenennen|Renombrando|Renommage|正在重命名
+action_delete|Deleting|Удаление|Видалення|Löschen|Eliminando|Suppression|正在删除
+action_chmod|Permissions|Права доступа|Права доступу|Berechtigungen|Permisos|Permissions|权限
+action_save_setting|Saving setting|Сохранение параметра|Збереження параметра|Einstellung speichern|Guardando ajuste|Enregistrement du paramètre|正在保存设置
+action_delete_setting|Deleting setting|Удаление параметра|Видалення параметра|Einstellung löschen|Eliminando ajuste|Suppression du paramètre|正在删除设置
+action_add_setting|Adding setting|Добавление параметра|Додавання параметра|Einstellung hinzufügen|Añadiendo ajuste|Ajout du paramètre|正在添加设置
+action_usb|USB connection|USB-подключение|USB-підключення|USB-Verbindung|Conexión USB|Connexion USB|USB 连接
+action_wifi_adb|Wi-Fi ADB|Wi-Fi ADB|Wi-Fi ADB|WLAN-ADB|ADB por Wi-Fi|ADB Wi-Fi|Wi-Fi ADB
+action_toggle|Toggle|Переключатель|Перемикач|Schalter|Interruptor|Bascule|开关
+action_screen|Screen|Экран|Екран|Bildschirm|Pantalla|Écran|屏幕
+action_screenshot|Screenshot|Скриншот|Знімок екрана|Screenshot|Captura de pantalla|Capture d'écran|截图
+setting_desc_global_airplane_mode_on|Airplane mode|Режим полёта|Режим польоту|Flugmodus|Modo avión|Mode avion|飞行模式
+setting_desc_global_wifi_on|Wi-Fi|Wi-Fi|Wi-Fi|WLAN|Wi-Fi|Wi-Fi|Wi-Fi
+setting_desc_global_bluetooth_on|Bluetooth|Bluetooth|Bluetooth|Bluetooth|Bluetooth|Bluetooth|蓝牙
+setting_desc_global_mobile_data|Mobile data|Мобильные данные|Мобільні дані|Mobile Daten|Datos móviles|Données mobiles|移动数据
+setting_desc_global_adb_enabled|USB debugging|Отладка по USB|Налагодження через USB|USB-Debugging|Depuración por USB|Débogage USB|USB 调试
+setting_desc_global_development_settings_enabled|Developer options|Меню разработчика|Меню розробника|Entwickleroptionen|Opciones de desarrollador|Options pour les développeurs|开发者选项
+setting_desc_global_stay_on_while_plugged_in|Stay awake while charging (bitmask: 1=AC, 2=USB, 4=Wireless)|Не спать при зарядке (битовая маска: 1=AC, 2=USB, 4=Wireless)|Не спати під час заряджання (бітова маска: 1=AC, 2=USB, 4=Wireless)|Während des Ladens aktiv bleiben (Bitmaske: 1=AC, 2=USB, 4=Wireless)|Permanecer activo mientras se carga (máscara de bits: 1=AC, 2=USB, 4=Wireless)|Rester allumé pendant la charge (masque de bits : 1=AC, 2=USB, 4=Wireless)|充电时保持唤醒（位掩码：1=AC，2=USB，4=无线）
+setting_desc_global_window_animation_scale|Window animation scale|Масштаб анимации окон|Масштаб анімації вікон|Fensteranimations-Skala|Escala de animación de ventanas|Échelle d'animation des fenêtres|窗口动画缩放
+setting_desc_global_transition_animation_scale|Transition animation scale|Масштаб анимации переходов|Масштаб анімації переходів|Übergangsanimations-Skala|Escala de animación de transiciones|Échelle d'animation des transitions|过渡动画缩放
+setting_desc_global_animator_duration_scale|Animator duration scale|Длительность аниматоров|Тривалість аніматорів|Animator-Dauer-Skala|Escala de duración del animador|Échelle de durée des animateurs|动画程序时长缩放
+setting_desc_global_auto_time|Automatic time|Автоматическое время|Автоматичний час|Automatische Uhrzeit|Hora automática|Heure automatique|自动时间
+setting_desc_global_auto_time_zone|Automatic time zone|Автоматический часовой пояс|Автоматичний часовий пояс|Automatische Zeitzone|Zona horaria automática|Fuseau horaire automatique|自动时区
+setting_desc_global_low_power|Battery saver|Режим энергосбережения|Режим енергозбереження|Energiesparmodus|Ahorro de batería|Économiseur de batterie|省电模式
+setting_desc_global_hidden_api_policy|Hidden API policy|Политика скрытых API|Політика прихованих API|Richtlinie für versteckte APIs|Política de API ocultas|Politique des API masquées|隐藏 API 策略
+setting_desc_global_heads_up_notifications_enabled|Heads-up notifications|Всплывающие уведомления|Спливаючі сповіщення|Heads-up-Benachrichtigungen|Notificaciones emergentes|Notifications flottantes|悬浮通知
+setting_desc_global_zen_mode|Do Not Disturb mode|Режим «Не беспокоить»|Режим «Не турбувати»|„Nicht stören“-Modus|Modo No molestar|Mode Ne pas déranger|勿扰模式
+setting_desc_secure_location_mode|Location mode (0=off, 3=high accuracy)|Режим геолокации (0=выкл, 3=высокая точность)|Режим геолокації (0=вимк, 3=висока точність)|Standortmodus (0=aus, 3=hohe Genauigkeit)|Modo de ubicación (0=desactivado, 3=alta precisión)|Mode de localisation (0=désactivé, 3=haute précision)|位置信息模式（0=关闭，3=高精度）
+setting_desc_secure_location_providers_allowed|Allowed location providers|Разрешённые провайдеры геолокации|Дозволені провайдери геолокації|Zulässige Standortanbieter|Proveedores de ubicación permitidos|Fournisseurs de localisation autorisés|允许的位置信息服务提供方
+setting_desc_secure_backup_enabled|Backup|Резервное копирование|Резервне копіювання|Sicherung|Copia de seguridad|Sauvegarde|备份
+setting_desc_secure_screensaver_enabled|Screen saver|Заставка|Заставка|Bildschirmschoner|Salvapantallas|Écran de veille|屏幕保护程序
+setting_desc_secure_immersive_mode_confirmations|Immersive mode confirmations|Подтверждения полноэкранного режима|Підтвердження повноекранного режиму|Bestätigungen für den Vollbildmodus|Confirmaciones del modo inmersivo|Confirmations du mode immersif|沉浸模式确认
+setting_desc_secure_enabled_notification_assistant|Notification assistant component|Компонент помощника уведомлений|Компонент помічника сповіщень|Komponente des Benachrichtigungsassistenten|Componente del asistente de notificaciones|Composant de l'assistant de notification|通知助手组件
+setting_desc_secure_lockscreen_password_type|Lock screen type|Тип блокировки экрана|Тип блокування екрана|Bildschirmsperrtyp|Tipo de bloqueo de pantalla|Type de verrouillage de l'écran|锁屏类型
+setting_desc_secure_usb_migration_expected|USB migration expected|Ожидание переноса по USB|Очікування перенесення через USB|USB-Migration erwartet|Migración por USB esperada|Migration USB attendue|预期 USB 迁移
+setting_desc_system_accelerometer_rotation|Auto-rotate screen|Автоповорот экрана|Автоповорот екрана|Bildschirm automatisch drehen|Girar pantalla automáticamente|Rotation automatique de l'écran|自动旋转屏幕
+setting_desc_system_screen_brightness|Screen brightness (0–255)|Яркость экрана (0–255)|Яскравість екрана (0–255)|Bildschirmhelligkeit (0–255)|Brillo de pantalla (0–255)|Luminosité de l'écran (0–255)|屏幕亮度（0–255）
+setting_desc_system_screen_brightness_mode|Automatic brightness|Автоматическая яркость|Автоматична яскравість|Automatische Helligkeit|Brillo automático|Luminosité automatique|自动亮度
+setting_desc_system_screen_off_timeout|Screen timeout, ms|Тайм-аут экрана, мс|Тайм-аут екрана, мс|Bildschirm-Timeout, ms|Tiempo de espera de pantalla, ms|Délai d'extinction de l'écran, ms|屏幕超时（毫秒）
+setting_desc_system_haptic_feedback_enabled|Haptic feedback|Виброотклик|Вібровідгук|Haptisches Feedback|Respuesta háptica|Retour haptique|触觉反馈
+setting_desc_system_sound_effects_enabled|Touch sounds|Звуки нажатий|Звуки натискань|Tastentöne|Sonidos táctiles|Sons des touches|触摸提示音
+setting_desc_system_vibrate_when_ringing|Vibrate when ringing|Вибрация при звонке|Вібрація під час дзвінка|Bei Anruf vibrieren|Vibrar al sonar|Vibrer lors de la sonnerie|响铃时振动
+setting_desc_system_font_scale|Font scale|Масштаб шрифта|Масштаб шрифту|Schriftskalierung|Escala de fuente|Échelle de police|字体缩放
+setting_desc_system_show_touches|Show touches|Показывать касания|Показувати дотики|Berührungen anzeigen|Mostrar toques|Afficher les touches|显示触摸操作
+setting_desc_system_pointer_location|Pointer location|Координаты касаний|Координати дотиків|Zeigerposition|Ubicación del puntero|Position du pointeur|指针位置
+setting_desc_system_pointer_speed|Pointer speed|Скорость указателя|Швидкість указівника|Zeigergeschwindigkeit|Velocidad del puntero|Vitesse du pointeur|指针速度
+apk_not_found|APK not found|APK не найден|APK не знайдено|APK nicht gefunden|APK no encontrado|APK introuvable|未找到 APK
+apk_open_failed|Could not open APK|Не удалось открыть APK|Не вдалося відкрити APK|APK konnte nicht geöffnet werden|No se pudo abrir el APK|Impossible d'ouvrir l'APK|无法打开 APK
+local_file_open_failed|Could not open local file|Не удалось открыть локальный файл|Не вдалося відкрити локальний файл|Lokale Datei konnte nicht geöffnet werden|No se pudo abrir el archivo local|Impossible d'ouvrir le fichier local|无法打开本地文件
+file_write_open_failed|Could not open file for writing|Не удалось открыть файл для записи|Не вдалося відкрити файл для запису|Datei konnte nicht zum Schreiben geöffnet werden|No se pudo abrir el archivo para escritura|Impossible d'ouvrir le fichier en écriture|无法打开文件进行写入
+animation_scale|Animation scale: %1$s|Масштаб анимаций: %1$s|Масштаб анімацій: %1$s|Animationsskala: %1$s|Escala de animación: %1$s|Échelle d'animation : %1$s|动画缩放：%1$s
+demo_dumpsys|Demo: dumpsys %1$s|Демо: dumpsys %1$s|Демо: dumpsys %1$s|Demo: dumpsys %1$s|Demo: dumpsys %1$s|Démo : dumpsys %1$s|演示：dumpsys %1$s
+demo_reboot|Demo: the device would be rebooted|Демо: устройство было бы перезагружено|Демо: пристрій було б перезапущено|Demo: Das Gerät würde neu gestartet|Demo: el dispositivo se reiniciaría|Démo : l'appareil serait redémarré|演示：设备将被重启
+demo_screencap|Demo: screenshot saved|Демо: скриншот сохранён|Демо: знімок екрана збережено|Demo: Screenshot gespeichert|Demo: captura de pantalla guardada|Démo : capture d'écran enregistrée|演示：截图已保存
+demo_help|EzADB demo shell. Try:\n  getprop ro.product.model\n  pm list packages\n  settings list global\n  ls /sdcard\n  cat /sdcard/Download/welcome.txt\n  dumpsys battery\n  wm size|EzADB demo shell. Попробуйте:\n  getprop ro.product.model\n  pm list packages\n  settings list global\n  ls /sdcard\n  cat /sdcard/Download/welcome.txt\n  dumpsys battery\n  wm size|Демо-оболонка EzADB. Спробуйте:\n  getprop ro.product.model\n  pm list packages\n  settings list global\n  ls /sdcard\n  cat /sdcard/Download/welcome.txt\n  dumpsys battery\n  wm size|EzADB-Demo-Shell. Probieren Sie:\n  getprop ro.product.model\n  pm list packages\n  settings list global\n  ls /sdcard\n  cat /sdcard/Download/welcome.txt\n  dumpsys battery\n  wm size|Shell de demostración de EzADB. Pruebe:\n  getprop ro.product.model\n  pm list packages\n  settings list global\n  ls /sdcard\n  cat /sdcard/Download/welcome.txt\n  dumpsys battery\n  wm size|Shell de démonstration EzADB. Essayez :\n  getprop ro.product.model\n  pm list packages\n  settings list global\n  ls /sdcard\n  cat /sdcard/Download/welcome.txt\n  dumpsys battery\n  wm size|EzADB 演示 shell。请尝试：\n  getprop ro.product.model\n  pm list packages\n  settings list global\n  ls /sdcard\n  cat /sdcard/Download/welcome.txt\n  dumpsys battery\n  wm size
+connected_to|Connected to %1$s:%2$d|Подключено к %1$s:%2$d|Підключено до %1$s:%2$d|Verbunden mit %1$s:%2$d|Conectado a %1$s:%2$d|Connecté à %1$s:%2$d|已连接到 %1$s:%2$d
+disconnected_message|Disconnected|Отключено|Відключено|Getrennt|Desconectado|Déconnecté|已断开连接
+terminal_open_error|Could not open terminal: %1$s|Не удалось открыть терминал: %1$s|Не вдалося відкрити термінал: %1$s|Terminal konnte nicht geöffnet werden: %1$s|No se pudo abrir la terminal: %1$s|Impossible d'ouvrir le terminal : %1$s|无法打开终端：%1$s
+usb_or_wifi|USB OTG or Wi-Fi ADB|USB OTG или Wi-Fi ADB|USB OTG або Wi-Fi ADB|USB OTG oder WLAN-ADB|USB OTG o ADB por Wi-Fi|USB OTG ou ADB Wi-Fi|USB OTG 或 Wi-Fi ADB
+symlink|symlink|ссылка|посилання|Symlink|enlace simbólico|lien symbolique|符号链接
