@@ -92,7 +92,7 @@ class TerminalSession(
             while (scope.isActive) {
                 val read = stream.source.read(buffer, 8192L)
                 if (read == -1L) break
-                emit(buffer.readString(), TerminalKind.STDOUT)
+                emit(buffer.readString(Charsets.UTF_8), TerminalKind.STDOUT)
             }
             onClosed(null)
         } catch (error: Throwable) {
