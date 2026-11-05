@@ -67,7 +67,8 @@ GitHub Actions (`.github/workflows/android.yml`) автоматически за
 
 Автоматическая debug-сборка публикуется в GitHub Releases:
 
-- [`v1.0.0-debug`](https://github.com/RubCut/EzADB/releases/tag/v1.0.0-debug) — файл `app-debug.apk`.
+- [`v1.1.0-debug`](https://github.com/RubCut/EzADB/releases/tag/v1.1.0-debug) — файл `app-debug.apk` (Material 3 Expressive, intro, локализации).
+- Предыдущая версия: [`v1.0.0-debug`](https://github.com/RubCut/EzADB/releases/tag/v1.0.0-debug).
 - Артефакт `EzADB-debug` также доступен в [GitHub Actions](https://github.com/RubCut/EzADB/actions).
 
 > Debug APK не подписан релизным ключом. Для распространения соберите release-версию своим ключом.
