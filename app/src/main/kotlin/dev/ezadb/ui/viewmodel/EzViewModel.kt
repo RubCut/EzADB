@@ -95,14 +95,24 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
     private var terminalSession: TerminalSession? = null
     private val history = dev.ezadb.core.TerminalHistory()
     private var demoInitialized = false
+    private var lastLanguage: AppLanguage? = null
 
     init {
         viewModelScope.launch {
             prefsRepo.flow.collect { prefs ->
                 val wasDemo = _state.value.prefs.demoMode
+                val previousLanguage = lastLanguage
+                lastLanguage = prefs.language
                 _state.update { it.copy(prefs = prefs) }
                 if (prefs.demoMode && !wasDemo) enableDemo()
                 if (!prefs.demoMode && wasDemo) disableDemo()
+                if (previousLanguage != null && previousLanguage != prefs.language) {
+                    refreshDevice()
+                    refreshToggles()
+                    refreshApps()
+                    refreshFiles()
+                    refreshSettings()
+                }
             }
         }
         viewModelScope.launch {
