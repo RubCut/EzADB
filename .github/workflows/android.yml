@@ -30,7 +30,13 @@ jobs:
           packages: "platforms;android-36 build-tools;36.0.0 platform-tools"
 
       - name: Run core unit tests
-        run: ./gradlew :core:test --no-daemon
+        id: tests
+        run: |
+          set +e
+          ./gradlew :core:test --no-daemon --stacktrace > tests.log 2>&1
+          code=$?
+          tail -n 120 tests.log
+          exit $code
 
       - name: Build debug APK
         id: build
@@ -42,7 +48,7 @@ jobs:
           exit $code
 
       - name: Report build failure
-        if: failure() && steps.build.outcome == 'failure'
+        if: failure()
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -51,12 +57,13 @@ jobs:
             echo
             echo '### Compiler / task errors'
             echo '```'
-            grep -E -A4 '^e:|error:|FAILED|Unresolved reference|Type mismatch|Cannot access|None of the following' build.log | head -n 220 || true
+            grep -E -A6 '^e:|error:|FAILED|What went wrong|Caused by|Unresolved reference|Type mismatch|Cannot access|None of the following' tests.log build.log 2>/dev/null | head -n 200 || true
             echo '```'
             echo
             echo '### Log tail'
             echo '```'
-            tail -n 60 build.log
+            tail -n 60 tests.log 2>/dev/null || true
+            tail -n 40 build.log 2>/dev/null || true
             echo '```'
           } > failure.md
           jq -Rs '{body: .}' failure.md \

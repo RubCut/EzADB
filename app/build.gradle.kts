@@ -63,7 +63,6 @@ val helperSources = rootProject.file("tools/helper")
 val helperClassesDir = layout.buildDirectory.dir("deviceHelper/classes")
 val helperDexDir = layout.buildDirectory.dir("deviceHelper/dex")
 val helperAssetsDir = layout.buildDirectory.dir("generated/helperAssets")
-val sdkDir: File = android.sdkDirectory
 val buildToolsVersion = "36.0.0"
 
 val buildDeviceHelper by tasks.registering {
@@ -87,6 +86,7 @@ val buildDeviceHelper by tasks.registering {
         val javac = File(File(System.getProperty("java.home"), "bin"), "javac").absolutePath
         run(listOf(javac, "--release", "8", "-nowarn", "-d", classesDir.absolutePath) + sources)
 
+        val sdkDir = android.sdkDirectory
         val d8 = File(File(sdkDir, "build-tools/$buildToolsVersion"), "d8").absolutePath
         val classFiles = classesDir.walkTopDown().filter { it.extension == "class" }.map { it.absolutePath }.toList()
         run(listOf(d8, "--release", "--min-api", "21", "--lib", File(File(sdkDir, "platforms/android-36"), "android.jar").absolutePath, "--output", dexDir.absolutePath) + classFiles)
@@ -101,9 +101,9 @@ val buildDeviceHelper by tasks.registering {
     }
 }
 
-android.sourceSets.getByName("main").assets.srcDir(helperAssetsDir)
+android.sourceSets.getByName("main").assets.srcDir(buildDeviceHelper.map { helperAssetsDir.get() })
 
-tasks.named("preBuild") {
+tasks.matching { it.name == "preBuild" }.configureEach {
     dependsOn(buildDeviceHelper)
 }
 
