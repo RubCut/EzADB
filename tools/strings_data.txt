@@ -70,7 +70,7 @@ ip_addresses|IP addresses|IP-адреса|IP-адреси|IP-Adressen|Direccione
 version|Version|Версия|Версія|Version|Versión|Version|版本
 size|Size|Размер|Розмір|Größe|Tamaño|Taille|大小
 name|Name|Имя|Ім’я|Name|Nombre|Nom|名称
-package|Package|Пакет|Пакет|Paket|Paquete|Paquet|包名
+package_name|Package|Пакет|Пакет|Paket|Paquete|Paquet|包名
 uid|UID|UID|UID|UID|UID|UID|UID
 date|Date|Дата|Дата|Datum|Fecha|Date|日期
 type|Type|Тип|Тип|Typ|Tipo|Type|类型

@@ -72,7 +72,7 @@
     <string name="version">Версия</string>
     <string name="size">Размер</string>
     <string name="name">Имя</string>
-    <string name="package">Пакет</string>
+    <string name="package_name">Пакет</string>
     <string name="uid">UID</string>
     <string name="date">Дата</string>
     <string name="type">Тип</string>

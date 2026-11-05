@@ -72,7 +72,7 @@
     <string name="version">Version</string>
     <string name="size">Size</string>
     <string name="name">Name</string>
-    <string name="package">Package</string>
+    <string name="package_name">Package</string>
     <string name="uid">UID</string>
     <string name="date">Date</string>
     <string name="type">Type</string>
