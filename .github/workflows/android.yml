@@ -69,3 +69,14 @@ jobs:
           name: EzADB-debug
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
+
+      - name: Publish debug prerelease
+        if: success() && github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view v1.0.0-debug >/dev/null 2>&1 || \
+            gh release create v1.0.0-debug --prerelease \
+              --title "EzADB 1.0.0 debug" \
+              --notes "Автоматическая debug-сборка EzADB. APK не подписан релизным ключом; устанавливайте только на свои устройства."
+          gh release upload v1.0.0-debug app/build/outputs/apk/debug/app-debug.apk --clobber

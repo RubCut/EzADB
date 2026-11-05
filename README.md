@@ -58,6 +58,15 @@ APK появится в `app/build/outputs/apk/debug/app-debug.apk`.
 
 GitHub Actions (`.github/workflows/android.yml`) автоматически запускает тесты ядра, собирает debug APK и загружает его как артефакт.
 
+## Скачать APK
+
+Автоматическая debug-сборка публикуется в GitHub Releases:
+
+- [`v1.0.0-debug`](https://github.com/RubCut/EzADB/releases/tag/v1.0.0-debug) — файл `app-debug.apk`.
+- Артефакт `EzADB-debug` также доступен в [GitHub Actions](https://github.com/RubCut/EzADB/actions).
+
+> Debug APK не подписан релизным ключом. Для распространения соберите release-версию своим ключом.
+
 ## Быстрый старт
 
 1. На **целевом** устройстве включите «Для разработчиков» → «Отладка по USB».
