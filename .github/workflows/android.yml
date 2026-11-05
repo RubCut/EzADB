@@ -44,6 +44,9 @@ jobs:
           set +e
           ./gradlew :app:assembleDebug --no-daemon --stacktrace > build.log 2>&1
           code=$?
+          if [ $code -eq 0 ]; then
+            python3 tools/verify_apk.py >> build.log 2>&1 || code=$?
+          fi
           tail -n 200 build.log
           exit $code
 
