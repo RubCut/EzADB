@@ -75,6 +75,7 @@ fun ProgressOverlay(
                             stringResource(
                                 when (current.phase) {
                                     ProgressPhase.PREPARING -> R.string.progress_preparing
+                                    ProgressPhase.WORKING -> R.string.progress_working
                                     ProgressPhase.TRANSFERRING -> R.string.progress_transferring
                                     ProgressPhase.FINISHING -> R.string.progress_finishing
                                 }

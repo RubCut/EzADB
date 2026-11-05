@@ -313,7 +313,6 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
     fun savePreview(target: Uri) {
         val preview = _state.value.imagePreview ?: return
         transferAction(str(R.string.save_to_device), preview.sizeBytes) { handle ->
-            if (_state.value.prefs.demoMode) simulateTransfer(preview.sizeBytes, handle)
             val output = getApplication<EzAdbApp>().contentResolver.openOutputStream(target)
                 ?: throw IOException(str(R.string.file_write_open_failed))
             output.use { stream ->
@@ -739,7 +738,12 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun action(label: String, block: suspend () -> Unit): Job {
         val job = viewModelScope.launch {
-            _state.update { it.copy(busy = true, progress = OperationProgress(label = label)) }
+            _state.update { it.copy(busy = true) }
+            // Quick actions must not flash a card: only show it when the device is slow.
+            val reveal = launch {
+                delay(450)
+                _state.update { it.copy(progress = OperationProgress(label = label, phase = ProgressPhase.WORKING)) }
+            }
             try {
                 block()
             } catch (cancelled: CancellationException) {
@@ -747,6 +751,7 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
             } catch (error: Throwable) {
                 showMessage(str(R.string.action_error, label, err(error)))
             } finally {
+                reveal.cancel()
                 _state.update { it.copy(busy = false, progress = null) }
             }
         }

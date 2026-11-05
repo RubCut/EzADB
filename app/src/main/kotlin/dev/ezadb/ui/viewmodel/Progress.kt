@@ -2,7 +2,7 @@ package dev.ezadb.ui.viewmodel
 
 import android.graphics.Bitmap
 
-enum class ProgressPhase { PREPARING, TRANSFERRING, FINISHING }
+enum class ProgressPhase { PREPARING, WORKING, TRANSFERRING, FINISHING }
 
 /** Live state of a long running operation (install, push, pull, screenshot). */
 data class OperationProgress(
