@@ -1,3 +1,6 @@
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -33,9 +36,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
-    kotlinOptions {
-        jvmTarget = "21"
-    }
 
     buildFeatures {
         compose = true
@@ -50,6 +50,12 @@ android {
             "META-INF/NOTICE*",
             "META-INF/*.kotlin_module"
         )
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
     }
 }
 
@@ -92,8 +98,8 @@ val buildDeviceHelper by tasks.registering {
         run(listOf(d8, "--release", "--min-api", "21", "--lib", File(File(sdkDir, "platforms/android-36"), "android.jar").absolutePath, "--output", dexDir.absolutePath) + classFiles)
 
         val jar = File(assetsDir, "ezadb-helper.jar")
-        java.util.zip.ZipOutputStream(jar.outputStream()).use { zip ->
-            zip.putNextEntry(java.util.zip.ZipEntry("classes.dex"))
+        ZipOutputStream(jar.outputStream()).use { zip ->
+            zip.putNextEntry(ZipEntry("classes.dex"))
             File(dexDir, "classes.dex").inputStream().use { it.copyTo(zip) }
             zip.closeEntry()
         }
