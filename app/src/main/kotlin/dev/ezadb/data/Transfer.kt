@@ -47,7 +47,7 @@ fun Source.counted(handle: TransferHandle?): Source {
     }
 }
 
-fun Sink.counted(handle: TransferHandle?): Sink {
+fun Sink.countedSink(handle: TransferHandle?): Sink {
     if (handle == null) return this
     return object : ForwardingSink(this) {
         override fun write(source: Buffer, byteCount: Long) {
@@ -59,4 +59,4 @@ fun Sink.counted(handle: TransferHandle?): Sink {
 }
 
 /** Buffers a counted sink; flush is forwarded so progress stays accurate. */
-fun Sink.countedBuffered(handle: TransferHandle?) = counted(handle).buffer()
+fun Sink.countedBuffered(handle: TransferHandle?) = countedSink(handle).buffer()

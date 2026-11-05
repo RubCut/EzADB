@@ -258,7 +258,7 @@ class DeviceRepository(
         }
         return connection.use(retryable = true) { kadb ->
             val buffer = Buffer()
-            kadb.pull(buffer.counted(handle), path)
+            kadb.pull(buffer.countedSink(handle), path)
             handle?.finish()
             buffer.readByteArray()
         }
@@ -281,7 +281,7 @@ class DeviceRepository(
         val output = context.contentResolver.openOutputStream(target)
             ?: throw IOException(context.getString(R.string.file_write_open_failed))
         output.sink().buffer().use { sink ->
-            kadb.pull(sink.counted(handle), remotePath)
+            kadb.pull(sink.countedSink(handle), remotePath)
             handle?.finish()
         }
     }
@@ -352,7 +352,7 @@ class DeviceRepository(
             execChecked("screencap", "-p", remote)
             return connection.use(retryable = true) { kadb ->
                 val buffer = Buffer()
-                kadb.pull(buffer.counted(handle), remote)
+                kadb.pull(buffer.countedSink(handle), remote)
                 handle?.finish()
                 buffer.readByteArray()
             }
@@ -367,6 +367,8 @@ class DeviceRepository(
         execChecked("input", "keyevent", if (on) "KEYCODE_WAKEUP" else "KEYCODE_SLEEP")
 
     suspend fun setNightMode(on: Boolean): String = execChecked("cmd", "uimode", "night", if (on) "yes" else "no")
+
+    suspend fun nightModeOutput(): String = read("cmd uimode night").allOutput
     suspend fun nightMode(): Boolean? {
         val output = nightModeOutput().lowercase()
         return when {
