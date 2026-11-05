@@ -155,7 +155,7 @@ fun EzApp(vm: EzViewModel) {
                                 composable("files") { FilesScreen(vm, state) }
                                 composable("settings") { SettingsScreen(vm, state) }
                             }
-                            AnimatedVisibility(
+                            androidx.compose.animation.AnimatedVisibility(
                                 visible = state.busy,
                                 modifier = Modifier.align(Alignment.TopCenter),
                                 enter = fadeIn(EzMotionSpecs.fade()) + expandVertically(EzMotionSpecs.fastSpatial()),

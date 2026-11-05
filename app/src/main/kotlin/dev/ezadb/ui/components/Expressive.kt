@@ -4,8 +4,9 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateColorAsState
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
@@ -62,7 +63,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.StrokeCap
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -244,8 +247,8 @@ fun <T> SegmentedButtonRow(
             val content by animateColorAsState(if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant, EzMotion.fastEffects(), label = "segContent")
             val shape = when {
                 items.size == 1 -> CircleShape
-                index == 0 -> RoundedCornerShape(topStart = 50, bottomStart = 50)
-                index == items.lastIndex -> RoundedCornerShape(topEnd = 50, bottomEnd = 50)
+                index == 0 -> RoundedCornerShape(topStart = 50.dp, bottomStart = 50.dp)
+                index == items.lastIndex -> RoundedCornerShape(topEnd = 50.dp, bottomEnd = 50.dp)
                 else -> RectangleShape
             }
             Surface(
