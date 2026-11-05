@@ -90,7 +90,7 @@ class TerminalSession(
         val buffer = Buffer()
         try {
             while (scope.isActive) {
-                val read = stream.source.read(buffer, 8192)
+                val read = stream.source.read(buffer, 8192L)
                 if (read == -1L) break
                 emit(buffer.readString(), TerminalKind.STDOUT)
             }

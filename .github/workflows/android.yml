@@ -51,7 +51,7 @@ jobs:
             echo
             echo '### Compiler / task errors'
             echo '```'
-            grep -E '^e:|^w:|error:|FAILED|Unresolved reference|Type mismatch|Cannot access|None of the following' build.log | head -n 160 || true
+            grep -E -A4 '^e:|error:|FAILED|Unresolved reference|Type mismatch|Cannot access|None of the following' build.log | head -n 220 || true
             echo '```'
             echo
             echo '### Log tail'
