@@ -187,13 +187,53 @@ fun testCollections() {
 
 fun testFormatters() {
     expectEquals("—", Formatters.bytes(null))
-    expectEquals("512 Б", Formatters.bytes(512))
-    expectContains(Formatters.bytes(1536), "КиБ")
-    expectContains(Formatters.bytes(5 * 1024 * 1024), "МиБ")
-    expectEquals("2д 3ч", Formatters.duration(2 * 86400 + 3 * 3600))
-    expectEquals("5м", Formatters.duration(300))
+    expectEquals("512 B", Formatters.bytes(512))
+    expectContains(Formatters.bytes(1536), "KB")
+    expectContains(Formatters.bytes(5 * 1024 * 1024), "MB")
+    expectEquals("2d 3h", Formatters.duration(2 * 86400 + 3 * 3600))
+    expectEquals("5m", Formatters.duration(300))
     expectEquals("87%", Formatters.battery(87))
     expectEquals("—", Formatters.battery(null))
+}
+
+fun testBatchShell() {
+    val commands = listOf("getprop", "dumpsys battery", "wm size")
+    val script = BatchShell.build(commands)
+    expectContains(script, BatchShell.marker(0))
+    expectContains(script, BatchShell.marker(2))
+    val output = """
+        ${BatchShell.marker(0)}
+        [ro.product.model]: [Pixel]
+        ${BatchShell.marker(1)}
+        level: 55
+        ${BatchShell.marker(2)}
+        Physical size: 1080x2400
+    """.trimIndent()
+    val parts = BatchShell.split(output, 3)
+    expectEquals(3, parts.size)
+    expectContains(parts[0], "ro.product.model")
+    expectContains(parts[1], "level: 55")
+    val size = Parsers.wmSize(parts[2])
+    expectEquals(1080, size?.first)
+    expectEquals(2400, size?.second)
+    expectEquals("", BatchShell.split("", 3)[1])
+}
+
+fun testHelperApps() {
+    val output = """
+        #ezadb-helper-v1
+        com.android.settings	Settings	15	35	1	1	18000000	/system/app/Settings.apk	1000
+        org.example.app	My App	1.2.3	123	0	0	5000	/data/app/base.apk	10123
+        broken line without tabs
+    """.trimIndent()
+    val apps = Parsers.helperApps(output)
+    expectEquals(2, apps.size)
+    expectEquals("Settings", apps[0].label)
+    expectEquals(true, apps[0].system)
+    expectEquals("My App", apps[1].label)
+    expectEquals(false, apps[1].enabled)
+    expectEquals(10123, apps[1].uid)
+    expectEquals(123L, apps[1].versionCode)
 }
 
 private val allTests: List<Pair<String, () -> Unit>> = listOf(
@@ -209,6 +249,8 @@ private val allTests: List<Pair<String, () -> Unit>> = listOf(
     "TerminalHistory" to ::testTerminalHistory,
     "Collections" to ::testCollections,
     "Formatters" to ::testFormatters,
+    "BatchShell" to ::testBatchShell,
+    "Parsers.helperApps" to ::testHelperApps,
 )
 
 fun runAllTests(): Int {

@@ -39,6 +39,35 @@ object Parsers {
         return apps.values.toList()
     }
 
+    /**
+     * Parses the tab separated output of the on-device helper:
+     * package, label, versionName, versionCode, system, enabled, size, apkPath, uid.
+     */
+    fun helperApps(output: String): List<AppInfo> {
+        val apps = linkedMapOf<String, AppInfo>()
+        output.lineSequence().forEach { raw ->
+            val line = raw.trimEnd('\n', '\r')
+            if (line.isBlank() || line.startsWith("#")) return@forEach
+            val fields = line.split('\t')
+            if (fields.size < 4) return@forEach
+            val pkg = fields[0].trim()
+            if (pkg.isEmpty() || !pkg.contains('.')) return@forEach
+            val label = fields[1].trim()
+            apps[pkg] = AppInfo(
+                packageName = pkg,
+                label = label.ifBlank { pkg },
+                versionName = fields[2].trim().ifBlank { null },
+                versionCode = fields[3].trim().toLongOrNull(),
+                system = fields.getOrNull(4)?.trim() == "1",
+                enabled = fields.getOrNull(5)?.trim() != "0",
+                sizeBytes = fields.getOrNull(6)?.trim()?.toLongOrNull()?.takeIf { it > 0 },
+                apkPath = fields.getOrNull(7)?.trim()?.ifBlank { null },
+                uid = fields.getOrNull(8)?.trim()?.toIntOrNull(),
+            )
+        }
+        return apps.values.toList()
+    }
+
     fun packageNames(output: String): Set<String> =
         output.lineSequence()
             .map { it.trim() }

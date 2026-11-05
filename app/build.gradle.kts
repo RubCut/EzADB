@@ -12,8 +12,8 @@ android {
         applicationId = "dev.ezadb"
         minSdk = 26
         targetSdk = 36
-        versionCode = 2
-        versionName = "1.1.0"
+        versionCode = 3
+        versionName = "1.2.0"
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -52,6 +52,61 @@ android {
         )
     }
 }
+
+// ---------------------------------------------------------------------------
+// On-device helper: a tiny reflection-only Java agent, dexed and packaged as an
+// asset. It is pushed to the device and run with app_process to fetch real app
+// labels and icons in a single round trip. Compiles with a plain JDK, no
+// android.jar needed, because every Android API is reached through reflection.
+// ---------------------------------------------------------------------------
+val helperSources = rootProject.file("tools/helper")
+val helperClassesDir = layout.buildDirectory.dir("deviceHelper/classes")
+val helperDexDir = layout.buildDirectory.dir("deviceHelper/dex")
+val helperAssetsDir = layout.buildDirectory.dir("generated/helperAssets")
+val sdkDir: File = android.sdkDirectory
+val buildToolsVersion = "36.0.0"
+
+val buildDeviceHelper by tasks.registering {
+    inputs.dir(helperSources)
+    outputs.dir(helperAssetsDir)
+    doLast {
+        val classesDir = helperClassesDir.get().asFile.apply { deleteRecursively(); mkdirs() }
+        val dexDir = helperDexDir.get().asFile.apply { deleteRecursively(); mkdirs() }
+        val assetsDir = helperAssetsDir.get().asFile.apply { mkdirs() }
+        val sources = helperSources.walkTopDown().filter { it.extension == "java" }.map { it.absolutePath }.toList()
+        if (sources.isEmpty()) throw GradleException("No helper sources in $helperSources")
+
+        fun run(command: List<String>) {
+            val process = ProcessBuilder(command).redirectErrorStream(true).start()
+            val log = process.inputStream.bufferedReader().readText()
+            val code = process.waitFor()
+            if (code != 0) throw GradleException("Helper build failed ($code): ${command.joinToString(" ")}\n$log")
+            if (log.isNotBlank()) logger.lifecycle(log.trim())
+        }
+
+        val javac = File(File(System.getProperty("java.home"), "bin"), "javac").absolutePath
+        run(listOf(javac, "--release", "8", "-nowarn", "-d", classesDir.absolutePath) + sources)
+
+        val d8 = File(File(sdkDir, "build-tools/$buildToolsVersion"), "d8").absolutePath
+        val classFiles = classesDir.walkTopDown().filter { it.extension == "class" }.map { it.absolutePath }.toList()
+        run(listOf(d8, "--release", "--min-api", "21", "--lib", File(File(sdkDir, "platforms/android-36"), "android.jar").absolutePath, "--output", dexDir.absolutePath) + classFiles)
+
+        val jar = File(assetsDir, "ezadb-helper.jar")
+        java.util.zip.ZipOutputStream(jar.outputStream()).use { zip ->
+            zip.putNextEntry(java.util.zip.ZipEntry("classes.dex"))
+            File(dexDir, "classes.dex").inputStream().use { it.copyTo(zip) }
+            zip.closeEntry()
+        }
+        logger.lifecycle("Device helper packaged: ${jar.length()} bytes")
+    }
+}
+
+android.sourceSets.getByName("main").assets.srcDir(helperAssetsDir)
+
+tasks.named("preBuild") {
+    dependsOn(buildDeviceHelper)
+}
+
 
 dependencies {
     implementation(project(":core"))

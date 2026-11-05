@@ -96,7 +96,16 @@ fun AppsScreen(vm: EzViewModel, state: EzUiState) {
         return
     }
 
-    val apps = Collections.filterApps(state.apps, state.appQuery, state.appFilter, state.appSort)
+    val apps = remember(state.apps, state.appQuery, state.appFilter, state.appSort) {
+        Collections.filterApps(state.apps, state.appQuery, state.appFilter, state.appSort)
+    }
+    val listState = androidx.compose.foundation.lazy.rememberLazyListState()
+    LaunchedEffect(listState, apps) {
+        androidx.compose.runtime.snapshotFlow { listState.firstVisibleItemIndex }.collect { index ->
+            vm.prefetchIcons(apps.drop(index).take(24).map { it.packageName })
+        }
+    }
+    val namesKnown = remember(state.apps) { state.apps.any { it.label != it.packageName } }
 
     fun requestConfirm(title: String, text: String, danger: Boolean = false, action: () -> Unit) {
         if (state.prefs.confirmDestructive || danger) confirm = ConfirmSpec(title, text, danger, action)
@@ -128,12 +137,21 @@ fun AppsScreen(vm: EzViewModel, state: EzUiState) {
                 }
             }
             if (state.appsLoading) ExpressiveWaveProgress(Modifier.fillMaxWidth().height(4.dp).padding(vertical = 4.dp))
+            if (state.apps.isNotEmpty() && !namesKnown) {
+                Text(
+                    stringResource(if (state.appsLoading) R.string.app_names_loading else R.string.app_names_fallback),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(vertical = 4.dp),
+                )
+            }
             Text(stringResource(R.string.apps_count, apps.size), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(vertical = 6.dp))
-            LazyColumn(Modifier.weight(1f)) {
+            LazyColumn(Modifier.weight(1f), state = listState) {
                 items(apps, key = { it.packageName }) { app ->
                     Box(Modifier.animateItem()) {
                         AppRow(
                             app = app,
+                            icon = state.appIcons[app.packageName],
                             onClick = { vm.selectApp(app); vm.loadAppDetails(app.packageName); showDetail = true },
                             onMore = { vm.selectApp(app); vm.loadAppDetails(app.packageName); showDetail = true },
                         )

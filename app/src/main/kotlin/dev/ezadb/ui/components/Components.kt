@@ -66,6 +66,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -275,7 +276,7 @@ fun QuickToggleCard(state: QuickToggleState, onToggle: (Boolean) -> Unit, modifi
 }
 
 @Composable
-fun AppRow(app: AppInfo, onClick: () -> Unit, onMore: () -> Unit) {
+fun AppRow(app: AppInfo, onClick: () -> Unit, onMore: () -> Unit, icon: android.graphics.Bitmap? = null) {
     ListItem(
         modifier = Modifier.clickable(onClick = onClick),
         headlineContent = { Text(app.label, maxLines = 1, overflow = TextOverflow.Ellipsis, fontWeight = FontWeight.Medium) },
@@ -296,7 +297,16 @@ fun AppRow(app: AppInfo, onClick: () -> Unit, onMore: () -> Unit) {
                 Modifier.size(42.dp).clip(RoundedCornerShape(14.dp)).background(if (app.system) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.primaryContainer),
                 contentAlignment = Alignment.Center,
             ) {
-                Icon(if (app.system) Icons.Filled.Android else Icons.Filled.Apps, null, tint = if (app.system) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onPrimaryContainer)
+                if (icon != null) {
+                    androidx.compose.foundation.Image(
+                        bitmap = icon.asImageBitmap(),
+                        contentDescription = null,
+                        modifier = Modifier.size(38.dp).clip(RoundedCornerShape(11.dp)),
+                        contentScale = androidx.compose.ui.layout.ContentScale.Fit,
+                    )
+                } else {
+                    Icon(if (app.system) Icons.Filled.Android else Icons.Filled.Apps, null, tint = if (app.system) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onPrimaryContainer)
+                }
             }
         },
         trailingContent = {

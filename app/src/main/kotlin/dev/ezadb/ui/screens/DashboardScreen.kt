@@ -56,9 +56,6 @@ import dev.ezadb.ui.viewmodel.EzViewModel
 fun DashboardScreen(vm: EzViewModel, state: EzUiState, onConnect: () -> Unit) {
     var showReboot by remember { mutableStateOf(false) }
     var confirmRebootMode by remember { mutableStateOf<String?>(null) }
-    val screenshotLauncher = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("image/png")) { uri ->
-        if (uri != null) vm.screenshot(uri)
-    }
 
     LaunchedEffect(state.connected, state.demo) {
         if (state.connected) {
@@ -81,7 +78,7 @@ fun DashboardScreen(vm: EzViewModel, state: EzUiState, onConnect: () -> Unit) {
         DeviceHero(state.device, state.connection, state.demo, onRefresh = { vm.refreshDevice(); vm.refreshToggles() }, onDisconnect = { vm.disconnect() })
 
         Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            ExpressiveToggleChip(selected = false, onClick = { screenshotLauncher.launch("ezadb-screen.png") }, label = stringResource(R.string.screenshot), icon = Icons.Filled.Screenshot)
+            ExpressiveToggleChip(selected = false, onClick = { vm.captureScreenshot() }, label = stringResource(R.string.screenshot), icon = Icons.Filled.Screenshot)
             ExpressiveToggleChip(selected = false, onClick = { vm.enableWifiAdb() }, label = stringResource(R.string.action_wifi_adb), icon = Icons.Filled.Wifi)
             ExpressiveToggleChip(selected = false, onClick = { vm.setScreen(true) }, label = stringResource(R.string.wake), icon = Icons.Filled.PowerSettingsNew)
             ExpressiveToggleChip(selected = false, onClick = { showReboot = true }, label = stringResource(R.string.reboot), icon = Icons.Filled.RestartAlt)

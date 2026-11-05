@@ -28,6 +28,8 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.DriveFileRenameOutline
 import androidx.compose.material.icons.filled.Folder
+import androidx.compose.material.icons.filled.Image
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Save
@@ -164,6 +166,15 @@ fun FilesScreen(vm: EzViewModel, state: EzUiState) {
                 Text(file.name, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
                 Text(file.path, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(Modifier.height(8.dp))
+                if (!file.isDirectory) {
+                    ExpressiveButton(
+                        onClick = { actionFile = null; vm.openFile(file) },
+                        text = stringResource(if (dev.ezadb.core.PathUtils.isImageFile(file.path)) R.string.preview else R.string.edit),
+                        variant = ExpressiveButtonVariant.Filled,
+                        icon = if (dev.ezadb.core.PathUtils.isImageFile(file.path)) Icons.Filled.Image else Icons.Filled.Edit,
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
                 ExpressiveButton(onClick = { actionFile = null; downloadTarget = file; downloadLauncher.launch(file.name) }, text = stringResource(R.string.download), variant = ExpressiveButtonVariant.Tonal, icon = Icons.Filled.Download, enabled = !file.isDirectory, modifier = Modifier.fillMaxWidth())
                 ExpressiveButton(onClick = { actionFile = null; renameTarget = file }, text = stringResource(R.string.rename), variant = ExpressiveButtonVariant.Tonal, icon = Icons.Filled.DriveFileRenameOutline, modifier = Modifier.fillMaxWidth())
                 ExpressiveButton(onClick = { actionFile = null; chmodTarget = file }, text = stringResource(R.string.permissions), variant = ExpressiveButtonVariant.Tonal, icon = Icons.Filled.Lock, modifier = Modifier.fillMaxWidth())

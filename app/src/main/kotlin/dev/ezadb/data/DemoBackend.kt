@@ -55,7 +55,8 @@ class DemoBackend(private val context: Context) {
         file("/sdcard/Download/script.sh", "#!/system/bin/sh\necho \"Hello from EzADB\"\ngetprop ro.product.model\n")
         file("/system/build.prop", "ro.product.model=Pixel 8\nro.build.version.release=15\nro.build.version.sdk=35\nro.product.manufacturer=Google\n")
         file("/data/local/tmp/readme.txt", context.getString(R.string.demo_tmp_file))
-        nodes["/sdcard/DCIM/photo.jpg"] = Node("photo.jpg", "/sdcard/DCIM/photo.jpg", false, ByteArray(2048) { it.toByte() })
+        nodes["/sdcard/DCIM/photo.jpg"] = Node("photo.jpg", "/sdcard/DCIM/photo.jpg", false, ByteArray(184_320))
+        nodes["/sdcard/DCIM/screenshot.png"] = Node("screenshot.png", "/sdcard/DCIM/screenshot.png", false, ByteArray(421_888))
 
         apps.addAll(listOf(
             AppInfo("com.android.settings", context.getString(R.string.demo_settings), "/system/priv-app/Settings/Settings.apk", 1000, "15", 35, true, true, 18_000_000),
@@ -117,6 +118,16 @@ class DemoBackend(private val context: Context) {
 
     fun apps(): List<AppInfo> = apps.toList()
 
+    fun appIcon(packageName: String): ByteArray {
+        val label = apps.firstOrNull { it.packageName == packageName }?.label ?: packageName
+        return DemoImages.icon(label)
+    }
+
+    private val demoPhoto: ByteArray by lazy { DemoImages.photo() }
+    private val demoScreenshot: ByteArray by lazy { DemoImages.screenshot() }
+
+    fun screenshotPng(): ByteArray = demoScreenshot
+
     fun setAppEnabled(packageName: String, enabled: Boolean): String {
         val index = apps.indexOfFirst { it.packageName == packageName }
         if (index >= 0) apps[index] = apps[index].copy(enabled = enabled)
@@ -138,7 +149,15 @@ class DemoBackend(private val context: Context) {
 
     fun stat(path: String): RemoteFile = nodes[PathUtils.normalize(path)]?.toRemote() ?: throw NoSuchElementException(context.getString(R.string.demo_no_file, path))
 
-    fun readFile(path: String): ByteArray = nodes[PathUtils.normalize(path)]?.content ?: throw NoSuchElementException(context.getString(R.string.demo_no_file, path))
+    fun readFile(path: String): ByteArray {
+        val normalized = PathUtils.normalize(path)
+        val node = nodes[normalized] ?: throw NoSuchElementException(context.getString(R.string.demo_no_file, path))
+        return when (normalized) {
+            "/sdcard/DCIM/photo.jpg" -> demoPhoto
+            "/sdcard/DCIM/screenshot.png" -> demoScreenshot
+            else -> node.content
+        }
+    }
 
     fun writeFile(path: String, bytes: ByteArray) {
         val normalized = PathUtils.normalize(path)

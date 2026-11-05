@@ -42,6 +42,19 @@ object PathUtils {
         ) || basename(path).startsWith(".")
     }
 
+    fun isImageFile(path: String): Boolean =
+        extension(path).lowercase() in setOf("png", "jpg", "jpeg", "webp", "gif", "bmp", "heic", "heif", "avif")
+
+    fun imageMime(path: String): String = when (extension(path).lowercase()) {
+        "jpg", "jpeg" -> "image/jpeg"
+        "webp" -> "image/webp"
+        "gif" -> "image/gif"
+        "bmp" -> "image/bmp"
+        "heic", "heif" -> "image/heif"
+        "avif" -> "image/avif"
+        else -> "image/png"
+    }
+
     fun sanitizeLocalName(name: String): String =
         name.replace(Regex("""[\\/:*?"<>|\u0000-\u001F]"""), "_").ifBlank { "file" }.take(180)
 

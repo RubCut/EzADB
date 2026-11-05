@@ -1,6 +1,8 @@
 package dev.ezadb.ui.viewmodel
 
 import android.app.Application
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.hardware.usb.UsbDevice
 import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
@@ -23,12 +25,20 @@ import dev.ezadb.core.SettingNamespace
 import dev.ezadb.core.TerminalKind
 import dev.ezadb.core.TerminalLine
 import dev.ezadb.R
+import dev.ezadb.data.AdbErrors
 import dev.ezadb.data.AppLanguage
 import dev.ezadb.data.AppPreferences
 import dev.ezadb.data.DemoBackend
 import dev.ezadb.data.TerminalSession
+import dev.ezadb.data.TransferHandle
 import dev.ezadb.data.UsbHelper
 import dev.ezadb.util.SafUtils
+import dev.ezadb.util.ShareUtils
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.delay
+import java.io.File
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -45,6 +55,9 @@ data class EzUiState(
     val connection: ConnectionState = ConnectionState.Disconnected,
     val device: DeviceInfo? = null,
     val busy: Boolean = false,
+    val progress: OperationProgress? = null,
+    val imagePreview: ImagePreview? = null,
+    val appIcons: Map<String, Bitmap> = emptyMap(),
     val message: String? = null,
     val discovered: List<DiscoveredEndpoint> = emptyList(),
     val apps: List<AppInfo> = emptyList(),
@@ -78,6 +91,10 @@ data class EzUiState(
 }
 
 class EzViewModel(application: Application) : AndroidViewModel(application) {
+    private companion object {
+        const val MAX_IMAGE_BYTES = 32L * 1024 * 1024
+    }
+
     private val app = application as EzAdbApp
     private val repo = app.deviceRepository
     private val connection = app.connection
@@ -96,6 +113,8 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
     private val history = dev.ezadb.core.TerminalHistory()
     private var demoInitialized = false
     private var lastLanguage: AppLanguage? = null
+    private var currentAction: Job? = null
+    private val iconRequests = java.util.Collections.synchronizedSet(mutableSetOf<String>())
 
     init {
         viewModelScope.launch {
@@ -120,6 +139,7 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
                 if (_state.value.prefs.demoMode) return@collect
                 _state.update { it.copy(connection = conn, device = (conn as? ConnectionState.Connected)?.device ?: it.device) }
                 if (conn is ConnectionState.Connected) {
+                    repo.onConnectionChanged()
                     refreshDevice()
                     refreshToggles()
                 }
@@ -238,7 +258,7 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
         }
         runCatching { repo.deviceInfo() }
             .onSuccess { info -> _state.update { it.copy(device = info, connection = ConnectionState.Connected(info)) } }
-            .onFailure { error -> showMessage(str(R.string.device_info_error, error.message)) }
+            .onFailure { error -> showMessage(str(R.string.device_info_error, err(error))) }
     }
 
     fun refreshToggles() = viewModelScope.launch {
@@ -247,7 +267,7 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
             if (_state.value.prefs.demoMode) demo.toggles() else quickToggles.readAll()
         }
         _state.update { it.copy(toggles = result.getOrElse { emptyList() }, togglesLoading = false) }
-        result.exceptionOrNull()?.let { showMessage(str(R.string.toggles_error, it.message)) }
+        result.exceptionOrNull()?.let { showMessage(str(R.string.toggles_error, err(it))) }
     }
 
     fun setToggle(id: String, enabled: Boolean) = action(str(R.string.action_toggle)) {
@@ -255,8 +275,8 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
         runCatching {
             if (_state.value.prefs.demoMode) demo.setToggle(id, enabled) else quickToggles.set(id, enabled)
         }.onFailure { error ->
-            _state.update { state -> state.copy(toggles = state.toggles.map { if (it.id == id) it.copy(busy = false, error = error.message) else it }) }
-            showMessage(str(R.string.toggle_error, error.message))
+            _state.update { state -> state.copy(toggles = state.toggles.map { if (it.id == id) it.copy(busy = false, error = err(error)) else it }) }
+            showMessage(str(R.string.toggle_error, err(error)))
             return@action
         }
         refreshToggles()
@@ -278,20 +298,105 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
         showMessage(output.ifBlank { str(R.string.wifi_adb_enabled) })
     }
 
-    fun screenshot(target: Uri) = action(str(R.string.action_screenshot)) {
-        if (_state.value.prefs.demoMode) {
-            getApplication<EzAdbApp>().contentResolver.openOutputStream(target)?.use { it.write(ByteArray(1024)) }
-            showMessage(str(R.string.demo_screenshot_saved))
-            return@action
+    fun captureScreenshot() = transferAction(str(R.string.action_screenshot), null) { handle ->
+        val bytes = if (_state.value.prefs.demoMode) {
+            val png = withContext(Dispatchers.Default) { demo.screenshotPng() }
+            simulateTransfer(png.size.toLong(), handle)
+            png
+        } else {
+            repo.screenshotBytes(handle)
         }
-        val remote = "/data/local/tmp/ezadb-screen-${System.currentTimeMillis()}.png"
-        try {
-            repo.screenshot(remote)
-            repo.pullToUri(remote, target)
-            showMessage(str(R.string.screenshot_saved))
-        } finally {
-            runCatching { repo.delete(remote, recursive = false) }
+        showImage(bytes, "image/png", "ezadb-screen-${System.currentTimeMillis()}.png")
+        showMessage(str(R.string.screenshot_captured))
+    }
+
+    fun savePreview(target: Uri) {
+        val preview = _state.value.imagePreview ?: return
+        transferAction(str(R.string.save_to_device), preview.sizeBytes) { handle ->
+            if (_state.value.prefs.demoMode) simulateTransfer(preview.sizeBytes, handle)
+            val output = getApplication<EzAdbApp>().contentResolver.openOutputStream(target)
+                ?: throw IOException(str(R.string.file_write_open_failed))
+            output.use { stream ->
+                var written = 0
+                while (written < preview.bytes.size) {
+                    val chunk = minOf(64 * 1024, preview.bytes.size - written)
+                    stream.write(preview.bytes, written, chunk)
+                    written += chunk
+                    handle.advance(chunk.toLong())
+                }
+                stream.flush()
+            }
+            handle.finish()
+            showMessage(str(R.string.file_saved))
         }
+    }
+
+    fun sharePreview() {
+        val preview = _state.value.imagePreview ?: return
+        runCatching {
+            val dir = File(getApplication<EzAdbApp>().cacheDir, "shared").apply { mkdirs() }
+            val file = File(dir, preview.name)
+            file.writeBytes(preview.bytes)
+            ShareUtils.shareFile(getApplication(), file, preview.mime)
+        }.onFailure { showMessage(str(R.string.action_error, str(R.string.share), err(it))) }
+    }
+
+    fun closePreview() {
+        _state.update { it.copy(imagePreview = null) }
+    }
+
+    fun openImage(file: RemoteFile) = transferAction(str(R.string.loading_image), file.sizeBytes) { handle ->
+        if (file.sizeBytes > MAX_IMAGE_BYTES) {
+            throw IOException(str(R.string.image_too_large, dev.ezadb.core.Formatters.bytes(file.sizeBytes)))
+        }
+        val bytes = if (_state.value.prefs.demoMode) {
+            val data = demo.readFile(file.path)
+            simulateTransfer(data.size.toLong(), handle)
+            data
+        } else repo.readFile(file.path, MAX_IMAGE_BYTES, handle)
+        showImage(bytes, PathUtils.imageMime(file.path), file.name)
+    }
+
+    /** Loads a screenful of launcher icons in one device round trip. */
+    fun prefetchIcons(packages: List<String>) {
+        if (packages.isEmpty()) return
+        viewModelScope.launch {
+            val missing = withContext(Dispatchers.Default) {
+                val known = _state.value.appIcons
+                packages.distinct().filter { it !in known && iconRequests.add(it) }
+            }
+            if (missing.isEmpty()) return@launch
+            val loaded = withContext(Dispatchers.Default) {
+                val result = LinkedHashMap<String, Bitmap>()
+                if (_state.value.prefs.demoMode) {
+                    missing.forEach { pkg ->
+                        runCatching { demo.appIcon(pkg) }.getOrNull()?.let { bytes ->
+                            BitmapFactory.decodeByteArray(bytes, 0, bytes.size)?.let { result[pkg] = it }
+                        }
+                    }
+                } else {
+                    runCatching { repo.appIcons(missing) }.getOrDefault(emptyMap()).forEach { (pkg, bytes) ->
+                        BitmapFactory.decodeByteArray(bytes, 0, bytes.size)?.let { result[pkg] = it }
+                    }
+                }
+                result
+            }
+            iconRequests.removeAll(missing.toSet())
+            if (loaded.isNotEmpty()) _state.update { it.copy(appIcons = it.appIcons + loaded) }
+        }
+    }
+
+    suspend fun loadAppIcon(packageName: String): Bitmap? = runCatching {
+        withContext(Dispatchers.Default) {
+            val bytes = if (_state.value.prefs.demoMode) demo.appIcon(packageName) else repo.appIcon(packageName)
+            bytes?.let { BitmapFactory.decodeByteArray(it, 0, it.size) }
+        }
+    }.getOrNull()
+
+    private suspend fun showImage(bytes: ByteArray, mime: String, name: String) {
+        val bitmap = withContext(Dispatchers.Default) { BitmapFactory.decodeByteArray(bytes, 0, bytes.size) }
+            ?: throw IOException(str(R.string.image_load_failed))
+        _state.update { it.copy(imagePreview = ImagePreview(name, bitmap, bytes, mime)) }
     }
     // endregion
 
@@ -300,7 +405,7 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
         _state.update { it.copy(appsLoading = true) }
         runCatching { if (_state.value.prefs.demoMode) demo.apps() else repo.listApps() }
             .onSuccess { apps -> _state.update { it.copy(apps = apps, appsLoading = false) } }
-            .onFailure { error -> _state.update { it.copy(appsLoading = false) }; showMessage(str(R.string.apps_error, error.message)) }
+            .onFailure { error -> _state.update { it.copy(appsLoading = false) }; showMessage(str(R.string.apps_error, err(error))) }
     }
 
     fun setAppQuery(query: String) = _state.update { it.copy(appQuery = query) }
@@ -351,17 +456,31 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
         if (_state.value.prefs.demoMode) showMessage(str(R.string.demo_app_settings, packageName)) else repo.openAppSettings(packageName)
     }
 
-    fun installApk(uri: Uri) = action(str(R.string.action_install_apk)) {
-        if (_state.value.prefs.demoMode) showMessage(str(R.string.demo_apk_installed)) else repo.installApk(uri)
-        showMessage(str(R.string.apk_installed))
-        refreshApps()
+    fun installApk(uri: Uri) {
+        val size = SafUtils.size(getApplication(), uri).takeIf { it > 0 }
+        transferAction(str(R.string.action_install_apk), size) { handle ->
+            if (_state.value.prefs.demoMode) {
+                simulateTransfer(size ?: (24L * 1024 * 1024), handle)
+                showMessage(str(R.string.demo_apk_installed))
+            } else {
+                repo.installApk(uri, handle)
+            }
+            showMessage(str(R.string.apk_installed))
+            refreshApps()
+        }
     }
 
-    fun extractApk(packageName: String, target: Uri) = action(str(R.string.action_extract_apk)) {
-        if (_state.value.prefs.demoMode) {
-            getApplication<EzAdbApp>().contentResolver.openOutputStream(target)?.use { it.write("demo apk".toByteArray()) }
-        } else repo.extractApk(packageName, target)
-        showMessage(str(R.string.apk_saved))
+    fun extractApk(packageName: String, target: Uri) {
+        val size = _state.value.apps.firstOrNull { it.packageName == packageName }?.sizeBytes
+            ?: _state.value.selectedApp?.sizeBytes
+        transferAction(str(R.string.action_extract_apk), size) { handle ->
+            if (_state.value.prefs.demoMode) {
+                val payload = "demo apk".toByteArray()
+                simulateTransfer(size ?: payload.size.toLong(), handle)
+                getApplication<EzAdbApp>().contentResolver.openOutputStream(target)?.use { it.write(payload) }
+            } else repo.extractApk(packageName, target, handle)
+            showMessage(str(R.string.apk_saved))
+        }
     }
     // endregion
 
@@ -371,7 +490,7 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
         _state.update { it.copy(filesLoading = true, currentPath = normalized) }
         runCatching { if (_state.value.prefs.demoMode) demo.listFiles(normalized) else repo.listFiles(normalized) }
             .onSuccess { files -> _state.update { it.copy(files = files, filesLoading = false) } }
-            .onFailure { error -> _state.update { it.copy(filesLoading = false) }; showMessage(str(R.string.files_error, error.message)) }
+            .onFailure { error -> _state.update { it.copy(filesLoading = false) }; showMessage(str(R.string.files_error, err(error))) }
     }
 
     fun navigateUp() = refreshFiles(PathUtils.parent(_state.value.currentPath))
@@ -384,12 +503,20 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
             refreshFiles(file.path)
             return
         }
-        if (!PathUtils.isTextFile(file.path)) {
-            showMessage(str(R.string.not_text_file))
+        if (PathUtils.isImageFile(file.path)) {
+            openImage(file)
             return
         }
-        action(str(R.string.action_open_file)) {
-            val bytes = if (_state.value.prefs.demoMode) demo.readFile(file.path) else repo.readFile(file.path)
+        if (!PathUtils.isTextFile(file.path)) {
+            showMessage(str(R.string.file_binary_hint))
+            return
+        }
+        transferAction(str(R.string.action_open_file), file.sizeBytes) { handle ->
+            val bytes = if (_state.value.prefs.demoMode) {
+                val data = demo.readFile(file.path)
+                simulateTransfer(data.size.toLong(), handle)
+                data
+            } else repo.readFile(file.path, handle = handle)
             _state.update { it.copy(editorFile = file, editorText = String(bytes, Charsets.UTF_8), editorDirty = false) }
         }
     }
@@ -397,30 +524,43 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
     fun updateEditor(text: String) = _state.update { it.copy(editorText = text, editorDirty = true) }
     fun closeEditor() = _state.update { it.copy(editorFile = null, editorText = "", editorDirty = false) }
 
-    fun saveEditor() = action(str(R.string.action_save_file)) {
-        val file = _state.value.editorFile ?: return@action
+    fun saveEditor() {
+        val file = _state.value.editorFile ?: return
         val bytes = _state.value.editorText.toByteArray(Charsets.UTF_8)
-        if (_state.value.prefs.demoMode) demo.writeFile(file.path, bytes) else repo.writeFile(file.path, bytes)
-        _state.update { it.copy(editorDirty = false) }
-        showMessage(str(R.string.file_saved))
-        refreshFiles()
+        transferAction(str(R.string.action_save_file), bytes.size.toLong()) { handle ->
+            if (_state.value.prefs.demoMode) {
+                simulateTransfer(bytes.size.toLong(), handle)
+                demo.writeFile(file.path, bytes)
+            } else repo.writeFile(file.path, bytes, handle = handle)
+            _state.update { it.copy(editorDirty = false) }
+            showMessage(str(R.string.file_saved))
+            refreshFiles()
+        }
     }
 
-    fun downloadFile(file: RemoteFile, target: Uri) = action(str(R.string.action_download)) {
-        if (_state.value.prefs.demoMode) {
-            getApplication<EzAdbApp>().contentResolver.openOutputStream(target)?.use { it.write(demo.readFile(file.path)) }
-        } else repo.pullToUri(file.path, target)
-        showMessage(str(R.string.file_downloaded))
-    }
+    fun downloadFile(file: RemoteFile, target: Uri) =
+        transferAction(str(R.string.action_download), file.sizeBytes) { handle ->
+            if (_state.value.prefs.demoMode) {
+                val data = demo.readFile(file.path)
+                simulateTransfer(data.size.toLong(), handle)
+                getApplication<EzAdbApp>().contentResolver.openOutputStream(target)?.use { it.write(data) }
+            } else repo.pullToUri(file.path, target, handle)
+            showMessage(str(R.string.file_downloaded))
+        }
 
-    fun uploadFile(source: Uri) = action(str(R.string.action_upload)) {
+    fun uploadFile(source: Uri) {
         val name = PathUtils.sanitizeLocalName(SafUtils.displayName(getApplication(), source))
         val remote = PathUtils.join(_state.value.currentPath, name)
-        if (_state.value.prefs.demoMode) {
-            getApplication<EzAdbApp>().contentResolver.openInputStream(source)?.use { input -> demo.writeFile(remote, input.readBytes()) }
-        } else repo.pushFromUri(source, remote)
-        showMessage(str(R.string.file_uploaded, remote))
-        refreshFiles()
+        val size = SafUtils.size(getApplication(), source).takeIf { it > 0 }
+        transferAction(str(R.string.action_upload), size) { handle ->
+            if (_state.value.prefs.demoMode) {
+                val data = getApplication<EzAdbApp>().contentResolver.openInputStream(source)?.use { it.readBytes() } ?: ByteArray(0)
+                simulateTransfer(data.size.toLong(), handle)
+                demo.writeFile(remote, data)
+            } else repo.pushFromUri(source, remote, handle = handle)
+            showMessage(str(R.string.file_uploaded, remote))
+            refreshFiles()
+        }
     }
 
     fun mkdir(name: String) = action(str(R.string.action_mkdir)) {
@@ -452,7 +592,7 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
         _state.update { it.copy(settingsLoading = true, settingsNamespace = namespace) }
         runCatching { if (_state.value.prefs.demoMode) demo.listSettings(namespace) else repo.listSettings(namespace) }
             .onSuccess { entries -> _state.update { it.copy(settings = entries, settingsLoading = false) } }
-            .onFailure { error -> _state.update { it.copy(settingsLoading = false) }; showMessage(str(R.string.settings_error, error.message)) }
+            .onFailure { error -> _state.update { it.copy(settingsLoading = false) }; showMessage(str(R.string.settings_error, err(error))) }
     }
 
     fun setSettingsQuery(query: String) = _state.update { it.copy(settingsQuery = query) }
@@ -508,7 +648,7 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
             _state.update { it.copy(terminalRunning = true, terminalInteractive = session.interactive) }
             if (session.interactive) session.sendLine("stty -echo")
         }.onFailure { error ->
-            appendTerminal(TerminalLine(str(R.string.terminal_open_error, error.message), TerminalKind.STDERR))
+            appendTerminal(TerminalLine(str(R.string.terminal_open_error, err(error)), TerminalKind.STDERR))
         }
     }
 
@@ -537,7 +677,7 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
             return
         }
         runCatching { session.sendLine(trimmed) }
-            .onFailure { error -> appendTerminal(TerminalLine(str(R.string.terminal_send_error, error.message), TerminalKind.STDERR)) }
+            .onFailure { error -> appendTerminal(TerminalLine(str(R.string.terminal_send_error, err(error)), TerminalKind.STDERR)) }
     }
 
     fun terminalHistoryPrevious(): String? {
@@ -591,15 +731,70 @@ class EzViewModel(application: Application) : AndroidViewModel(application) {
     fun showMessage(text: String) = _state.update { it.copy(message = text) }
     fun consumeMessage() = _state.update { it.copy(message = null) }
 
-    private fun action(label: String, block: suspend () -> Unit): Job = viewModelScope.launch {
-        _state.update { it.copy(busy = true) }
-        try {
-            block()
-        } catch (error: Throwable) {
-            showMessage(str(R.string.action_error, label, error.message ?: error.javaClass.simpleName))
-        } finally {
-            _state.update { it.copy(busy = false) }
+    private fun err(error: Throwable?): String = AdbErrors.message(getApplication(), error)
+
+    fun cancelAction() {
+        currentAction?.cancel()
+    }
+
+    private fun action(label: String, block: suspend () -> Unit): Job {
+        val job = viewModelScope.launch {
+            _state.update { it.copy(busy = true, progress = OperationProgress(label = label)) }
+            try {
+                block()
+            } catch (cancelled: CancellationException) {
+                showMessage(str(R.string.progress_cancelled))
+            } catch (error: Throwable) {
+                showMessage(str(R.string.action_error, label, err(error)))
+            } finally {
+                _state.update { it.copy(busy = false, progress = null) }
+            }
         }
+        currentAction = job
+        return job
+    }
+
+    /** Same as [action] but with a determinate byte counter and a cancel button. */
+    private fun transferAction(label: String, total: Long?, block: suspend (TransferHandle) -> Unit): Job {
+        val job = viewModelScope.launch {
+            val self = coroutineContext[Job]
+            val started = System.currentTimeMillis()
+            _state.update {
+                it.copy(busy = true, progress = OperationProgress(label, 0, total, ProgressPhase.TRANSFERRING, started))
+            }
+            val handle = TransferHandle(
+                onProgress = { bytes ->
+                    _state.update { state ->
+                        val phase = if (total != null && bytes >= total) ProgressPhase.FINISHING else ProgressPhase.TRANSFERRING
+                        state.copy(progress = state.progress?.copy(transferred = bytes, phase = phase))
+                    }
+                },
+                ensureActive = { if (self?.isActive == false) throw CancellationException("cancelled") },
+            )
+            try {
+                block(handle)
+            } catch (cancelled: CancellationException) {
+                showMessage(str(R.string.progress_cancelled))
+            } catch (error: Throwable) {
+                showMessage(str(R.string.action_error, label, err(error)))
+            } finally {
+                _state.update { it.copy(busy = false, progress = null) }
+            }
+        }
+        currentAction = job
+        return job
+    }
+
+    /** Demo transfers are instant; animate them so the progress UI can be evaluated. */
+    private suspend fun simulateTransfer(total: Long, handle: TransferHandle) {
+        val step = (total / 24).coerceAtLeast(1)
+        var sent = 0L
+        while (sent < total) {
+            delay(45)
+            sent = minOf(total, sent + step)
+            handle.advance(sent - handle.transferred)
+        }
+        handle.finish()
     }
     // endregion
 }

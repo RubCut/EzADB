@@ -50,10 +50,12 @@ import dev.ezadb.ui.components.EzTopBar
 import dev.ezadb.ui.components.ExpressiveWaveProgress
 import dev.ezadb.ui.components.FloatingNavBar
 import dev.ezadb.ui.components.FloatingNavRail
+import dev.ezadb.ui.components.ProgressOverlay
 import dev.ezadb.ui.intro.IntroScreen
 import dev.ezadb.ui.screens.AppsScreen
 import dev.ezadb.ui.screens.DashboardScreen
 import dev.ezadb.ui.screens.FilesScreen
+import dev.ezadb.ui.screens.ImageViewerScreen
 import dev.ezadb.ui.screens.SettingsScreen
 import dev.ezadb.ui.screens.TerminalScreen
 import dev.ezadb.ui.theme.EzMotionSpecs
@@ -156,13 +158,18 @@ fun EzApp(vm: EzViewModel) {
                                 composable("settings") { SettingsScreen(vm, state) }
                             }
                             androidx.compose.animation.AnimatedVisibility(
-                                visible = state.busy,
+                                visible = state.busy && state.progress == null,
                                 modifier = Modifier.align(Alignment.TopCenter),
                                 enter = fadeIn(EzMotionSpecs.fade()) + expandVertically(EzMotionSpecs.fastSpatial()),
                                 exit = fadeOut(EzMotionSpecs.fade()) + shrinkVertically(EzMotionSpecs.fastSpatial()),
                             ) {
                                 ExpressiveWaveProgress(Modifier.fillMaxWidth().height(4.dp))
                             }
+                            ProgressOverlay(
+                                progress = state.progress,
+                                onCancel = { vm.cancelAction() },
+                                modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp),
+                            )
                         }
                     }
                 }
@@ -170,6 +177,18 @@ fun EzApp(vm: EzViewModel) {
 
             if (showConnect) {
                 ConnectSheet(vm, state, onDismiss = { showConnect = false })
+            }
+
+            val preview = state.imagePreview
+            if (preview != null) {
+                androidx.activity.compose.BackHandler { vm.closePreview() }
+                androidx.compose.animation.AnimatedVisibility(
+                    visible = true,
+                    enter = fadeIn(EzMotionSpecs.fade()) + scaleIn(EzMotionSpecs.spatial(), initialScale = 0.94f),
+                    exit = fadeOut(EzMotionSpecs.fade()),
+                ) {
+                    ImageViewerScreen(vm, preview)
+                }
             }
         }
     }
