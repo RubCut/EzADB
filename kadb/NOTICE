@@ -1,0 +1,14 @@
+EzADB includes the Kadb ADB client library.
+
+Upstream: https://github.com/flyfishxu/Kadb
+Version: 2.1.5 (tag 2.1.5, commit 3d1c13e8df261cc4a2bb57b03aa8c392cb8386c3)
+License: Apache License 2.0 (see LICENSE)
+
+The upstream commonMain and androidMain Kotlin sources are vendored under src/main/kotlin.
+For EzADB's single-target Android build, the Kotlin Multiplatform expect/actual declarations
+were merged into plain Android Kotlin sources (expect declarations removed, actual modifiers
+stripped). No protocol logic was intentionally changed.
+
+The Gradle build file was adapted for EzADB's Android toolchain.
+
+Kadb acknowledges Dadb, libadb-android and spake2-java.
